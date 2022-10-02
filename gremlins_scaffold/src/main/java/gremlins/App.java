@@ -8,7 +8,6 @@ import processing.data.JSONArray;
 import java.util.Random;
 import java.io.*;
 
-
 public class App extends PApplet {
 
     public static final int WIDTH = 720;
@@ -21,7 +20,7 @@ public class App extends PApplet {
     public static final Random randomGenerator = new Random();
 
     public String configPath;
-    
+
     public PImage brickwall;
     public PImage stonewall;
 
@@ -31,50 +30,56 @@ public class App extends PApplet {
 
     /**
      * Initialise the setting of the window size.
-    */
+     */
     public void settings() {
         size(WIDTH, HEIGHT);
     }
 
     /**
-     * Load all resources such as images. Initialise the elements such as the player, enemies and map elements.
-    */
+     * Load all resources such as images. Initialise the elements such as the
+     * player, enemies and map elements.
+     */
     public void setup() {
         frameRate(FPS);
 
         // Load images during setup
-        this.stonewall = loadImage(this.getClass().getResource("stonewall.png").getPath().replace("%20", " "));
-        this.brickwall = loadImage(this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));
-        //this.gremlin = loadImage(this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
-        //this.slime = loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", " "));
-        //this.fireball = loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20", " "));
-        
+        this.stonewall = loadImage(
+                this.getClass().getResource("stonewall.png").getPath().replace("%20", " "));
+        this.brickwall = loadImage(
+                this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));
+        // this.gremlin = loadImage(
+        // this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
+        // this.slime =
+        // loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", "
+        // "));
+        // this.fireball =
+        // loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20",
+        // " "));
 
         JSONObject conf = loadJSONObject(new File(this.configPath));
-
 
     }
 
     /**
      * Receive key pressed signal from the keyboard.
-    */
-    public void keyPressed(){
+     */
+    public void keyPressed() {
 
     }
-    
+
     /**
      * Receive key released signal from the keyboard.
-    */
-    public void keyReleased(){
+     */
+    public void keyReleased() {
 
     }
 
-
     /**
-     * Draw all elements in the game by current frame. 
-	 */
+     * Draw all elements in the game by current frame.
+     */
     public void draw() {
-        
+        background(0, 0, 200);
+        this.stonewall.draw(this);
     }
 
     public static void main(String[] args) {
