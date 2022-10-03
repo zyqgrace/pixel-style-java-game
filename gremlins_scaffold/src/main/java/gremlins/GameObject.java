@@ -6,7 +6,7 @@ import processing.core.PApplet;
 public abstract class GameObject {
     protected int x;
     protected int y;
-    private PImage sprite;
+    protected PImage sprite;
 
     public GameObject(int x, int y) {
         this.x = x;
