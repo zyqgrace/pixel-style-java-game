@@ -23,10 +23,14 @@ public class App extends PApplet {
     public PImage brickwall;
     public PImage stonewall;
     public PImage gremlin;
+    public PImage wizardRight;
+    public PImage wizardLeft;
+    public PImage wizardUp;
+    public PImage wizardDown;
 
     public FrameLoader fm;
     public Gremlins[] gremlins;
-    // public Wizard wizard;
+    public Wizard player;
 
     public App() {
         this.configPath = "config.json";
@@ -53,6 +57,14 @@ public class App extends PApplet {
                 this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));
         this.gremlin = loadImage(
                 this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
+        this.wizardLeft = loadImage(
+                this.getClass().getResource("wizard0.png").getPath().replace("%20", " "));
+        this.wizardRight = loadImage(
+                this.getClass().getResource("wizard1.png").getPath().replace("%20", " "));
+        this.wizardUp = loadImage(
+                this.getClass().getResource("wizard2.png").getPath().replace("%20", " "));
+        this.wizardDown = loadImage(
+                this.getClass().getResource("wizard3.png").getPath().replace("%20", " "));
         // this.slime =
         // loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", "
         // "));
@@ -60,22 +72,35 @@ public class App extends PApplet {
         // loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20",
         // " "));
         JSONObject conf = loadJSONObject(new File(this.configPath));
-        this.fm.setMap();
+        this.fm.setUp();
         this.gremlins = this.fm.setGremlins();
+        this.player = this.fm.setWizard();
     }
 
     /**
      * Receive key pressed signal from the keyboard.
      */
     public void keyPressed() {
-
+        if (this.keyCode == 37) {
+            player.setSprite(this.wizardLeft);
+            player.pressLeft();
+        } else if (this.keyCode == 38) {
+            player.setSprite(this.wizardUp);
+            player.pressUp();
+        } else if (this.keyCode == 39) {
+            player.setSprite(this.wizardRight);
+            player.pressRight();
+        } else if (this.keyCode == 40) {
+            player.setSprite(this.wizardDown);
+            player.pressDown();
+        }
     }
 
     /**
      * Receive key released signal from the keyboard.
      */
     public void keyReleased() {
-
+        player.Released();
     }
 
     /**
@@ -84,6 +109,11 @@ public class App extends PApplet {
     public void draw() {
         background(191, 153, 114);
         fm.draw();
+        for (int i = 0; i < gremlins.length; i++) {
+            gremlins[i].draw(this);
+        }
+        player.tick();
+        player.draw(this);
     }
 
     public static void main(String[] args) {

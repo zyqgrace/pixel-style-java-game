@@ -17,7 +17,7 @@ public class FrameLoader {
         this.a = app;
     }
 
-    public void setMap() {
+    public void setUp() {
         JSONObject conf = processing.core.PApplet.loadJSONObject(new File(a.configPath));
         location = new char[33][36];
         map = new GameObject[33][36];
@@ -98,7 +98,7 @@ public class FrameLoader {
             for (int j = 0; j < 36; j++) {
                 char type = this.location[i][j];
                 if (type == 'G') {
-                    g[count] = new Gremlins(j, i);
+                    g[count] = new Gremlins(j * 20, i * 20);
                     g[count].setSprite(a.gremlin);
                     count++;
                 }
@@ -107,8 +107,10 @@ public class FrameLoader {
         return g;
     }
 
-    public int[] getWizard() {
-        return wizard_pos;
+    public Wizard setWizard() {
+        Wizard w = new Wizard(wizard_pos[0] * 20, wizard_pos[1] * 20);
+        w.setSprite(a.wizardRight);
+        return w;
     }
 
 }
