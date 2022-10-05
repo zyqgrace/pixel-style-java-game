@@ -2,48 +2,43 @@ package gremlins;
 
 import processing.data.JSONObject;
 import java.io.*;
+import java.util.ArrayList;
 import processing.data.JSONArray;
 
-public class FrameLoader {
+public class Frame {
     public char[][] location;
     public GameObject[][] map;
     public Gremlins[] gremlins;
     public App a;
-    private int level = 0;
+    public int level;
     private int[] wizard_pos = new int[2];
     public int num_G = 0;
 
-    public FrameLoader(App app) {
+    public Frame(App app, int cur_level) {
         this.a = app;
+        this.level = cur_level;
     }
 
     public void setUp() {
         JSONObject conf = processing.core.PApplet.loadJSONObject(new File(a.configPath));
-        location = new char[33][36];
+
         map = new GameObject[33][36];
-        JSONArray levels = conf.getJSONArray("levels");
+        location = new char[33][36];
+        String layout = conf.getJSONArray("levels").getJSONObject(this.level).getString("layout");
         try {
-            FileReader reader = new FileReader(levels.getJSONObject(level).getString("layout"));
-            BufferedReader br = new BufferedReader(reader);
-            int character;
-            for (int i = 0; i < 33; i++) {
-                for (int j = 0; j < 36; j++) {
-                    if ((character = br.read()) != -1) {
-                        location[i][j] = (char) character;
-                        map[i][j] = this.createObj(i, j);
-                        if (map[i][j] == null) {
-                        } else {
-                            this.setStaticSprite(i, j);
-                            map[i][j].draw(a);
-                        }
-                    }
+            BufferedReader br = new BufferedReader(new FileReader(layout));
+            String line;
+            int r = 0;
+            while ((line = br.readLine()) != null) {
+                for (int c = 0; c < 36; c++) {
+                    location[r][c] = line.charAt(c);
                 }
-                br.read();
-                br.read();
+                r++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public GameObject createObj(int i, int j) {

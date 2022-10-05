@@ -5,6 +5,7 @@ import processing.core.PImage;
 import processing.data.JSONObject;
 import processing.data.JSONArray;
 import java.util.Random;
+import java.util.ArrayList;
 import java.io.*;
 
 public class App extends PApplet {
@@ -15,11 +16,11 @@ public class App extends PApplet {
     public static final int BOTTOMBAR = 60;
 
     public static final int FPS = 60;
-
+    public static final int GRID_X = 36;
+    public static final int GRID_Y = 33;
     public static final Random randomGenerator = new Random();
 
     public String configPath;
-
     public PImage brickwall;
     public PImage stonewall;
     public PImage gremlin;
@@ -28,13 +29,17 @@ public class App extends PApplet {
     public PImage wizardUp;
     public PImage wizardDown;
 
-    public FrameLoader fm;
+    public Frame fm;
+    public int level = 0;
     public Gremlins[] gremlins;
     public Wizard player;
+    public String lives;
+    public double wizardCoolDown;
+    public double enemyCoolDown;
 
     public App() {
         this.configPath = "config.json";
-        this.fm = new FrameLoader(this);
+
     }
 
     /**
@@ -72,6 +77,13 @@ public class App extends PApplet {
         // loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20",
         // " "));
         JSONObject conf = loadJSONObject(new File(this.configPath));
+
+        this.lives = conf.get("lives").toString();
+        this.wizardCoolDown = Double.parseDouble(
+                conf.getJSONArray("levels").getJSONObject(this.level).getString("wizard_cooldown"));
+        this.enemyCoolDown = Double.parseDouble(
+                conf.getJSONArray("levels").getJSONObject(this.level).getString("enemy_cooldown"));
+        this.fm = new Frame(this, level);
         this.fm.setUp();
         this.gremlins = this.fm.setGremlins();
         this.player = this.fm.setWizard();
@@ -108,7 +120,7 @@ public class App extends PApplet {
      */
     public void draw() {
         background(191, 153, 114);
-        fm.draw();
+        current_level.draw();
         for (int i = 0; i < gremlins.length; i++) {
             gremlins[i].draw(this);
         }
