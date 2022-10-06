@@ -34,6 +34,7 @@ public class App extends PApplet {
     public PImage wizardRight;
     public PImage wizardLeft;
     public PImage gremlin;
+    public PImage fireball;
 
     public Frame fm;
     public Wizard player;
@@ -68,10 +69,8 @@ public class App extends PApplet {
         // this.slime =
         // loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", "
         // "));
-        // this.fireball =
-        // loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20",
-        // " "));
-        // textSize(20);
+        this.fireball = loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20", " "));
+        textSize(20);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = conf.get("lives").toString();
         this.total_level = conf.getJSONArray("levels").size();
@@ -99,6 +98,8 @@ public class App extends PApplet {
         } else if (this.keyCode == 40) {
             player.setSprite(this.wizardDown);
             player.pressDown();
+        } else if (this.keyCode == 32) {
+            player.CreateFireBall(this.fireball);
         }
     }
 
@@ -118,10 +119,13 @@ public class App extends PApplet {
         for (Gremlins g : gremlins) {
             g.tick();
         }
+        if (player.ball != null) {
+            player.ball.tick();
+            player.ball.draw(this);
+        }
         this.fm.draw(this);
-        // text("Lives: " + lives, 10, HEIGHT - BOTTOMBAR + 40);
-        // text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR +
-        // 40);
+        text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
+        text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
     }
 
     public static void main(String[] args) {

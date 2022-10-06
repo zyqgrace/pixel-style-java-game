@@ -1,5 +1,7 @@
 package gremlins;
 
+import processing.core.PImage;
+
 public class Wizard extends GameObject {
     private boolean moveLeft = false;
     private boolean moveRight = false;
@@ -7,11 +9,14 @@ public class Wizard extends GameObject {
     private boolean moveDown = false;
     private boolean released = false;
     private boolean collide_wall;
+    private String direction;
+    public FireBall ball;
     public Frame fm;
 
     public Wizard(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
         this.fm = fm;
+        this.direction = "Right";
 
     }
 
@@ -43,21 +48,25 @@ public class Wizard extends GameObject {
     public void pressLeft() {
         released = false;
         moveLeft = true;
+        direction = "Left";
     }
 
     public void pressRight() {
         released = false;
         moveRight = true;
+        direction = "Right";
     }
 
     public void pressUp() {
         released = false;
         moveUp = true;
+        direction = "Up";
     }
 
     public void pressDown() {
         released = false;
         moveDown = true;
+        direction = "Down";
     }
 
     public void Released() {
@@ -95,5 +104,10 @@ public class Wizard extends GameObject {
             }
         }
         return false;
+    }
+
+    public void CreateFireBall(PImage b) {
+        ball = new FireBall(this.getX(), this.getY(), direction);
+        ball.setSprite(b);
     }
 }

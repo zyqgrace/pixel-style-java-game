@@ -37,7 +37,6 @@ public class Gremlins extends GameObject {
                 ran = (int) (Math.random() * 4);
             }
             this.direction = directions[ran];
-            System.out.println(direction);
         }
     }
 
