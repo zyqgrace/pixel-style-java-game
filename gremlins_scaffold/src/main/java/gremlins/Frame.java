@@ -56,6 +56,7 @@ public class Frame {
                     temp.setSprite(a.stonewall);
                 } else if (temp.getClass() == BrickWall.class) {
                     temp.setSprite(a.brickwall);
+                    ((BrickWall) temp).setDestroyed(a.crush_wall);
                 }
             }
         }
@@ -63,6 +64,21 @@ public class Frame {
             g.setSprite(a.gremlin);
         }
         this.wizard.setSprite(a.wizardRight);
+    }
+
+    public void tick() {
+        for (int i = 0; i < 33; i++) {
+            for (int j = 0; j < 36; j++) {
+                GameObject temp = map[i][j];
+                if (temp != null) {
+                    if (temp.getClass() == BrickWall.class && ((BrickWall) temp).getTrans() == 4) {
+                        map[i][j] = null;
+                    } else {
+                        temp.tick();
+                    }
+                }
+            }
+        }
     }
 
     public void draw(App a) {

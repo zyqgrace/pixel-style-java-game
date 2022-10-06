@@ -9,7 +9,7 @@ public class Wizard extends GameObject {
     private boolean moveDown = false;
     private boolean released = false;
     private boolean collide_wall;
-    private String direction;
+    public String direction;
     public FireBall ball;
     public Frame fm;
 
@@ -43,6 +43,15 @@ public class Wizard extends GameObject {
             this.x = original_x;
             this.y = original_y;
         }
+        if (this.ball != null) {
+            if (ball.check_collision_wall()) {
+                if (ball.colliding_wall.getClass() == BrickWall.class) {
+                    ((BrickWall) ball.colliding_wall).crushed();
+                }
+                ball = null;
+            }
+        }
+
     }
 
     public void pressLeft() {
@@ -106,8 +115,9 @@ public class Wizard extends GameObject {
         return false;
     }
 
-    public void CreateFireBall(PImage b) {
-        ball = new FireBall(this.getX(), this.getY(), direction);
+    public FireBall CreateFireBall(PImage b) {
+        ball = new FireBall(this.getX(), this.getY(), direction, this.fm);
         ball.setSprite(b);
+        return ball;
     }
 }

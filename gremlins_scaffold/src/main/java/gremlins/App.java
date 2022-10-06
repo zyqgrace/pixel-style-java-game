@@ -35,10 +35,12 @@ public class App extends PApplet {
     public PImage wizardLeft;
     public PImage gremlin;
     public PImage fireball;
+    public PImage[] crush_wall;
 
     public Frame fm;
     public Wizard player;
     public ArrayList<Gremlins> gremlins;
+    public ArrayList<FireBall> fireballs;
 
     public App() {
         this.configPath = "config.json";
@@ -70,6 +72,15 @@ public class App extends PApplet {
         // loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", "
         // "));
         this.fireball = loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20", " "));
+        this.crush_wall = new PImage[4];
+        this.crush_wall[0] = loadImage(
+                this.getClass().getResource("brickwall_destroyed0.png").getPath().replace("%20", " "));
+        this.crush_wall[1] = loadImage(
+                this.getClass().getResource("brickwall_destroyed1.png").getPath().replace("%20", " "));
+        this.crush_wall[2] = loadImage(
+                this.getClass().getResource("brickwall_destroyed2.png").getPath().replace("%20", " "));
+        this.crush_wall[3] = loadImage(
+                this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = conf.get("lives").toString();
@@ -80,6 +91,7 @@ public class App extends PApplet {
         fm.setSprite(this);
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
+        fireballs = new ArrayList<FireBall>();
     }
 
     /**
@@ -99,7 +111,12 @@ public class App extends PApplet {
             player.setSprite(this.wizardDown);
             player.pressDown();
         } else if (this.keyCode == 32) {
-            player.CreateFireBall(this.fireball);
+            System.out.println("new");
+            FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
+            System.out.println("set");
+            b.setSprite(fireball);
+            System.out.println("add");
+            fireballs.add(b);
         }
     }
 
@@ -119,10 +136,20 @@ public class App extends PApplet {
         for (Gremlins g : gremlins) {
             g.tick();
         }
-        if (player.ball != null) {
-            player.ball.tick();
-            player.ball.draw(this);
+        if (fireballs != null) {
+            for (FireBall b : fireballs) {
+                if (b == null) {
+                } else {
+                    b.tick();
+                    b.draw(this);
+                    if (b.check_collision_wall()) {
+                        b = null;
+                        System.out.println("shoot!");
+                    }
+                }
+            }
         }
+        this.fm.tick();
         this.fm.draw(this);
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
