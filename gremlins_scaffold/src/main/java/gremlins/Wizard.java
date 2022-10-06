@@ -6,14 +6,23 @@ public class Wizard extends GameObject {
     private boolean moveUp = false;
     private boolean moveDown = false;
     private boolean released = false;
+    private boolean collide_wall;
+    public Frame fm;
 
-    public Wizard(int x_cor, int y_cor) {
+    public Wizard(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
+        this.fm = fm;
+
     }
 
     public void tick() {
-        if (released) {
-            this.check_stop();
+        int original_x = this.x;
+        int original_y = this.y;
+        if (released && this.x % 20 == 0 && this.y % 20 == 0) {
+            this.moveLeft = false;
+            this.moveRight = false;
+            this.moveUp = false;
+            this.moveDown = false;
         }
         if (moveLeft) {
             this.x = this.x - 2;
@@ -24,7 +33,12 @@ public class Wizard extends GameObject {
         } else if (moveDown) {
             this.y = this.y + 2;
         }
-    };
+        collide_wall = this.check_collision_wall();
+        if (collide_wall) {
+            this.x = original_x;
+            this.y = original_y;
+        }
+    }
 
     public void pressLeft() {
         released = false;
@@ -50,45 +64,36 @@ public class Wizard extends GameObject {
         released = true;
     }
 
-    public void check_stop() {
+    public boolean check_collision_wall() {
+        int x = this.x / 20;
+        int y = this.y / 20;
+        // System.out.println(this.getX() + " " + this.getY());
+        GameObject Obj;
         if (moveRight) {
-            if (this.x % 20 == 0) {
+            Obj = fm.get(x + 1, y);
+            if (Obj != null) {
                 moveRight = false;
+                return this.getX() + 20 > Obj.getX();
             }
         } else if (moveLeft) {
-            if (this.x % 20 == 0) {
+            Obj = fm.get(x, y);
+            if (Obj != null) {
                 moveLeft = false;
+                return this.getX() < Obj.getX() + 20;
             }
         } else if (moveUp) {
-            if (this.y % 20 == 0) {
+            Obj = fm.get(x, y);
+            if (Obj != null) {
                 moveUp = false;
+                return this.getY() < Obj.getY() + 20;
             }
         } else if (moveDown) {
-            if (this.y % 20 == 0) {
+            Obj = fm.get(x, y + 1);
+            if (Obj != null) {
                 moveDown = false;
-            }
-        }
-    }
-
-    public boolean check_collide_wall() {
-        if (moveRight) {
-            if (this.x % 20 == 0) {
-                moveRight = false;
-            }
-        } else if (moveLeft) {
-            if (this.x % 20 == 0) {
-                moveLeft = false;
-            }
-        } else if (moveUp) {
-            if (this.y % 20 == 0) {
-                moveUp = false;
-            }
-        } else if (moveDown) {
-            if (this.y % 20 == 0) {
-                moveDown = false;
+                return this.getY() + 20 > Obj.getY();
             }
         }
         return false;
     }
-
 }

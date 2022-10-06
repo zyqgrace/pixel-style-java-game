@@ -4,9 +4,10 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
 import processing.data.JSONArray;
+
 import java.util.Random;
-import java.util.ArrayList;
 import java.io.*;
+import java.util.ArrayList;
 
 public class App extends PApplet {
 
@@ -16,30 +17,30 @@ public class App extends PApplet {
     public static final int BOTTOMBAR = 60;
 
     public static final int FPS = 60;
-    public static final int GRID_X = 36;
-    public static final int GRID_Y = 33;
+
     public static final Random randomGenerator = new Random();
 
     public String configPath;
-    public PImage brickwall;
-    public PImage stonewall;
-    public PImage gremlin;
-    public PImage wizardRight;
-    public PImage wizardLeft;
-    public PImage wizardUp;
-    public PImage wizardDown;
-
-    public Frame fm;
-    public int level = 0;
-    public Gremlins[] gremlins;
-    public Wizard player;
     public String lives;
     public double wizardCoolDown;
     public double enemyCoolDown;
+    public int level = 0;
+    public int total_level;
+
+    public PImage brickwall;
+    public PImage stonewall;
+    public PImage wizardUp;
+    public PImage wizardDown;
+    public PImage wizardRight;
+    public PImage wizardLeft;
+    public PImage gremlin;
+
+    public Frame fm;
+    public Wizard player;
+    public ArrayList<Gremlins> gremlins;
 
     public App() {
         this.configPath = "config.json";
-
     }
 
     /**
@@ -55,38 +56,31 @@ public class App extends PApplet {
      */
     public void setup() {
         frameRate(FPS);
+
         // Load images during setup
-        this.stonewall = loadImage(
-                this.getClass().getResource("stonewall.png").getPath().replace("%20", " "));
-        this.brickwall = loadImage(
-                this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));
-        this.gremlin = loadImage(
-                this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
-        this.wizardLeft = loadImage(
-                this.getClass().getResource("wizard0.png").getPath().replace("%20", " "));
-        this.wizardRight = loadImage(
-                this.getClass().getResource("wizard1.png").getPath().replace("%20", " "));
-        this.wizardUp = loadImage(
-                this.getClass().getResource("wizard2.png").getPath().replace("%20", " "));
-        this.wizardDown = loadImage(
-                this.getClass().getResource("wizard3.png").getPath().replace("%20", " "));
+        this.stonewall = loadImage(this.getClass().getResource("stonewall.png").getPath().replace("%20", " "));
+        this.brickwall = loadImage(this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));
+        this.wizardUp = loadImage(this.getClass().getResource("wizard2.png").getPath().replace("%20", " "));
+        this.wizardDown = loadImage(this.getClass().getResource("wizard3.png").getPath().replace("%20", " "));
+        this.wizardRight = loadImage(this.getClass().getResource("wizard1.png").getPath().replace("%20", " "));
+        this.wizardLeft = loadImage(this.getClass().getResource("wizard0.png").getPath().replace("%20", " "));
+        this.gremlin = loadImage(this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
         // this.slime =
         // loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", "
         // "));
         // this.fireball =
         // loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20",
         // " "));
+        // textSize(20);
         JSONObject conf = loadJSONObject(new File(this.configPath));
-
         this.lives = conf.get("lives").toString();
-        this.wizardCoolDown = Double.parseDouble(
-                conf.getJSONArray("levels").getJSONObject(this.level).getString("wizard_cooldown"));
-        this.enemyCoolDown = Double.parseDouble(
-                conf.getJSONArray("levels").getJSONObject(this.level).getString("enemy_cooldown"));
-        this.fm = new Frame(this, level);
-        this.fm.setUp();
-        this.gremlins = this.fm.setGremlins();
-        this.player = this.fm.setWizard();
+        this.total_level = conf.getJSONArray("levels").size();
+        JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
+        this.fm = new Frame(cur_level);
+        this.fm.parseMap();
+        fm.setSprite(this);
+        this.player = fm.getWizard();
+        this.gremlins = fm.getGremlins();
     }
 
     /**
@@ -120,12 +114,14 @@ public class App extends PApplet {
      */
     public void draw() {
         background(191, 153, 114);
-        current_level.draw();
-        for (int i = 0; i < gremlins.length; i++) {
-            gremlins[i].draw(this);
-        }
         player.tick();
-        player.draw(this);
+        for (Gremlins g : gremlins) {
+            g.tick();
+        }
+        this.fm.draw(this);
+        // text("Lives: " + lives, 10, HEIGHT - BOTTOMBAR + 40);
+        // text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR +
+        // 40);
     }
 
     public static void main(String[] args) {
