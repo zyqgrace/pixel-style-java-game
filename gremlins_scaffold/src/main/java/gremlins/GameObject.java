@@ -30,9 +30,4 @@ public abstract class GameObject {
     public int getY() {
         return this.y;
     }
-
-    public boolean check_collision(GameObject Obj) {
-        return false;
-    }
-
 }

@@ -22,7 +22,7 @@ public class App extends PApplet {
 
     public String configPath;
     public String lives;
-    public double wizardCoolDown;
+    public int wizardCoolDown;
     public double enemyCoolDown;
     public int level = 0;
     public int total_level;
@@ -35,7 +35,9 @@ public class App extends PApplet {
     public PImage wizardLeft;
     public PImage gremlin;
     public PImage fireball;
+    public PImage slime;
     public PImage[] crush_wall;
+    public int wizard_cooldown;
 
     public Frame fm;
     public Wizard player;
@@ -68,9 +70,7 @@ public class App extends PApplet {
         this.wizardRight = loadImage(this.getClass().getResource("wizard1.png").getPath().replace("%20", " "));
         this.wizardLeft = loadImage(this.getClass().getResource("wizard0.png").getPath().replace("%20", " "));
         this.gremlin = loadImage(this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
-        // this.slime =
-        // loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", "
-        // "));
+        this.slime = loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", " "));
         this.fireball = loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20", " "));
         this.crush_wall = new PImage[4];
         this.crush_wall[0] = loadImage(
@@ -92,6 +92,7 @@ public class App extends PApplet {
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
         fireballs = new ArrayList<FireBall>();
+        this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
     }
 
     /**
@@ -111,12 +112,13 @@ public class App extends PApplet {
             player.setSprite(this.wizardDown);
             player.pressDown();
         } else if (this.keyCode == 32) {
-            System.out.println("new");
-            FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
-            System.out.println("set");
-            b.setSprite(fireball);
-            System.out.println("add");
-            fireballs.add(b);
+            if (this.wizard_cooldown == 0) {
+                FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
+                b.setSprite(fireball);
+                fireballs.add(b);
+                this.wizard_cooldown++;
+            }
+
         }
     }
 
@@ -132,25 +134,27 @@ public class App extends PApplet {
      */
     public void draw() {
         background(191, 153, 114);
+        if (this.wizard_cooldown > this.wizardCoolDown) {
+            this.wizard_cooldown = 0;
+        } else if (this.wizard_cooldown > 0) {
+            this.wizard_cooldown++;
+            System.out.println(this.wizard_cooldown);
+        }
         player.tick();
         for (Gremlins g : gremlins) {
             g.tick();
         }
+        this.fm.tick();
+        this.fm.draw(this);
         if (fireballs != null) {
-            for (FireBall b : fireballs) {
-                if (b == null) {
-                } else {
-                    b.tick();
-                    b.draw(this);
-                    if (b.check_collision_wall()) {
-                        b = null;
-                        System.out.println("shoot!");
-                    }
+            for (int i = 0; i < fireballs.size(); i++) {
+                fireballs.get(i).tick();
+                fireballs.get(i).draw(this);
+                if (fireballs.get(i).getDestroyed()) {
+                    fireballs.remove(i);
                 }
             }
         }
-        this.fm.tick();
-        this.fm.draw(this);
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
     }

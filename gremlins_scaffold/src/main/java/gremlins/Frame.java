@@ -7,12 +7,16 @@ import java.util.ArrayList;
 public class Frame {
 
     public JSONObject level;
+    public double wizardCoolDown;
+    public double enemyCoolDown;
     private GameObject[][] map = new GameObject[33][36];
     private Wizard wizard;
     private ArrayList<Gremlins> gremlins = new ArrayList<>();
 
     public Frame(JSONObject level) {
         this.level = level;
+        this.wizardCoolDown = level.getDouble("wizard_cooldown");
+        this.enemyCoolDown = level.getDouble("enemy_cooldown");
     }
 
     public void parseMap() {

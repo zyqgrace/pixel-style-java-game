@@ -6,6 +6,7 @@ public class FireBall extends GameObject {
     public String direction;
     public Frame fm;
     public GameObject colliding_wall;
+    private boolean destroyed = false;
 
     public FireBall(int x, int y, String d, Frame fm) {
         super(x, y);
@@ -18,18 +19,21 @@ public class FireBall extends GameObject {
     }
 
     public void tick() {
-        if (direction == "Left") {
-            this.x -= 4;
-        } else if (direction == "Right") {
-            this.x += 4;
-        } else if (direction == "Up") {
-            this.y -= 4;
-        } else if (direction == "Down") {
-            this.y += 4;
-        }
+
         if (this.check_collision_wall()) {
+            destroyed = true;
             if (this.colliding_wall.getClass() == BrickWall.class) {
                 ((BrickWall) this.colliding_wall).crushed();
+            }
+        } else {
+            if (direction == "Left") {
+                this.x -= 4;
+            } else if (direction == "Right") {
+                this.x += 4;
+            } else if (direction == "Up") {
+                this.y -= 4;
+            } else if (direction == "Down") {
+                this.y += 4;
             }
         }
     }
@@ -64,6 +68,10 @@ public class FireBall extends GameObject {
             }
         }
         return false;
+    }
+
+    public boolean getDestroyed() {
+        return this.destroyed;
     }
 
 }
