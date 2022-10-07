@@ -6,16 +6,24 @@ public class Gremlins extends GameObject {
     private String[] directions = new String[] { "Left", "Right", "Up", "Down" };
     private String direction;
     public Frame fm;
+    public int cool_down;
+    public int frequent;
+    public int tick;
 
     public Gremlins(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
         this.fm = fm;
         int ran = (int) (Math.random() * 4);
         this.direction = directions[ran];
-
+        frequent = (int) (Math.random() * 10 + 1);
+        cool_down = (int) (fm.enemyCoolDown * 60);
+        tick = 0;
     }
 
     public void tick() {
+        if ((tick - frequent) % cool_down == 0) {
+            // this.createSlime();
+        }
         int original_x = this.x;
         int original_y = this.y;
 
@@ -66,6 +74,9 @@ public class Gremlins extends GameObject {
             }
         }
         return false;
+    }
+
+    public void CreateSlime() {
     }
 
 }

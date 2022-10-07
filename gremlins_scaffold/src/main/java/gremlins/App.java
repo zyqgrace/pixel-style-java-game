@@ -23,7 +23,7 @@ public class App extends PApplet {
     public String configPath;
     public String lives;
     public int wizardCoolDown;
-    public double enemyCoolDown;
+    public int enemyCoolDown;
     public int level = 0;
     public int total_level;
 
@@ -93,6 +93,7 @@ public class App extends PApplet {
         this.gremlins = fm.getGremlins();
         fireballs = new ArrayList<FireBall>();
         this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
+        this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
     }
 
     /**
@@ -118,7 +119,6 @@ public class App extends PApplet {
                 fireballs.add(b);
                 this.wizard_cooldown++;
             }
-
         }
     }
 

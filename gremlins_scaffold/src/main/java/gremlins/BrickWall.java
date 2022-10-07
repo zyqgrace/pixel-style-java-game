@@ -18,10 +18,13 @@ public class BrickWall extends GameObject {
 
     public void tick() {
         if (crush) {
-            this.setSprite(crush_wall[transission]);
+            if (transission % 4 == 0) {
+                this.setSprite(crush_wall[transission / 4]);
+            }
+
             transission++;
         }
-        if (transission == 4) {
+        if (transission == 13) {
             crush = false;
         }
     }

@@ -75,7 +75,7 @@ public class Frame {
             for (int j = 0; j < 36; j++) {
                 GameObject temp = map[i][j];
                 if (temp != null) {
-                    if (temp.getClass() == BrickWall.class && ((BrickWall) temp).getTrans() == 4) {
+                    if (temp.getClass() == BrickWall.class && ((BrickWall) temp).getTrans() == 13) {
                         map[i][j] = null;
                     } else {
                         temp.tick();
