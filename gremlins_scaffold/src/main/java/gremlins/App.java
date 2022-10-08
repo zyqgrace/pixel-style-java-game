@@ -44,6 +44,7 @@ public class App extends PApplet {
     public Wizard player;
     public ArrayList<Gremlins> gremlins;
     public ArrayList<FireBall> fireballs;
+    public Door exit;
 
     public App() {
         this.configPath = "config.json";
@@ -93,6 +94,7 @@ public class App extends PApplet {
         fm.setSprite(this);
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
+        this.exit = fm.getDoor();
         fireballs = new ArrayList<FireBall>();
         this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
         this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
@@ -147,7 +149,9 @@ public class App extends PApplet {
             g.tick();
         }
         this.fm.tick();
+        this.exit.tick();
         this.fm.draw(this);
+        this.exit.draw(this);
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
                 fireballs.get(i).tick();

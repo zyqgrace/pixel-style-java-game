@@ -11,6 +11,7 @@ public class Frame {
     public double enemyCoolDown;
     private GameObject[][] map = new GameObject[33][36];
     private Wizard wizard;
+    private Door door;
     private ArrayList<Gremlins> gremlins = new ArrayList<>();
 
     public Frame(JSONObject level) {
@@ -46,7 +47,8 @@ public class Frame {
             this.wizard = new Wizard(j * 20, i * 20, this);
         } else if (type == 'G') {
             this.gremlins.add(new Gremlins(j * 20, i * 20, this));
-        } else if (type == 'D') {
+        } else if (type == 'E') {
+            this.door = new Door(j * 20, i * 20);
         } else {
         }
         return Obj;
@@ -69,6 +71,7 @@ public class Frame {
             g.setSprite(a.gremlin);
         }
         this.wizard.setSprite(a.wizardRight);
+        this.door.setSprite(a.door);
     }
 
     public void tick() {
@@ -112,6 +115,10 @@ public class Frame {
 
     public Wizard getWizard() {
         return this.wizard;
+    }
+
+    public Door getDoor() {
+        return this.door;
     }
 
     public ArrayList<Gremlins> getGremlins() {
