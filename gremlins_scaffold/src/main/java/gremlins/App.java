@@ -143,7 +143,7 @@ public class App extends PApplet {
     public void draw() {
         if (check_win()) {
             this.level++;
-            setup();
+            this.setup();
         }
         tick++;
         background(191, 153, 114);
@@ -181,7 +181,9 @@ public class App extends PApplet {
     }
 
     public boolean check_win() {
-        if 
+        if (player.collide(this.exit)) {
+            return true;
+        }
         return false;
     }
 

@@ -84,7 +84,6 @@ public class Wizard extends GameObject {
     public boolean check_collision_wall() {
         int x = this.x / 20;
         int y = this.y / 20;
-        // System.out.println(this.getX() + " " + this.getY());
         GameObject Obj;
         if (moveRight) {
             Obj = fm.get(x + 1, y);
@@ -109,6 +108,29 @@ public class Wizard extends GameObject {
             if (Obj != null) {
                 moveDown = false;
                 return this.getY() + 20 > Obj.getY();
+            }
+        }
+        return false;
+    }
+
+    public boolean collide(GameObject Obj) {
+        System.out.println("door is at" + Obj.getX() + Obj.getY());
+        System.out.println("you are at" + this.getX() + this.getY());
+        if (moveRight) {
+            if (Obj != null) {
+                return this.getX() + 20 > Obj.getX() && this.getY() == Obj.getY();
+            }
+        } else if (moveLeft) {
+            if (Obj != null) {
+                return this.getX() < Obj.getX() + 20 && this.getY() == Obj.getY();
+            }
+        } else if (moveUp) {
+            if (Obj != null) {
+                return this.getY() < Obj.getY() + 20 && this.getX() == Obj.getX();
+            }
+        } else if (moveDown) {
+            if (Obj != null) {
+                return this.getY() + 20 > Obj.getY() && this.getX() == Obj.getX();
             }
         }
         return false;
