@@ -46,6 +46,7 @@ public class Frame {
             this.wizard = new Wizard(j * 20, i * 20, this);
         } else if (type == 'G') {
             this.gremlins.add(new Gremlins(j * 20, i * 20, this));
+        } else if (type == 'D') {
         } else {
         }
         return Obj;

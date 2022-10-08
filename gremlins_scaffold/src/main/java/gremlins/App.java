@@ -15,13 +15,13 @@ public class App extends PApplet {
     public static final int HEIGHT = 720;
     public static final int SPRITESIZE = 20;
     public static final int BOTTOMBAR = 60;
-
     public static final int FPS = 60;
 
     public static final Random randomGenerator = new Random();
 
     public String configPath;
-    public String lives;
+    public boolean win;
+    public int lives;
     public int wizardCoolDown;
     public int enemyCoolDown;
     public int level = 0;
@@ -36,6 +36,7 @@ public class App extends PApplet {
     public PImage gremlin;
     public PImage fireball;
     public PImage slime;
+    public PImage door;
     public PImage[] crush_wall;
     public int wizard_cooldown;
 
@@ -72,6 +73,7 @@ public class App extends PApplet {
         this.gremlin = loadImage(this.getClass().getResource("gremlin.png").getPath().replace("%20", " "));
         this.slime = loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", " "));
         this.fireball = loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20", " "));
+        this.door = loadImage(this.getClass().getResource("door.png").getPath().replace("%20", " "));
         this.crush_wall = new PImage[4];
         this.crush_wall[0] = loadImage(
                 this.getClass().getResource("brickwall_destroyed0.png").getPath().replace("%20", " "));
@@ -83,7 +85,7 @@ public class App extends PApplet {
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
         JSONObject conf = loadJSONObject(new File(this.configPath));
-        this.lives = conf.get("lives").toString();
+        this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
         JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
         this.fm = new Frame(cur_level);
@@ -156,6 +158,9 @@ public class App extends PApplet {
             }
         }
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
+        for (int i = 0; i < lives; i++) {
+            image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
+        }
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
     }
 
