@@ -39,11 +39,13 @@ public class App extends PApplet {
     public PImage door;
     public PImage[] crush_wall;
     public int wizard_cooldown;
+    public int tick;
 
     public Frame fm;
     public Wizard player;
     public ArrayList<Gremlins> gremlins;
     public ArrayList<FireBall> fireballs;
+    public ArrayList<Slime> slimes;
     public Door exit;
 
     public App() {
@@ -63,7 +65,7 @@ public class App extends PApplet {
      */
     public void setup() {
         frameRate(FPS);
-
+        tick = 0;
         // Load images during setup
         this.stonewall = loadImage(this.getClass().getResource("stonewall.png").getPath().replace("%20", " "));
         this.brickwall = loadImage(this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));
@@ -96,8 +98,10 @@ public class App extends PApplet {
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
         fireballs = new ArrayList<FireBall>();
+        slimes = new ArrayList<>();
         this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
         this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
+        this.win = false;
     }
 
     /**
@@ -137,17 +141,25 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
+        if (check_win()) {
+            this.level++;
+            setup();
+        }
+        tick++;
         background(191, 153, 114);
         if (this.wizard_cooldown > this.wizardCoolDown) {
             this.wizard_cooldown = 0;
         } else if (this.wizard_cooldown > 0) {
             this.wizard_cooldown++;
-            System.out.println(this.wizard_cooldown);
         }
         player.tick();
         for (Gremlins g : gremlins) {
             g.tick();
+            for (Slime s : g.slimes) {
+                s.draw(this);
+            }
         }
+
         this.fm.tick();
         this.exit.tick();
         this.fm.draw(this);
@@ -166,6 +178,11 @@ public class App extends PApplet {
             image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
         }
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
+    }
+
+    public boolean check_win() {
+        if 
+        return false;
     }
 
     public static void main(String[] args) {

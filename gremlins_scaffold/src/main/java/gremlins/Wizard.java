@@ -17,7 +17,6 @@ public class Wizard extends GameObject {
         super(x_cor, y_cor);
         this.fm = fm;
         this.direction = "Right";
-
     }
 
     public void tick() {

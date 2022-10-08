@@ -1,6 +1,9 @@
 package gremlins;
 
 import java.util.Random;
+import java.util.ArrayList;
+
+import processing.core.PImage;
 
 public class Gremlins extends GameObject {
     private String[] directions = new String[] { "Left", "Right", "Up", "Down" };
@@ -9,6 +12,8 @@ public class Gremlins extends GameObject {
     public int cool_down;
     public int frequent;
     public int tick;
+    public PImage slime_image;
+    public ArrayList<Slime> slimes;
 
     public Gremlins(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
@@ -18,12 +23,24 @@ public class Gremlins extends GameObject {
         frequent = (int) (Math.random() * 10 + 1);
         cool_down = (int) (fm.enemyCoolDown * 60);
         tick = 0;
+        slimes = new ArrayList<Slime>();
+    }
+
+    public String getDirection() {
+        return this.direction;
     }
 
     public void tick() {
-        if ((tick - frequent) % cool_down == 0) {
-            // this.createSlime();
+        if ((tick) % cool_down == 0) {
+            slimes.add(this.createSlime());
         }
+        for (int i = 0; i < slimes.size(); i++) {
+            slimes.get(i).tick();
+            if (slimes.get(i).getDestroyed()) {
+                slimes.remove(i);
+            }
+        }
+        tick++;
         int original_x = this.x;
         int original_y = this.y;
 
@@ -76,7 +93,10 @@ public class Gremlins extends GameObject {
         return false;
     }
 
-    public void CreateSlime() {
+    public Slime createSlime() {
+        Slime s = new Slime(this.x, this.y, direction, this.fm);
+        s.setSprite(slime_image);
+        return s;
     }
 
 }

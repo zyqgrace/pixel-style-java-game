@@ -69,6 +69,7 @@ public class Frame {
         }
         for (Gremlins g : this.gremlins) {
             g.setSprite(a.gremlin);
+            g.slime_image = a.slime;
         }
         this.wizard.setSprite(a.wizardRight);
         this.door.setSprite(a.door);
