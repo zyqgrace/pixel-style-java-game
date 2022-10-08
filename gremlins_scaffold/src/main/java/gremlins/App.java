@@ -155,6 +155,10 @@ public class App extends PApplet {
         player.tick();
         for (Gremlins g : gremlins) {
             g.tick();
+            if (player.collide(g)) {
+                lives--;
+                this.reset();
+            }
             for (Slime s : g.slimes) {
                 s.draw(this);
             }
@@ -185,6 +189,23 @@ public class App extends PApplet {
             return true;
         }
         return false;
+    }
+
+    public void reset() {
+        JSONObject conf = loadJSONObject(new File(this.configPath));
+        this.total_level = conf.getJSONArray("levels").size();
+        JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
+        this.fm = new Frame(cur_level);
+        this.fm.parseMap();
+        fm.setSprite(this);
+        this.player = fm.getWizard();
+        this.gremlins = fm.getGremlins();
+        this.exit = fm.getDoor();
+        fireballs = new ArrayList<FireBall>();
+        slimes = new ArrayList<>();
+        this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
+        this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
+        this.win = false;
     }
 
     public static void main(String[] args) {

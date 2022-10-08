@@ -114,8 +114,6 @@ public class Wizard extends GameObject {
     }
 
     public boolean collide(GameObject Obj) {
-        System.out.println("door is at" + Obj.getX() + Obj.getY());
-        System.out.println("you are at" + this.getX() + this.getY());
         if (moveRight) {
             if (Obj != null) {
                 return this.getX() + 20 > Obj.getX() && this.getY() == Obj.getY();
@@ -132,6 +130,9 @@ public class Wizard extends GameObject {
             if (Obj != null) {
                 return this.getY() + 20 > Obj.getY() && this.getX() == Obj.getX();
             }
+        }
+        if (this.getX() == Obj.getX() && this.getY() == Obj.getY()) {
+            return true;
         }
         return false;
     }
