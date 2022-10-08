@@ -108,6 +108,7 @@ public class App extends PApplet {
      * Receive key pressed signal from the keyboard.
      */
     public void keyPressed() {
+        player.Released();
         if (this.keyCode == 37) {
             player.setSprite(this.wizardLeft);
             player.pressLeft();
@@ -152,26 +153,38 @@ public class App extends PApplet {
         } else if (this.wizard_cooldown > 0) {
             this.wizard_cooldown++;
         }
-        player.tick();
+        this.player.tick();
+        this.fm.tick();
+        this.exit.tick();
+        this.fm.draw(this);
+        this.exit.draw(this);
         for (Gremlins g : gremlins) {
             g.tick();
             if (player.collide(g)) {
                 lives--;
                 this.reset();
             }
-            for (Slime s : g.slimes) {
-                s.draw(this);
+            for (int i = 0; i < g.slimes.size(); i++) {
+                Slime temp_s = g.slimes.get(i);
+                for (int j = 0; j < fireballs.size(); j++) {
+                    FireBall temp_bal = fireballs.get(i);
+                    if (temp_bal.collide(temp_s)) {
+                        fireballs.remove(j);
+                        g.slimes.remove(i);
+                    }
+                }
+                if (player.collide(temp_s)) {
+                    lives--;
+                    this.reset();
+                }
+                temp_s.draw(this);
             }
         }
-
-        this.fm.tick();
-        this.exit.tick();
-        this.fm.draw(this);
-        this.exit.draw(this);
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
                 fireballs.get(i).tick();
                 fireballs.get(i).draw(this);
+
                 if (fireballs.get(i).getDestroyed()) {
                     fireballs.remove(i);
                 }

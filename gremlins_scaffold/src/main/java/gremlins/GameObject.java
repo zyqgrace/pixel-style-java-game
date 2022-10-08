@@ -30,5 +30,4 @@ public abstract class GameObject {
     public int getY() {
         return this.y;
     }
-
 }
