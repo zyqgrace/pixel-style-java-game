@@ -74,33 +74,6 @@ public class FireBall extends GameObject {
         return false;
     }
 
-    public boolean collide(GameObject Obj) {
-        if (Obj == null) {
-            return false;
-        }
-        if (direction == "Right") {
-            if (Obj != null) {
-                return this.getX() + 20 > Obj.getX() && this.getY() == Obj.getY();
-            }
-        } else if (direction == "Left") {
-            if (Obj != null) {
-                return this.getX() < Obj.getX() + 20 && this.getY() == Obj.getY();
-            }
-        } else if (direction == "Up") {
-            if (Obj != null) {
-                return this.getY() < Obj.getY() + 20 && this.getX() == Obj.getX();
-            }
-        } else if (direction == "Down") {
-            if (Obj != null) {
-                return this.getY() + 20 > Obj.getY() && this.getX() == Obj.getX();
-            }
-        }
-        if (this.getX() == Obj.getX() && this.getY() == Obj.getY()) {
-            return true;
-        }
-        return false;
-    }
-
     public boolean getDestroyed() {
         return this.destroyed;
     }

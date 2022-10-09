@@ -2,15 +2,16 @@ package gremlins;
 
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import processing.core.PImage;
 
 public class Gremlins extends GameObject {
     private String[] directions = new String[] { "Left", "Right", "Up", "Down" };
+    private HashMap<String, String> inverse_direction;
     private String direction;
     public Frame fm;
     public int cool_down;
-    public int frequent;
     public int tick;
     public PImage slime_image;
     public ArrayList<Slime> slimes;
@@ -21,7 +22,6 @@ public class Gremlins extends GameObject {
         this.fm = fm;
         int ran = (int) (Math.random() * 4);
         this.direction = directions[ran];
-        frequent = (int) (Math.random() * 10 + 1);
         cool_down = (int) (fm.enemyCoolDown * 60);
         tick = 0;
         slimes = new ArrayList<Slime>();
@@ -59,6 +59,7 @@ public class Gremlins extends GameObject {
         if (collision) {
             this.x = original_x;
             this.y = original_y;
+
             int ran = (int) (Math.random() * 4);
             while (directions[ran] == this.direction) {
                 ran = (int) (Math.random() * 4);
@@ -70,29 +71,20 @@ public class Gremlins extends GameObject {
     public boolean check_collision_wall() {
         int x = this.x / 20;
         int y = this.y / 20;
-        GameObject Obj;
+        GameObject Obj = fm.get(x, y);
         if (direction == "Right") {
             Obj = fm.get(x + 1, y);
-            if (Obj != null) {
-                return this.getX() + 20 > Obj.getX();
-            }
         } else if (direction == "Left") {
             Obj = fm.get(x, y);
-            if (Obj != null) {
-                return this.getX() < Obj.getX() + 20;
-            }
         } else if (direction == "Up") {
             Obj = fm.get(x, y);
-            if (Obj != null) {
-                return this.getY() < Obj.getY() + 20;
-            }
         } else if (direction == "Down") {
             Obj = fm.get(x, y + 1);
-            if (Obj != null) {
-                return this.getY() + 20 > Obj.getY();
-            }
         }
-        return false;
+        if (Obj == null) {
+            return false;
+        }
+        return this.intersection(Obj);
     }
 
     public void reborn(Wizard w) {

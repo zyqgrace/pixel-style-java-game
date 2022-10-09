@@ -3,7 +3,6 @@ package gremlins;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.data.JSONObject;
-import processing.data.JSONArray;
 
 import java.util.Random;
 import java.io.*;
@@ -163,7 +162,7 @@ public class App extends PApplet {
                 temp_ball.draw(this);
 
                 for (Gremlins g : gremlins) {
-                    if (temp_ball.collide(g)) {
+                    if (temp_ball.intersection(g)) {
                         temp_ball.setDestroyed();
                         g.reborn(player);
                     }
@@ -175,7 +174,7 @@ public class App extends PApplet {
         }
         for (Gremlins g : gremlins) {
             g.tick();
-            if (player.collide(g)) {
+            if (player.intersection(g)) {
                 lives--;
                 this.reset();
             }
@@ -186,12 +185,12 @@ public class App extends PApplet {
                 } else {
                     for (int j = 0; j < fireballs.size(); j++) {
                         FireBall temp_bal = fireballs.get(i);
-                        if (temp_bal.collide(temp_s)) {
+                        if (temp_bal.intersection(temp_s)) {
                             fireballs.remove(j);
                             g.slimes.remove(i);
                         }
                     }
-                    if (player.collide(temp_s)) {
+                    if (player.intersection(temp_s)) {
                         lives--;
                         this.reset();
                         return;
@@ -210,7 +209,7 @@ public class App extends PApplet {
     }
 
     public boolean check_win() {
-        if (player.collide(this.exit)) {
+        if (player.intersection(this.exit)) {
             return true;
         }
         return false;

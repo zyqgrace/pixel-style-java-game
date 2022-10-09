@@ -84,52 +84,20 @@ public class Wizard extends GameObject {
     public boolean check_collision_wall() {
         int x = this.x / 20;
         int y = this.y / 20;
-        GameObject Obj;
+        GameObject Obj = fm.get(x, y);
         if (moveRight) {
             Obj = fm.get(x + 1, y);
-            if (Obj != null) {
-                moveRight = false;
-                return this.getX() + 20 > Obj.getX();
-            }
         } else if (moveLeft) {
             Obj = fm.get(x, y);
-            if (Obj != null) {
-                moveLeft = false;
-                return this.getX() < Obj.getX() + 20;
-            }
         } else if (moveUp) {
             Obj = fm.get(x, y);
-            if (Obj != null) {
-                moveUp = false;
-                return this.getY() < Obj.getY() + 20;
-            }
         } else if (moveDown) {
             Obj = fm.get(x, y + 1);
-            if (Obj != null) {
-                moveDown = false;
-                return this.getY() + 20 > Obj.getY();
-            }
         }
-        return false;
-    }
-
-    public boolean collide(GameObject Obj) {
         if (Obj == null) {
             return false;
         }
-        if (moveRight) {
-            return this.getX() + 20 > Obj.getX() && this.getX() < Obj.getX() && this.getY() == Obj.getY();
-        } else if (moveLeft) {
-            return this.getX() < Obj.getX() + 20 && this.getX() + 20 > Obj.getX() + 20 && this.getY() == Obj.getY();
-        } else if (moveUp) {
-            return this.getY() < Obj.getY() + 20 && this.getY() + 20 > Obj.getY() + 20 && this.getX() == Obj.getX();
-        } else if (moveDown) {
-            return this.getY() + 20 > Obj.getY() && this.getY() < Obj.getY() && this.getX() == Obj.getX();
-        }
-        if (this.getX() == Obj.getX() && this.getY() == Obj.getY()) {
-            return true;
-        }
-        return false;
+        return this.intersection(Obj);
     }
 
     public FireBall CreateFireBall(PImage b) {
