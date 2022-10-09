@@ -110,16 +110,16 @@ public class App extends PApplet {
         player.Released();
         if (this.keyCode == 37) {
             player.setSprite(this.wizardLeft);
-            player.pressLeft();
+            player.setDirection("LEFT");
         } else if (this.keyCode == 38) {
             player.setSprite(this.wizardUp);
-            player.pressUp();
+            player.setDirection("UP");
         } else if (this.keyCode == 39) {
             player.setSprite(this.wizardRight);
-            player.pressRight();
+            player.setDirection("RIGHT");
         } else if (this.keyCode == 40) {
             player.setSprite(this.wizardDown);
-            player.pressDown();
+            player.setDirection("DOWN");
         } else if (this.keyCode == 32) {
             if (this.wizard_cooldown == 0) {
                 FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
@@ -141,9 +141,18 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
-        if (check_win()) {
-            this.level++;
-            this.setup();
+        this.check_next_level();
+        if (win) {
+            background(18, 169, 83);
+            textSize(40);
+            text("YOU WIN!", (float) (WIDTH / 2) - 80, (float) HEIGHT / 2);
+            return;
+        }
+        if (lives == 0) {
+            background(224, 24, 24);
+            textSize(40);
+            text("GAME OVER!", (float) (WIDTH / 2) - 95, (float) HEIGHT / 2);
+            return;
         }
         tick++;
         background(191, 153, 114);
@@ -158,6 +167,7 @@ public class App extends PApplet {
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
                 FireBall temp_ball = fireballs.get(i);
+                System.out.println("tick!!!!");
                 temp_ball.tick();
                 temp_ball.draw(this);
 
@@ -177,6 +187,7 @@ public class App extends PApplet {
             if (player.intersection(g)) {
                 lives--;
                 this.reset();
+                return;
             }
             for (int i = 0; i < g.slimes.size(); i++) {
                 Slime temp_s = g.slimes.get(i);
@@ -208,11 +219,16 @@ public class App extends PApplet {
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
     }
 
-    public boolean check_win() {
+    public void check_next_level() {
         if (player.intersection(this.exit)) {
-            return true;
+            level++;
+            if (level == total_level) {
+                win = true;
+                return;
+            } else {
+                this.reset();
+            }
         }
-        return false;
     }
 
     public void reset() {

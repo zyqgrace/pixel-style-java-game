@@ -23,7 +23,6 @@ public class FireBall extends GameObject {
     }
 
     public void tick() {
-
         if (this.check_collision_wall()) {
             destroyed = true;
             if (this.colliding_wall.getClass() == BrickWall.class) {

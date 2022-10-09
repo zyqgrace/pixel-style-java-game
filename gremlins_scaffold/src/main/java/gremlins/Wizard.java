@@ -3,10 +3,6 @@ package gremlins;
 import processing.core.PImage;
 
 public class Wizard extends GameObject {
-    private boolean moveLeft = false;
-    private boolean moveRight = false;
-    private boolean moveUp = false;
-    private boolean moveDown = false;
     private boolean released = false;
     private boolean collide_wall;
     public String direction;
@@ -23,19 +19,16 @@ public class Wizard extends GameObject {
         int original_x = this.x;
         int original_y = this.y;
         if (released && this.x % 20 == 0 && this.y % 20 == 0) {
-            this.moveLeft = false;
-            this.moveRight = false;
-            this.moveUp = false;
-            this.moveDown = false;
-        }
-        if (moveLeft) {
-            this.x = this.x - 2;
-        } else if (moveRight) {
-            this.x = this.x + 2;
-        } else if (moveUp) {
-            this.y = this.y - 2;
-        } else if (moveDown) {
-            this.y = this.y + 2;
+        } else {
+            if (direction == "LEFT") {
+                this.x = this.x - 2;
+            } else if (direction == "RIGHT") {
+                this.x = this.x + 2;
+            } else if (direction == "UP") {
+                this.y = this.y - 2;
+            } else if (direction == "DOWN") {
+                this.y = this.y + 2;
+            }
         }
         collide_wall = this.check_collision_wall();
         if (collide_wall) {
@@ -50,31 +43,11 @@ public class Wizard extends GameObject {
                 ball = null;
             }
         }
-
     }
 
-    public void pressLeft() {
+    public void setDirection(String d) {
+        this.direction = d;
         released = false;
-        moveLeft = true;
-        direction = "LEFT";
-    }
-
-    public void pressRight() {
-        released = false;
-        moveRight = true;
-        direction = "RIGHT";
-    }
-
-    public void pressUp() {
-        released = false;
-        moveUp = true;
-        direction = "UP";
-    }
-
-    public void pressDown() {
-        released = false;
-        moveDown = true;
-        direction = "DOWN";
     }
 
     public void Released() {
@@ -85,13 +58,13 @@ public class Wizard extends GameObject {
         int x = this.x / 20;
         int y = this.y / 20;
         GameObject Obj = fm.get(x, y);
-        if (moveRight) {
+        if (direction == "RIGHT") {
             Obj = fm.get(x + 1, y);
-        } else if (moveLeft) {
+        } else if (direction == "LEFT") {
             Obj = fm.get(x, y);
-        } else if (moveUp) {
+        } else if (direction == "UP") {
             Obj = fm.get(x, y);
-        } else if (moveDown) {
+        } else if (direction == "DOWN") {
             Obj = fm.get(x, y + 1);
         }
         if (Obj == null) {
