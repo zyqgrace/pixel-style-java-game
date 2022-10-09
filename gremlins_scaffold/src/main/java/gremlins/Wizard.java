@@ -16,7 +16,7 @@ public class Wizard extends GameObject {
     public Wizard(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
         this.fm = fm;
-        this.direction = "Right";
+        this.direction = "RIGHT";
     }
 
     public void tick() {
@@ -56,25 +56,25 @@ public class Wizard extends GameObject {
     public void pressLeft() {
         released = false;
         moveLeft = true;
-        direction = "Left";
+        direction = "LEFT";
     }
 
     public void pressRight() {
         released = false;
         moveRight = true;
-        direction = "Right";
+        direction = "RIGHT";
     }
 
     public void pressUp() {
         released = false;
         moveUp = true;
-        direction = "Up";
+        direction = "UP";
     }
 
     public void pressDown() {
         released = false;
         moveDown = true;
-        direction = "Down";
+        direction = "DOWN";
     }
 
     public void Released() {

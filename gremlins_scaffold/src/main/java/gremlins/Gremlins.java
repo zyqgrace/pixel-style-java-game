@@ -3,12 +3,13 @@ package gremlins;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import processing.core.PImage;
 
 public class Gremlins extends GameObject {
-    private String[] directions = new String[] { "Left", "Right", "Up", "Down" };
-    private HashMap<String, String> inverse_direction;
+    private String[] directions = new String[] { "LEFT", "RIGHT", "UP", "DOWN" };
+    private Map<String, String> d = new HashMap<>();
     private String direction;
     public Frame fm;
     public int cool_down;
@@ -26,6 +27,11 @@ public class Gremlins extends GameObject {
         tick = 0;
         slimes = new ArrayList<Slime>();
         rand = new Random();
+        d.put("LEFT", "RIGHT");
+        d.put("RIGHT", "LEFT");
+        d.put("UP", "DOWN");
+        d.put("DOWN", "UP");
+
     }
 
     public String getDirection() {
@@ -45,14 +51,13 @@ public class Gremlins extends GameObject {
         tick++;
         int original_x = this.x;
         int original_y = this.y;
-
-        if (direction == "Left") {
+        if (direction == "LEFT") {
             this.x -= 1;
-        } else if (direction == "Right") {
+        } else if (direction == "RIGHT") {
             this.x += 1;
-        } else if (direction == "Up") {
+        } else if (direction == "UP") {
             this.y -= 1;
-        } else if (direction == "Down") {
+        } else if (direction == "DOWN") {
             this.y += 1;
         }
         boolean collision = this.check_collision_wall();
@@ -72,13 +77,13 @@ public class Gremlins extends GameObject {
         int x = this.x / 20;
         int y = this.y / 20;
         GameObject Obj = fm.get(x, y);
-        if (direction == "Right") {
+        if (direction == "RIGHT") {
             Obj = fm.get(x + 1, y);
-        } else if (direction == "Left") {
+        } else if (direction == "LEFT") {
             Obj = fm.get(x, y);
-        } else if (direction == "Up") {
+        } else if (direction == "UP") {
             Obj = fm.get(x, y);
-        } else if (direction == "Down") {
+        } else if (direction == "DOWN") {
             Obj = fm.get(x, y + 1);
         }
         if (Obj == null) {

@@ -13,16 +13,15 @@ public class Slime extends GameObject {
     }
 
     public void tick() {
-
         if (this.check_collision_wall()) {
             destroyed = true;
-        } else if (direction == "Left") {
+        } else if (direction == "LEFT") {
             this.x -= 4;
-        } else if (direction == "Right") {
+        } else if (direction == "RIGHT") {
             this.x += 4;
-        } else if (direction == "Up") {
+        } else if (direction == "UP") {
             this.y -= 4;
-        } else if (direction == "Down") {
+        } else if (direction == "DOWN") {
             this.y += 4;
         }
     }
@@ -30,29 +29,20 @@ public class Slime extends GameObject {
     public boolean check_collision_wall() {
         int x = this.x / 20;
         int y = this.y / 20;
-        GameObject Obj;
-        if (direction == "Right") {
+        GameObject Obj = fm.get(x, y);
+        if (direction == "RIGHT") {
             Obj = fm.get(x + 1, y);
-            if (Obj != null) {
-                return this.getX() + 20 > Obj.getX();
-            }
-        } else if (direction == "Left") {
+        } else if (direction == "LEFT") {
             Obj = fm.get(x, y);
-            if (Obj != null) {
-                return this.getX() < Obj.getX() + 20;
-            }
-        } else if (direction == "Up") {
+        } else if (direction == "UP") {
             Obj = fm.get(x, y);
-            if (Obj != null) {
-                return this.getY() < Obj.getY() + 20;
-            }
-        } else if (direction == "Down") {
+        } else if (direction == "DOWN") {
             Obj = fm.get(x, y + 1);
-            if (Obj != null) {
-                return this.getY() + 20 > Obj.getY();
-            }
         }
-        return false;
+        if (Obj == null) {
+            return false;
+        }
+        return this.intersection(Obj);
     }
 
     public boolean getDestroyed() {
