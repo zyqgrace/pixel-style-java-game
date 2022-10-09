@@ -14,6 +14,7 @@ public class Gremlins extends GameObject {
     public int tick;
     public PImage slime_image;
     public ArrayList<Slime> slimes;
+    public Random rand;
 
     public Gremlins(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
@@ -24,6 +25,7 @@ public class Gremlins extends GameObject {
         cool_down = (int) (fm.enemyCoolDown * 60);
         tick = 0;
         slimes = new ArrayList<Slime>();
+        rand = new Random();
     }
 
     public String getDirection() {
@@ -91,6 +93,27 @@ public class Gremlins extends GameObject {
             }
         }
         return false;
+    }
+
+    public void reborn(Wizard w) {
+        // gremlin reborn in another random location at least 10 tile far
+        int wiz_x = w.getX() / 20;
+        int wiz_y = w.getY() / 20;
+        System.out.println("wizX: " + wiz_x + " wizY:" + wiz_y);
+        int newX = 0;
+        int newY = 0;
+        boolean right_position = false;
+        do {
+            newX = (rand.nextInt(34) + 1);
+            newY = (rand.nextInt(29) + 1);
+            System.out.println("newX: " + newX + " newY:" + newY);
+            if (newX <= wiz_x - 10 || newX >= wiz_x + 10 && newY <= wiz_y - 10 || newY >= wiz_y + 10) {
+                right_position = true;
+            }
+
+        } while (right_position && fm.get(newX, newY) == null);
+        this.x = newX * 20;
+        this.y = newY * 20;
     }
 
     public Slime createSlime() {

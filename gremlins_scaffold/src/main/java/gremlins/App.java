@@ -155,9 +155,24 @@ public class App extends PApplet {
         }
         this.player.tick();
         this.fm.tick();
-        this.exit.tick();
-        this.fm.draw(this);
         this.exit.draw(this);
+        if (fireballs != null) {
+            for (int i = 0; i < fireballs.size(); i++) {
+                FireBall temp_ball = fireballs.get(i);
+                temp_ball.tick();
+                temp_ball.draw(this);
+
+                for (Gremlins g : gremlins) {
+                    if (temp_ball.collide(g)) {
+                        temp_ball.setDestroyed();
+                        g.reborn(player);
+                    }
+                }
+                if (fireballs.get(i).getDestroyed()) {
+                    fireballs.remove(i);
+                }
+            }
+        }
         for (Gremlins g : gremlins) {
             g.tick();
             if (player.collide(g)) {
@@ -166,30 +181,27 @@ public class App extends PApplet {
             }
             for (int i = 0; i < g.slimes.size(); i++) {
                 Slime temp_s = g.slimes.get(i);
-                for (int j = 0; j < fireballs.size(); j++) {
-                    FireBall temp_bal = fireballs.get(i);
-                    if (temp_bal.collide(temp_s)) {
-                        fireballs.remove(j);
-                        g.slimes.remove(i);
+                if (temp_s.getDestroyed()) {
+                    g.slimes.remove(i);
+                } else {
+                    for (int j = 0; j < fireballs.size(); j++) {
+                        FireBall temp_bal = fireballs.get(i);
+                        if (temp_bal.collide(temp_s)) {
+                            fireballs.remove(j);
+                            g.slimes.remove(i);
+                        }
                     }
+                    if (player.collide(temp_s)) {
+                        lives--;
+                        this.reset();
+                        return;
+                    }
+                    temp_s.draw(this);
                 }
-                if (player.collide(temp_s)) {
-                    lives--;
-                    this.reset();
-                }
-                temp_s.draw(this);
-            }
-        }
-        if (fireballs != null) {
-            for (int i = 0; i < fireballs.size(); i++) {
-                fireballs.get(i).tick();
-                fireballs.get(i).draw(this);
 
-                if (fireballs.get(i).getDestroyed()) {
-                    fireballs.remove(i);
-                }
             }
         }
+        this.fm.draw(this);
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
         for (int i = 0; i < lives; i++) {
             image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);

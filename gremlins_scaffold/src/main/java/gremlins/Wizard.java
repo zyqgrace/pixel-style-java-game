@@ -114,22 +114,17 @@ public class Wizard extends GameObject {
     }
 
     public boolean collide(GameObject Obj) {
+        if (Obj == null) {
+            return false;
+        }
         if (moveRight) {
-            if (Obj != null) {
-                return this.getX() + 20 > Obj.getX() && this.getY() == Obj.getY();
-            }
+            return this.getX() + 20 > Obj.getX() && this.getX() < Obj.getX() && this.getY() == Obj.getY();
         } else if (moveLeft) {
-            if (Obj != null) {
-                return this.getX() < Obj.getX() + 20 && this.getY() == Obj.getY();
-            }
+            return this.getX() < Obj.getX() + 20 && this.getX() + 20 > Obj.getX() + 20 && this.getY() == Obj.getY();
         } else if (moveUp) {
-            if (Obj != null) {
-                return this.getY() < Obj.getY() + 20 && this.getX() == Obj.getX();
-            }
+            return this.getY() < Obj.getY() + 20 && this.getY() + 20 > Obj.getY() + 20 && this.getX() == Obj.getX();
         } else if (moveDown) {
-            if (Obj != null) {
-                return this.getY() + 20 > Obj.getY() && this.getX() == Obj.getX();
-            }
+            return this.getY() + 20 > Obj.getY() && this.getY() < Obj.getY() && this.getX() == Obj.getX();
         }
         if (this.getX() == Obj.getX() && this.getY() == Obj.getY()) {
             return true;

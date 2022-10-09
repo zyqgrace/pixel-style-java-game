@@ -18,6 +18,10 @@ public class FireBall extends GameObject {
         this.sprite = sprite;
     }
 
+    public void setDestroyed() {
+        this.destroyed = true;
+    }
+
     public void tick() {
 
         if (this.check_collision_wall()) {
@@ -71,6 +75,9 @@ public class FireBall extends GameObject {
     }
 
     public boolean collide(GameObject Obj) {
+        if (Obj == null) {
+            return false;
+        }
         if (direction == "Right") {
             if (Obj != null) {
                 return this.getX() + 20 > Obj.getX() && this.getY() == Obj.getY();
