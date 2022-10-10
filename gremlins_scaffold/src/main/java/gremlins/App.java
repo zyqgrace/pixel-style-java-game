@@ -124,6 +124,7 @@ public class App extends PApplet {
             if (this.wizard_cooldown == 0) {
                 FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
                 b.setSprite(fireball);
+                System.out.println("fire suce");
                 fireballs.add(b);
                 this.wizard_cooldown++;
             }
@@ -167,7 +168,6 @@ public class App extends PApplet {
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
                 FireBall temp_ball = fireballs.get(i);
-                System.out.println("tick!!!!");
                 temp_ball.tick();
                 temp_ball.draw(this);
 
@@ -195,7 +195,7 @@ public class App extends PApplet {
                     g.slimes.remove(i);
                 } else {
                     for (int j = 0; j < fireballs.size(); j++) {
-                        FireBall temp_bal = fireballs.get(i);
+                        FireBall temp_bal = fireballs.get(j);
                         if (temp_bal.intersection(temp_s)) {
                             fireballs.remove(j);
                             g.slimes.remove(i);
