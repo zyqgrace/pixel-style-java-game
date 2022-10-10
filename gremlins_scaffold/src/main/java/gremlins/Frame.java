@@ -28,11 +28,9 @@ public class Frame {
             while ((line = br.readLine()) != null) {
                 for (int c = 0; c < 36; c++) {
                     char temp = line.charAt(c);
-                    System.out.print(temp);
                     map[r][c] = this.createObj(temp, r, c);
                 }
                 r++;
-                System.out.println(' ');
             }
         } catch (IOException e) {
             e.printStackTrace();

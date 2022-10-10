@@ -2,6 +2,7 @@ package gremlins;
 
 import processing.core.PApplet;
 import processing.core.PImage;
+import processing.core.PShape;
 import processing.data.JSONObject;
 
 import java.util.Random;
@@ -39,6 +40,7 @@ public class App extends PApplet {
     public PImage[] crush_wall;
     public int wizard_cooldown;
     public int tick;
+    public PShape progress_bar;
 
     public Frame fm;
     public Wizard player;
@@ -86,6 +88,7 @@ public class App extends PApplet {
         this.crush_wall[3] = loadImage(
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
+        progress_bar = createShape(RECT, 680, 680, 20, 10);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
@@ -124,7 +127,6 @@ public class App extends PApplet {
             if (this.wizard_cooldown == 0) {
                 FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
                 b.setSprite(fireball);
-                System.out.println("fire suce");
                 fireballs.add(b);
                 this.wizard_cooldown++;
             }
@@ -144,7 +146,7 @@ public class App extends PApplet {
     public void draw() {
         this.check_next_level();
         if (win) {
-            background(18, 169, 83);
+            background(191, 153, 114);
             textSize(40);
             text("YOU WIN!", (float) (WIDTH / 2) - 80, (float) HEIGHT / 2);
             return;
@@ -217,6 +219,7 @@ public class App extends PApplet {
             image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
         }
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
+        shape(progress_bar, 680, 680);
     }
 
     public void check_next_level() {

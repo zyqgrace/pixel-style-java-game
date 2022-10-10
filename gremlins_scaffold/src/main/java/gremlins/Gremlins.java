@@ -96,14 +96,12 @@ public class Gremlins extends GameObject {
         // gremlin reborn in another random location at least 10 tile far
         int wiz_x = w.getX() / 20;
         int wiz_y = w.getY() / 20;
-        System.out.println("wizX: " + wiz_x + " wizY:" + wiz_y);
         int newX = 0;
         int newY = 0;
         boolean right_position = false;
         do {
             newX = (rand.nextInt(34) + 1);
             newY = (rand.nextInt(29) + 1);
-            System.out.println("newX: " + newX + " newY:" + newY);
             if (newX <= wiz_x - 10 || newX >= wiz_x + 10 && newY <= wiz_y - 10 || newY >= wiz_y + 10) {
                 right_position = true;
             }
