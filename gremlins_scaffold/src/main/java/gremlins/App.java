@@ -230,6 +230,11 @@ public class App extends PApplet {
         if (this.player.intersection(magic)) {
             magic.set_again();
         }
+        if (magic.effectOn()) {
+            player.powerup();
+        } else {
+            player.setback();
+        }
         this.fm.draw(this);
         this.exit.draw(this);
         if (this.magic.getVisible()) {

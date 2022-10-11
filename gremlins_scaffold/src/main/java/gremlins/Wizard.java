@@ -8,30 +8,36 @@ public class Wizard extends GameObject {
     public String direction;
     public FireBall ball;
     public Frame fm;
+    public int speed;
     public boolean adjusted = false;
 
     public Wizard(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
         this.fm = fm;
         this.direction = "RIGHT";
+        this.speed = 2;
     }
 
     public void tick() {
         int original_x = this.x;
         int original_y = this.y;
-        if (released && this.x % 20 == 0 && this.y % 20 == 0) {
-            adjusted = true;
-        } else {
-            adjusted = false;
-            if (direction == "LEFT") {
-                this.x = this.x - 2;
-            } else if (direction == "RIGHT") {
-                this.x = this.x + 2;
-            } else if (direction == "UP") {
-                this.y = this.y - 2;
-            } else if (direction == "DOWN") {
-                this.y = this.y + 2;
+        int i = 0;
+        while (i < speed) {
+            if (released && this.x % 20 == 0 && this.y % 20 == 0) {
+                adjusted = true;
+            } else {
+                adjusted = false;
+                if (direction == "LEFT") {
+                    this.x = this.x - 1;
+                } else if (direction == "RIGHT") {
+                    this.x = this.x + 1;
+                } else if (direction == "UP") {
+                    this.y = this.y - 1;
+                } else if (direction == "DOWN") {
+                    this.y = this.y + 1;
+                }
             }
+            i++;
         }
         collide_wall = this.check_collision_wall();
         if (collide_wall) {
@@ -46,6 +52,14 @@ public class Wizard extends GameObject {
                 ball = null;
             }
         }
+    }
+
+    public void powerup() {
+        speed = 4;
+    }
+
+    public void setback() {
+        speed = 2;
     }
 
     public void setDirection(String d) {

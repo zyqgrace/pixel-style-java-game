@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Powerup extends GameObject {
     public int spawn;
+    public boolean effect_on;
+    public int effect_time;
     public Random rand;
     private boolean visible;
     public Frame fm;
@@ -22,13 +24,25 @@ public class Powerup extends GameObject {
         if (spawn >= 10 * 60) {
             visible = true;
         }
-    };
+        if (effect_on) {
+            effect_time++;
+            if (effect_time >= 3 * 60) {
+                effect_on = false;
+            }
+        }
+    }
 
     public boolean getVisible() {
         return visible;
     }
 
+    public boolean effectOn() {
+        return effect_on;
+    }
+
     public void set_again() {
+        effect_on = true;
+        effect_time = 0;
         int spawn = (rand.nextInt(10 * 60) + 1);
         this.spawn = spawn;
         visible = false;
