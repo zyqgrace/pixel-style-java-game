@@ -8,6 +8,7 @@ public class Wizard extends GameObject {
     public String direction;
     public FireBall ball;
     public Frame fm;
+    public boolean adjusted = false;
 
     public Wizard(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
@@ -19,7 +20,9 @@ public class Wizard extends GameObject {
         int original_x = this.x;
         int original_y = this.y;
         if (released && this.x % 20 == 0 && this.y % 20 == 0) {
+            adjusted = true;
         } else {
+            adjusted = false;
             if (direction == "LEFT") {
                 this.x = this.x - 2;
             } else if (direction == "RIGHT") {

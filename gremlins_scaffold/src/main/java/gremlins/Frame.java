@@ -51,7 +51,7 @@ public class Frame {
         } else if (type == 'E') {
             this.door = new Door(j * 20, i * 20);
         } else if (type == 'M') {
-            this.powerup = new Powerup(j * 20, i * 20);
+            this.powerup = new Powerup(j * 20, i * 20, this);
         } else {
         }
         return Obj;

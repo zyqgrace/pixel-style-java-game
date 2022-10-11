@@ -64,12 +64,40 @@ public class Gremlins extends GameObject {
         if (collision) {
             this.x = original_x;
             this.y = original_y;
+            this.chooseDirection();
+        }
+    }
 
-            int ran = (int) (Math.random() * 4);
-            while (directions[ran] == this.direction) {
-                ran = (int) (Math.random() * 4);
+    public void chooseDirection() {
+        int cur_x = this.x / 20;
+        int cur_y = this.y / 20;
+        ArrayList<String> correct_directions = new ArrayList<>();
+        GameObject up = fm.get(cur_x, cur_y - 1);
+        GameObject down = fm.get(cur_x, cur_y + 1);
+        GameObject left = fm.get(cur_x - 1, cur_y);
+        GameObject right = fm.get(cur_x + 1, cur_y);
+        if (up == null) {
+            correct_directions.add("UP");
+        }
+        if (down == null) {
+            correct_directions.add("DOWN");
+        }
+        if (left == null) {
+            correct_directions.add("LEFT");
+        }
+        if (right == null) {
+            correct_directions.add("RIGHT");
+        }
+        int size = correct_directions.size();
+        if (size == 1) {
+            this.direction = correct_directions.get(0);
+        } else {
+            int ran = (int) (Math.random() * size);
+            while (correct_directions.get(ran).equals(this.direction)
+                    || correct_directions.get(ran).equals(d.get(direction))) {
+                ran = (int) (Math.random() * size);
             }
-            this.direction = directions[ran];
+            this.direction = correct_directions.get(ran);
         }
     }
 
@@ -105,7 +133,6 @@ public class Gremlins extends GameObject {
             if (newX <= wiz_x - 10 || newX >= wiz_x + 10 && newY <= wiz_y - 10 || newY >= wiz_y + 10) {
                 right_position = true;
             }
-
         } while (right_position && fm.get(newX, newY) == null);
         this.x = newX * 20;
         this.y = newY * 20;

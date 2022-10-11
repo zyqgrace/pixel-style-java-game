@@ -117,17 +117,25 @@ public class App extends PApplet {
     public void keyPressed() {
         player.Released();
         if (this.keyCode == 37) {
-            player.setSprite(this.wizardLeft);
-            player.setDirection("LEFT");
+            if (this.player.adjusted) {
+                player.setSprite(this.wizardLeft);
+                player.setDirection("LEFT");
+            }
         } else if (this.keyCode == 38) {
-            player.setSprite(this.wizardUp);
-            player.setDirection("UP");
+            if (this.player.adjusted) {
+                player.setSprite(this.wizardUp);
+                player.setDirection("UP");
+            }
         } else if (this.keyCode == 39) {
-            player.setSprite(this.wizardRight);
-            player.setDirection("RIGHT");
+            if (this.player.adjusted) {
+                player.setSprite(this.wizardRight);
+                player.setDirection("RIGHT");
+            }
         } else if (this.keyCode == 40) {
-            player.setSprite(this.wizardDown);
-            player.setDirection("DOWN");
+            if (this.player.adjusted) {
+                player.setSprite(this.wizardDown);
+                player.setDirection("DOWN");
+            }
         } else if (this.keyCode == 32) {
             if (this.wizard_cooldown == 0) {
                 FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
@@ -163,15 +171,15 @@ public class App extends PApplet {
             return;
         }
         tick++;
+        this.fm.tick();
+        this.player.tick();
+        this.magic.tick();
         background(191, 153, 114);
         if (this.wizard_cooldown > this.wizardCoolDown) {
             this.wizard_cooldown = 0;
         } else if (this.wizard_cooldown > 0) {
             this.wizard_cooldown++;
         }
-        this.player.tick();
-        this.fm.tick();
-        this.exit.draw(this);
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
                 FireBall temp_ball = fireballs.get(i);
@@ -192,6 +200,7 @@ public class App extends PApplet {
         for (Gremlins g : gremlins) {
             g.tick();
             if (player.intersection(g)) {
+                System.out.println("dead!");
                 lives--;
                 this.reset();
                 return;
@@ -218,8 +227,14 @@ public class App extends PApplet {
 
             }
         }
+        if (this.player.intersection(magic)) {
+            magic.set_again();
+        }
         this.fm.draw(this);
-        this.magic.draw(this);
+        this.exit.draw(this);
+        if (this.magic.getVisible()) {
+            this.magic.draw(this);
+        }
         shape(progress_bar, 680, 680);
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
         for (int i = 0; i < lives; i++) {
@@ -242,8 +257,6 @@ public class App extends PApplet {
 
     public void reset() {
         JSONObject conf = loadJSONObject(new File(this.configPath));
-        this.lives = Integer.parseInt(conf.get("lives").toString());
-        this.total_level = conf.getJSONArray("levels").size();
         JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
         this.fm = new Frame(cur_level);
         this.fm.parseMap();
