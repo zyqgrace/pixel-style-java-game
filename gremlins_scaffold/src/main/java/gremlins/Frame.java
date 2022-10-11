@@ -12,6 +12,7 @@ public class Frame {
     private GameObject[][] map = new GameObject[33][36];
     private Wizard wizard;
     private Door door;
+    public GameObject powerup;
     private ArrayList<Gremlins> gremlins = new ArrayList<>();
 
     public Frame(JSONObject level) {
@@ -49,6 +50,8 @@ public class Frame {
             this.gremlins.add(new Gremlins(j * 20, i * 20, this));
         } else if (type == 'E') {
             this.door = new Door(j * 20, i * 20);
+        } else if (type == 'M') {
+            this.powerup = new Powerup(j * 20, i * 20);
         } else {
         }
         return Obj;
@@ -73,6 +76,7 @@ public class Frame {
         }
         this.wizard.setSprite(a.wizardRight);
         this.door.setSprite(a.door);
+        this.powerup.setSprite(a.powerup);
     }
 
     public void tick() {

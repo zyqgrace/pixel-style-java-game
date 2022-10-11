@@ -26,6 +26,7 @@ public class App extends PApplet {
     public int enemyCoolDown;
     public int level = 0;
     public int total_level;
+    public Powerup magic;
 
     public PImage brickwall;
     public PImage stonewall;
@@ -37,6 +38,7 @@ public class App extends PApplet {
     public PImage fireball;
     public PImage slime;
     public PImage door;
+    public PImage powerup;
     public PImage[] crush_wall;
     public int wizard_cooldown;
     public int tick;
@@ -78,6 +80,7 @@ public class App extends PApplet {
         this.slime = loadImage(this.getClass().getResource("slime.png").getPath().replace("%20", " "));
         this.fireball = loadImage(this.getClass().getResource("fireball.png").getPath().replace("%20", " "));
         this.door = loadImage(this.getClass().getResource("door.png").getPath().replace("%20", " "));
+        this.powerup = loadImage(this.getClass().getResource("powerup.png").getPath().replace("%20", " "));
         this.crush_wall = new PImage[4];
         this.crush_wall[0] = loadImage(
                 this.getClass().getResource("brickwall_destroyed0.png").getPath().replace("%20", " "));
@@ -88,7 +91,8 @@ public class App extends PApplet {
         this.crush_wall[3] = loadImage(
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
-        progress_bar = createShape(RECT, 680, 680, 20, 10);
+        progress_bar = createShape();
+        progress_bar.beginShape();
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
@@ -99,6 +103,7 @@ public class App extends PApplet {
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
+        this.magic = (Powerup) fm.powerup;
         fireballs = new ArrayList<FireBall>();
         slimes = new ArrayList<>();
         this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
@@ -214,12 +219,13 @@ public class App extends PApplet {
             }
         }
         this.fm.draw(this);
+        this.magic.draw(this);
+        shape(progress_bar, 680, 680);
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
         for (int i = 0; i < lives; i++) {
             image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
         }
         text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
-        shape(progress_bar, 680, 680);
     }
 
     public void check_next_level() {
@@ -236,6 +242,7 @@ public class App extends PApplet {
 
     public void reset() {
         JSONObject conf = loadJSONObject(new File(this.configPath));
+        this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
         JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
         this.fm = new Frame(cur_level);
@@ -244,6 +251,7 @@ public class App extends PApplet {
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
+        this.magic = (Powerup) fm.powerup;
         fireballs = new ArrayList<FireBall>();
         slimes = new ArrayList<>();
         this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
