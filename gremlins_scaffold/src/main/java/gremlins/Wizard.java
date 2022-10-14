@@ -1,21 +1,15 @@
 package gremlins;
 
-import processing.core.PImage;
-
 public class Wizard extends GameObject {
     private boolean released = false;
     private boolean collide_wall;
-    public String direction;
-    public FireBall ball;
+    private String direction;
     public Frame fm;
     public int speed;
-    public boolean fire_on;
-    private int CoolDown;
-    public int cooldown_counter;
     public boolean adjusted = false;
 
-    public Wizard(int x_cor, int y_cor, Frame fm) {
-        super(x_cor, y_cor);
+    public Wizard(int x, int y, Frame fm) {
+        super(x, y);
         this.fm = fm;
         this.direction = "RIGHT";
         this.speed = 2;
@@ -47,14 +41,15 @@ public class Wizard extends GameObject {
             this.x = original_x;
             this.y = original_y;
         }
-        if (this.ball != null) {
-            if (ball.check_collision_wall()) {
-                if (ball.colliding_wall.getClass() == BrickWall.class) {
-                    ((BrickWall) ball.colliding_wall).crushed();
-                }
-                ball = null;
-            }
-        }
+    }
+
+    public void setDirection(String d) {
+        this.direction = d;
+        released = false;
+    }
+
+    public String getDirection() {
+        return this.direction;
     }
 
     public void powerup() {
@@ -63,11 +58,6 @@ public class Wizard extends GameObject {
 
     public void setback() {
         speed = 2;
-    }
-
-    public void setDirection(String d) {
-        this.direction = d;
-        released = false;
     }
 
     public void Released() {
@@ -91,15 +81,5 @@ public class Wizard extends GameObject {
             return false;
         }
         return this.intersection(Obj);
-    }
-
-    public void setCoolDown(int wizardCoolDown) {
-        this.CoolDown = wizardCoolDown;
-    }
-
-    public FireBall CreateFireBall(PImage b) {
-        ball = new FireBall(this.getX(), this.getY(), direction, this.fm);
-        ball.setSprite(b);
-        return ball;
     }
 }
