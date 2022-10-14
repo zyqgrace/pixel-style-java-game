@@ -9,6 +9,9 @@ public class Wizard extends GameObject {
     public FireBall ball;
     public Frame fm;
     public int speed;
+    public boolean fire_on;
+    private int CoolDown;
+    public int cooldown_counter;
     public boolean adjusted = false;
 
     public Wizard(int x_cor, int y_cor, Frame fm) {
@@ -90,8 +93,8 @@ public class Wizard extends GameObject {
         return this.intersection(Obj);
     }
 
-    public boolean cooldown_start() {
-        return true;
+    public void setCoolDown(int wizardCoolDown) {
+        this.CoolDown = wizardCoolDown;
     }
 
     public FireBall CreateFireBall(PImage b) {

@@ -23,6 +23,7 @@ public class App extends PApplet {
     public boolean win;
     public int lives;
     public int wizardCoolDown;
+    public int wizardCoolDown_counter;
     public int enemyCoolDown;
     public int level = 0;
     public int total_level;
@@ -40,9 +41,9 @@ public class App extends PApplet {
     public PImage door;
     public PImage powerup;
     public PImage[] crush_wall;
-    public int wizard_cooldown;
     public int tick;
     public PShape progress_bar;
+    public PShape filled_progress_bar;
 
     public Frame fm;
     public Wizard player;
@@ -50,6 +51,7 @@ public class App extends PApplet {
     public ArrayList<FireBall> fireballs;
     public ArrayList<Slime> slimes;
     public Door exit;
+    public boolean fire_on;
 
     public App() {
         this.configPath = "config.json";
@@ -103,9 +105,11 @@ public class App extends PApplet {
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
         this.magic = (Powerup) fm.powerup;
+        fire_on = false;
         fireballs = new ArrayList<FireBall>();
         slimes = new ArrayList<>();
         this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
+        this.wizardCoolDown_counter = 0;
         this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
         this.win = false;
     }
@@ -136,13 +140,11 @@ public class App extends PApplet {
                 player.setDirection("DOWN");
             }
         } else if (this.keyCode == 32) {
-            if (this.wizard_cooldown == 0) {
+            if (fire_on == false) {
                 FireBall b = new FireBall(player.getX(), player.getY(), player.direction, this.fm);
                 b.setSprite(fireball);
                 fireballs.add(b);
-                this.wizard_cooldown++;
-                player.cooldown_start();
-                shape(progress_bar, 580, 690);
+                fire_on = true;
             }
         }
     }
@@ -176,10 +178,16 @@ public class App extends PApplet {
         this.player.tick();
         this.magic.tick();
         background(191, 153, 114);
-        if (this.wizard_cooldown > this.wizardCoolDown) {
-            this.wizard_cooldown = 0;
-        } else if (this.wizard_cooldown > 0) {
-            this.wizard_cooldown++;
+        if (fire_on) {
+            this.wizardCoolDown_counter++;
+            filled_progress_bar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
+            filled_progress_bar.setFill(0);
+            shape(progress_bar, 580, 690);
+            shape(filled_progress_bar, 580, 690);
+            if (wizardCoolDown_counter >= wizardCoolDown) {
+                wizardCoolDown_counter = 0;
+                fire_on = false;
+            }
         }
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
