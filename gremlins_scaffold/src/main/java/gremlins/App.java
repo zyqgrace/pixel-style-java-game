@@ -91,8 +91,7 @@ public class App extends PApplet {
         this.crush_wall[3] = loadImage(
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
-        progress_bar = createShape();
-        progress_bar.beginShape();
+        progress_bar = createShape(RECT, 0, 0, 100, 5);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
@@ -142,6 +141,8 @@ public class App extends PApplet {
                 b.setSprite(fireball);
                 fireballs.add(b);
                 this.wizard_cooldown++;
+                player.cooldown_start();
+                shape(progress_bar, 580, 690);
             }
         }
     }
@@ -240,7 +241,6 @@ public class App extends PApplet {
         if (this.magic.getVisible()) {
             this.magic.draw(this);
         }
-        shape(progress_bar, 680, 680);
         text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
         for (int i = 0; i < lives; i++) {
             image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);

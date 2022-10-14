@@ -90,6 +90,10 @@ public class Wizard extends GameObject {
         return this.intersection(Obj);
     }
 
+    public boolean cooldown_start() {
+        return true;
+    }
+
     public FireBall CreateFireBall(PImage b) {
         ball = new FireBall(this.getX(), this.getY(), direction, this.fm);
         ball.setSprite(b);
