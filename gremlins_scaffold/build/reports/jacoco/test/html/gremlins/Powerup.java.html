@@ -12,14 +12,14 @@ public class Powerup extends GameObject {
     private boolean visible;
 
     public Powerup(int x, int y, Frame fm) {
-<span class="nc" id="L15">        super(x, y);</span>
-<span class="nc" id="L16">        this.fm = fm;</span>
-<span class="nc" id="L17">        rand = new Random();</span>
-<span class="nc" id="L18">        this.spawn = (rand.nextInt(3 * 60) + 8 * 60);</span>
-<span class="nc" id="L19">        this.tick = 0;</span>
-<span class="nc" id="L20">        visible = false;</span>
+<span class="fc" id="L15">        super(x, y);</span>
+<span class="fc" id="L16">        this.fm = fm;</span>
+<span class="fc" id="L17">        rand = new Random();</span>
+<span class="fc" id="L18">        this.spawn = (rand.nextInt(3 * 60) + 8 * 60);</span>
+<span class="fc" id="L19">        this.tick = 0;</span>
+<span class="fc" id="L20">        visible = false;</span>
 
-<span class="nc" id="L22">    }</span>
+<span class="fc" id="L22">    }</span>
 
     public void tick() {
 <span class="nc" id="L25">        tick++;</span>

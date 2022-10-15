@@ -8,8 +8,8 @@ import java.util.Map;
 import processing.core.PImage;
 
 public class Gremlins extends GameObject {
-<span class="nc" id="L11">    private String[] directions = new String[] { &quot;LEFT&quot;, &quot;RIGHT&quot;, &quot;UP&quot;, &quot;DOWN&quot; };</span>
-<span class="nc" id="L12">    private Map&lt;String, String&gt; d = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L11">    private String[] directions = new String[] { &quot;LEFT&quot;, &quot;RIGHT&quot;, &quot;UP&quot;, &quot;DOWN&quot; };</span>
+<span class="fc" id="L12">    private Map&lt;String, String&gt; d = new HashMap&lt;&gt;();</span>
     private String direction;
     private Frame fm;
     private int cool_down;
@@ -19,20 +19,20 @@ public class Gremlins extends GameObject {
     private Random rand;
 
     public Gremlins(int x_cor, int y_cor, Frame fm) {
-<span class="nc" id="L22">        super(x_cor, y_cor);</span>
-<span class="nc" id="L23">        tick = 0;</span>
-<span class="nc" id="L24">        this.fm = fm;</span>
-<span class="nc" id="L25">        int ran = (int) (Math.random() * 4);</span>
-<span class="nc" id="L26">        this.direction = directions[ran];</span>
-<span class="nc" id="L27">        cool_down = (int) (fm.getEnemyCoolDown() * 60);</span>
-<span class="nc" id="L28">        this.slimes = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L29">        rand = new Random();</span>
-<span class="nc" id="L30">        d.put(&quot;LEFT&quot;, &quot;RIGHT&quot;);</span>
-<span class="nc" id="L31">        d.put(&quot;RIGHT&quot;, &quot;LEFT&quot;);</span>
-<span class="nc" id="L32">        d.put(&quot;UP&quot;, &quot;DOWN&quot;);</span>
-<span class="nc" id="L33">        d.put(&quot;DOWN&quot;, &quot;UP&quot;);</span>
+<span class="fc" id="L22">        super(x_cor, y_cor);</span>
+<span class="fc" id="L23">        tick = 0;</span>
+<span class="fc" id="L24">        this.fm = fm;</span>
+<span class="fc" id="L25">        int ran = (int) (Math.random() * 4);</span>
+<span class="fc" id="L26">        this.direction = directions[ran];</span>
+<span class="fc" id="L27">        cool_down = (int) (fm.getEnemyCoolDown() * 60);</span>
+<span class="fc" id="L28">        this.slimes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L29">        rand = new Random();</span>
+<span class="fc" id="L30">        d.put(&quot;LEFT&quot;, &quot;RIGHT&quot;);</span>
+<span class="fc" id="L31">        d.put(&quot;RIGHT&quot;, &quot;LEFT&quot;);</span>
+<span class="fc" id="L32">        d.put(&quot;UP&quot;, &quot;DOWN&quot;);</span>
+<span class="fc" id="L33">        d.put(&quot;DOWN&quot;, &quot;UP&quot;);</span>
 
-<span class="nc" id="L35">    }</span>
+<span class="fc" id="L35">    }</span>
 
     public ArrayList&lt;Slime&gt; getSlimes() {
 <span class="nc" id="L38">        return slimes;</span>
@@ -150,8 +150,8 @@ public class Gremlins extends GameObject {
     }
 
     public void setSlimeImgae(PImage slime) {
-<span class="nc" id="L153">        this.slime_image = slime;</span>
-<span class="nc" id="L154">    }</span>
+<span class="fc" id="L153">        this.slime_image = slime;</span>
+<span class="fc" id="L154">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

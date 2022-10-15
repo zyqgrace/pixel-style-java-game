@@ -74,7 +74,7 @@ public class App extends PApplet {
      */
     public void setup() {
         frameRate(FPS);
-        tick = 0;
+        this.tick = 0;
         // Load images during setup
         this.stonewall = loadImage(this.getClass().getResource("stonewall.png").getPath().replace("%20", " "));
         this.brickwall = loadImage(this.getClass().getResource("brickwall.png").getPath().replace("%20", " "));

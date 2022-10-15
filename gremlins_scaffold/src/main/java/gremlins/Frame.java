@@ -120,16 +120,8 @@ public class Frame {
         return wizardCoolDown;
     }
 
-    public void setWizardCoolDown(double wizardCoolDown) {
-        this.wizardCoolDown = wizardCoolDown;
-    }
-
     public double getEnemyCoolDown() {
         return enemyCoolDown;
-    }
-
-    public void setEnemyCoolDown(double enemyCoolDown) {
-        this.enemyCoolDown = enemyCoolDown;
     }
 
     public GameObject getPowerup() {

@@ -3,17 +3,17 @@
 import processing.core.PImage;
 
 public class BrickWall extends GameObject {
-<span class="nc" id="L6">    private boolean crush = false;</span>
+<span class="fc" id="L6">    private boolean crush = false;</span>
     private PImage[] crush_wall;
     private int transission;
 
     public BrickWall(int x_cor, int y_cor) {
-<span class="nc" id="L11">        super(x_cor, y_cor);</span>
-<span class="nc" id="L12">    }</span>
+<span class="fc" id="L11">        super(x_cor, y_cor);</span>
+<span class="fc" id="L12">    }</span>
 
     public void setDestroyed(PImage[] destroyed_wall) {
-<span class="nc" id="L15">        this.crush_wall = destroyed_wall;</span>
-<span class="nc" id="L16">    }</span>
+<span class="fc" id="L15">        this.crush_wall = destroyed_wall;</span>
+<span class="fc" id="L16">    }</span>
 
     public void tick() {
 <span class="nc bnc" id="L19" title="All 2 branches missed.">        if (crush) {</span>
