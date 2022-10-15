@@ -11,6 +11,9 @@ public class FireBall extends GameObject {
     public FireBall(int x, int y, String d, Frame fm) {
         super(x, y);
         this.direction = d;
+        if (direction == null) {
+            this.direction = "RIGHT";
+        }
         this.fm = fm;
     }
 

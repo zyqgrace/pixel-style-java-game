@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Wizard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gremlins_scaffold</a> &gt; <a href="index.source.html" class="el_package">gremlins</a> &gt; <span class="el_source">Wizard.java</span></div><h1>Wizard.java</h1><pre class="source lang-java linenums">package gremlins;
+
+public class Wizard extends GameObject {
+<span class="nc" id="L4">    private boolean released = false;</span>
+    private boolean collide_wall;
+    private String direction;
+    private int speed;
+<span class="nc" id="L8">    private boolean adjusted = false;</span>
+    private Frame fm;
+
+    public Wizard(int x, int y, Frame fm) {
+<span class="nc" id="L12">        super(x, y);</span>
+<span class="nc" id="L13">        this.fm = fm;</span>
+<span class="nc" id="L14">        this.direction = null;</span>
+<span class="nc" id="L15">        this.speed = 2;</span>
+<span class="nc" id="L16">    }</span>
+
+    public void tick() {
+<span class="nc" id="L19">        int original_x = this.x;</span>
+<span class="nc" id="L20">        int original_y = this.y;</span>
+<span class="nc" id="L21">        int i = 0;</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">        while (i &lt; speed) {</span>
+<span class="nc bnc" id="L23" title="All 6 branches missed.">            if (released &amp;&amp; this.x % 20 == 0 &amp;&amp; this.y % 20 == 0) {</span>
+<span class="nc" id="L24">                adjusted = true;</span>
+            } else {
+<span class="nc" id="L26">                adjusted = false;</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">                if (direction == &quot;LEFT&quot;) {</span>
+<span class="nc" id="L28">                    this.x = this.x - 1;</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">                } else if (direction == &quot;RIGHT&quot;) {</span>
+<span class="nc" id="L30">                    this.x = this.x + 1;</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">                } else if (direction == &quot;UP&quot;) {</span>
+<span class="nc" id="L32">                    this.y = this.y - 1;</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="nc" id="L34">                    this.y = this.y + 1;</span>
+                }
+            }
+<span class="nc" id="L37">            i++;</span>
+        }
+<span class="nc" id="L39">        collide_wall = this.check_collision_wall();</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (collide_wall) {</span>
+<span class="nc" id="L41">            this.x = original_x;</span>
+<span class="nc" id="L42">            this.y = original_y;</span>
+        }
+<span class="nc" id="L44">    }</span>
+
+    public void setDirection(String d) {
+<span class="nc" id="L47">        this.direction = d;</span>
+<span class="nc" id="L48">        released = false;</span>
+<span class="nc" id="L49">    }</span>
+
+    public String getDirection() {
+<span class="nc" id="L52">        return this.direction;</span>
+    }
+
+    public boolean getAdjusted() {
+<span class="nc" id="L56">        return this.adjusted;</span>
+    }
+
+    public void powerup() {
+<span class="nc" id="L60">        speed = 4;</span>
+<span class="nc" id="L61">    }</span>
+
+    public void setback() {
+<span class="nc" id="L64">        speed = 2;</span>
+<span class="nc" id="L65">    }</span>
+
+    public void Released() {
+<span class="nc" id="L68">        released = true;</span>
+<span class="nc" id="L69">    }</span>
+
+    public boolean check_collision_wall() {
+<span class="nc" id="L72">        int x = this.x / 20;</span>
+<span class="nc" id="L73">        int y = this.y / 20;</span>
+<span class="nc" id="L74">        GameObject Obj = fm.get(x, y);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if (direction == &quot;RIGHT&quot;) {</span>
+<span class="nc" id="L76">            Obj = fm.get(x + 1, y);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="nc" id="L78">            Obj = fm.get(x, y);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="nc" id="L80">            Obj = fm.get(x, y);</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="nc" id="L82">            Obj = fm.get(x, y + 1);</span>
+        }
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (Obj == null) {</span>
+<span class="nc" id="L85">            return false;</span>
+        }
+<span class="nc" id="L87">        return this.intersection(Obj);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

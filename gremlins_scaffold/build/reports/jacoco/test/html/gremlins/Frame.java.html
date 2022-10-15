@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Frame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gremlins_scaffold</a> &gt; <a href="index.source.html" class="el_package">gremlins</a> &gt; <span class="el_source">Frame.java</span></div><h1>Frame.java</h1><pre class="source lang-java linenums">package gremlins;
+
+import processing.data.JSONObject;
+import java.io.*;
+import java.util.ArrayList;
+
+public class Frame {
+
+    private JSONObject level;
+    private double wizardCoolDown;
+    private double enemyCoolDown;
+    private GameObject[][] map;
+    private Wizard wizard;
+    private Door door;
+    private GameObject powerup;
+    private ArrayList&lt;Gremlins&gt; gremlins;
+    private ArrayList&lt;BlackHole&gt; blackholes;
+
+<span class="nc" id="L19">    public Frame(JSONObject level) {</span>
+<span class="nc" id="L20">        this.level = level;</span>
+<span class="nc" id="L21">        this.map = new GameObject[33][36];</span>
+<span class="nc" id="L22">        gremlins = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L23">        this.blackholes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L24">    }</span>
+
+    public void parseMap() {
+<span class="nc" id="L27">        String layout = level.getString(&quot;layout&quot;);</span>
+<span class="nc" id="L28">        this.wizardCoolDown = level.getDouble(&quot;wizard_cooldown&quot;);</span>
+<span class="nc" id="L29">        this.enemyCoolDown = level.getDouble(&quot;enemy_cooldown&quot;);</span>
+<span class="nc" id="L30">        try (BufferedReader br = new BufferedReader(new FileReader(layout))) {</span>
+            String line;
+<span class="nc" id="L32">            int r = 0;</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">            while ((line = br.readLine()) != null) {</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">                for (int c = 0; c &lt; 36; c++) {</span>
+<span class="nc" id="L35">                    char temp = line.charAt(c);</span>
+<span class="nc" id="L36">                    map[r][c] = this.createObj(temp, r, c);</span>
+                }
+<span class="nc" id="L38">                r++;</span>
+            }
+<span class="nc" id="L40">        } catch (IOException e) {</span>
+<span class="nc" id="L41">            e.printStackTrace();</span>
+<span class="nc" id="L42">        }</span>
+<span class="nc" id="L43">    }</span>
+
+    public GameObject createObj(char type, int i, int j) {
+<span class="nc" id="L46">        GameObject Obj = null;</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        if (type == 'X') {</span>
+<span class="nc" id="L48">            Obj = new StoneWall(j * 20, i * 20);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        } else if (type == 'B') {</span>
+<span class="nc" id="L50">            Obj = new BrickWall(j * 20, i * 20);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">        } else if (type == 'W') {</span>
+<span class="nc" id="L52">            this.wizard = new Wizard(j * 20, i * 20, this);</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        } else if (type == 'G') {</span>
+<span class="nc" id="L54">            this.gremlins.add(new Gremlins(j * 20, i * 20, this));</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        } else if (type == 'E') {</span>
+<span class="nc" id="L56">            this.door = new Door(j * 20, i * 20);</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        } else if (type == 'M') {</span>
+<span class="nc" id="L58">            this.setPowerup(new Powerup(j * 20, i * 20, this));</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        } else if (type == 'H') {</span>
+<span class="nc" id="L60">            BlackHole b = new BlackHole(j * 20, i * 20);</span>
+<span class="nc" id="L61">            this.blackholes.add(b);</span>
+        } else {
+        }
+<span class="nc" id="L64">        return Obj;</span>
+    }
+
+    public void setSprite(App a) {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        for (int i = 0; i &lt; 33; i++) {</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">            for (int j = 0; j &lt; 36; j++) {</span>
+<span class="nc" id="L70">                GameObject temp = map[i][j];</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">                if (temp == null) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                } else if (temp.getClass() == StoneWall.class) {</span>
+<span class="nc" id="L73">                    temp.setSprite(a.stonewall);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">                } else if (temp.getClass() == BrickWall.class) {</span>
+<span class="nc" id="L75">                    temp.setSprite(a.brickwall);</span>
+<span class="nc" id="L76">                    ((BrickWall) temp).setDestroyed(a.crush_wall);</span>
+                }
+            }
+        }
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (Gremlins g : this.gremlins) {</span>
+<span class="nc" id="L81">            g.setSprite(a.gremlin);</span>
+<span class="nc" id="L82">            g.setSlimeImgae(a.slime);</span>
+<span class="nc" id="L83">        }</span>
+<span class="nc" id="L84">        this.wizard.setSprite(a.wizardRight);</span>
+<span class="nc" id="L85">        this.door.setSprite(a.door);</span>
+<span class="nc" id="L86">        this.getPowerup().setSprite(a.powerup);</span>
+<span class="nc" id="L87">    }</span>
+
+    public void tick() {
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        for (int i = 0; i &lt; 33; i++) {</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            for (int j = 0; j &lt; 36; j++) {</span>
+<span class="nc" id="L92">                GameObject temp = map[i][j];</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">                if (temp != null) {</span>
+<span class="nc bnc" id="L94" title="All 4 branches missed.">                    if (temp.getClass() == BrickWall.class &amp;&amp; ((BrickWall) temp).getTrans() == 13) {</span>
+<span class="nc" id="L95">                        map[i][j] = null;</span>
+                    } else {
+<span class="nc" id="L97">                        temp.tick();</span>
+                    }
+                }
+            }
+        }
+<span class="nc" id="L102">    }</span>
+
+    public void draw(App a) {
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        for (Gremlins g : this.gremlins) {</span>
+<span class="nc" id="L106">            g.draw(a);</span>
+<span class="nc" id="L107">        }</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        for (int i = 0; i &lt; 33; i++) {</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">            for (int j = 0; j &lt; 36; j++) {</span>
+<span class="nc" id="L110">                GameObject temp = map[i][j];</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                if (temp == null) {</span>
+                } else {
+<span class="nc" id="L113">                    temp.draw(a);</span>
+                }
+            }
+        }
+<span class="nc" id="L117">    }</span>
+
+    public double getWizardCoolDown() {
+<span class="nc" id="L120">        return wizardCoolDown;</span>
+    }
+
+    public void setWizardCoolDown(double wizardCoolDown) {
+<span class="nc" id="L124">        this.wizardCoolDown = wizardCoolDown;</span>
+<span class="nc" id="L125">    }</span>
+
+    public double getEnemyCoolDown() {
+<span class="nc" id="L128">        return enemyCoolDown;</span>
+    }
+
+    public void setEnemyCoolDown(double enemyCoolDown) {
+<span class="nc" id="L132">        this.enemyCoolDown = enemyCoolDown;</span>
+<span class="nc" id="L133">    }</span>
+
+    public GameObject getPowerup() {
+<span class="nc" id="L136">        return powerup;</span>
+    }
+
+    public void setPowerup(GameObject powerup) {
+<span class="nc" id="L140">        this.powerup = powerup;</span>
+<span class="nc" id="L141">    }</span>
+
+    public GameObject[][] getMap() {
+<span class="nc" id="L144">        return this.map;</span>
+    }
+
+    public GameObject get(int x, int y) {
+<span class="nc" id="L148">        return map[y][x];</span>
+    }
+
+    public Wizard getWizard() {
+<span class="nc" id="L152">        return this.wizard;</span>
+    }
+
+    public Door getDoor() {
+<span class="nc" id="L156">        return this.door;</span>
+    }
+
+    public ArrayList&lt;BlackHole&gt; getBlackHole() {
+<span class="nc" id="L160">        return this.blackholes;</span>
+    }
+
+    public ArrayList&lt;Gremlins&gt; getGremlins() {
+<span class="nc" id="L164">        return this.gremlins;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
