@@ -4,7 +4,7 @@ import processing.core.PImage;
 
 public class BrickWall extends GameObject {
     private boolean crush = false;
-    public PImage[] crush_wall;
+    private PImage[] crush_wall;
     private int transission;
 
     public BrickWall(int x_cor, int y_cor) {

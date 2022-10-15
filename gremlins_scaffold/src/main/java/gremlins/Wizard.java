@@ -4,14 +4,14 @@ public class Wizard extends GameObject {
     private boolean released = false;
     private boolean collide_wall;
     private String direction;
-    public Frame fm;
-    public int speed;
-    public boolean adjusted = false;
+    private int speed;
+    private boolean adjusted = false;
+    private Frame fm;
 
     public Wizard(int x, int y, Frame fm) {
         super(x, y);
         this.fm = fm;
-        this.direction = "RIGHT";
+        this.direction = null;
         this.speed = 2;
     }
 
@@ -50,6 +50,10 @@ public class Wizard extends GameObject {
 
     public String getDirection() {
         return this.direction;
+    }
+
+    public boolean getAdjusted() {
+        return this.adjusted;
     }
 
     public void powerup() {

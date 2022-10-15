@@ -4,7 +4,6 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PShape;
 import processing.data.JSONObject;
-
 import java.util.Random;
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +20,7 @@ public class App extends PApplet {
 
     public String configPath;
     public boolean win;
+    public boolean lose;
     public int lives;
     public int wizardCoolDown;
     public int wizardCoolDown_counter;
@@ -48,11 +48,11 @@ public class App extends PApplet {
 
     public Frame fm;
     public Wizard player;
+    public Door exit;
     public ArrayList<Gremlins> gremlins;
     public ArrayList<FireBall> fireballs;
     public ArrayList<Slime> slimes;
     public ArrayList<BlackHole> blackholes;
-    public Door exit;
     public boolean fire_on;
     public boolean transferred;
     public int from = 0;
@@ -98,30 +98,12 @@ public class App extends PApplet {
         this.crush_wall[3] = loadImage(
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
+        // initilize all the objects
         progress_bar = createShape(RECT, 0, 0, 100, 5);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
-        JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
-        this.fm = new Frame(cur_level);
-        this.fm.parseMap();
-        fm.setSprite(this);
-        this.player = fm.getWizard();
-        this.gremlins = fm.getGremlins();
-        this.exit = fm.getDoor();
-        this.magic = (Powerup) fm.powerup;
-        fire_on = false;
-        this.transferred = false;
-        fireballs = new ArrayList<FireBall>();
-        slimes = new ArrayList<>();
-        this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
-        this.wizardCoolDown_counter = 0;
-        this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
-        this.win = false;
-        this.blackholes = fm.getBlackHole();
-        for (BlackHole b : this.blackholes) {
-            b.setSprite(blackhole);
-        }
+        this.setFrame();
     }
 
     /**
@@ -129,23 +111,26 @@ public class App extends PApplet {
      */
     public void keyPressed() {
         player.Released();
+        if ((win || lose) && tick > 60) {
+            this.setup();
+        }
         if (this.keyCode == 37) {
-            if (this.player.adjusted) {
+            if (this.player.getAdjusted()) {
                 player.setSprite(this.wizardLeft);
                 player.setDirection("LEFT");
             }
         } else if (this.keyCode == 38) {
-            if (this.player.adjusted) {
+            if (this.player.getAdjusted()) {
                 player.setSprite(this.wizardUp);
                 player.setDirection("UP");
             }
         } else if (this.keyCode == 39) {
-            if (this.player.adjusted) {
+            if (this.player.getAdjusted()) {
                 player.setSprite(this.wizardRight);
                 player.setDirection("RIGHT");
             }
         } else if (this.keyCode == 40) {
-            if (this.player.adjusted) {
+            if (this.player.getAdjusted()) {
                 player.setSprite(this.wizardDown);
                 player.setDirection("DOWN");
             }
@@ -170,6 +155,7 @@ public class App extends PApplet {
      * Draw all elements in the game by current frame.
      */
     public void draw() {
+        tick++;
         if (win) {
             background(191, 153, 114);
             textSize(40);
@@ -177,26 +163,14 @@ public class App extends PApplet {
         } else if (lives == 0) {
             background(224, 24, 24);
             textSize(40);
+            lose = true;
             text("GAME OVER!", (float) (WIDTH / 2) - 95, (float) HEIGHT / 2);
-            return;
         } else {
             this.check_next_level();
-            tick++;
             this.fm.tick();
             this.player.tick();
             this.magic.tick();
             background(191, 153, 114);
-            if (fire_on) {
-                this.wizardCoolDown_counter++;
-                filled_progress_bar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
-                filled_progress_bar.setFill(0);
-                shape(progress_bar, 580, 670);
-                shape(filled_progress_bar, 580, 670);
-                if (wizardCoolDown_counter >= wizardCoolDown) {
-                    wizardCoolDown_counter = 0;
-                    fire_on = false;
-                }
-            }
             if (fireballs != null) {
                 for (int i = 0; i < fireballs.size(); i++) {
                     FireBall temp_ball = fireballs.get(i);
@@ -218,29 +192,40 @@ public class App extends PApplet {
                 g.tick();
                 if (player.intersection(g)) {
                     lives--;
-                    this.reset();
+                    this.setFrame();
                     return;
                 }
-                for (int i = 0; i < g.slimes.size(); i++) {
-                    Slime temp_s = g.slimes.get(i);
+                for (int i = 0; i < g.getSlimes().size(); i++) {
+                    Slime temp_s = g.getSlimes().get(i);
                     if (temp_s.getDestroyed()) {
-                        g.slimes.remove(i);
+                        g.getSlimes().remove(i);
                     } else {
                         for (int j = 0; j < fireballs.size(); j++) {
                             FireBall temp_bal = fireballs.get(j);
                             if (temp_bal.intersection(temp_s)) {
                                 fireballs.remove(j);
-                                g.slimes.remove(i);
+                                g.getSlimes().remove(i);
                             }
                         }
                         if (player.intersection(temp_s)) {
                             lives--;
-                            this.reset();
+                            this.setFrame();
                             return;
                         }
                         temp_s.draw(this);
                     }
 
+                }
+            }
+            if (fire_on) {
+                this.wizardCoolDown_counter++;
+                filled_progress_bar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
+                filled_progress_bar.setFill(0);
+                shape(progress_bar, 580, 670);
+                shape(filled_progress_bar, 580, 670);
+                if (wizardCoolDown_counter >= wizardCoolDown) {
+                    wizardCoolDown_counter = 0;
+                    fire_on = false;
                 }
             }
             if (this.player.intersection(magic)) {
@@ -304,17 +289,19 @@ public class App extends PApplet {
         if (player.intersection(this.exit)) {
             level++;
             if (level == total_level) {
+                level = 0;
                 win = true;
-                return;
+                tick = 0;
+            } else if (lives == 0) {
+                lose = true;
+                tick = 0;
             } else {
-                JSONObject conf = loadJSONObject(new File(this.configPath));
-                this.lives = Integer.parseInt(conf.get("lives").toString());
-                this.reset();
+                this.setFrame();
             }
         }
     }
 
-    public void reset() {
+    public void setFrame() {
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.total_level = conf.getJSONArray("levels").size();
         JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
@@ -324,15 +311,16 @@ public class App extends PApplet {
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
-        this.magic = (Powerup) fm.powerup;
+        this.magic = (Powerup) fm.getPowerup();
         fire_on = false;
         this.transferred = false;
         fireballs = new ArrayList<FireBall>();
         slimes = new ArrayList<>();
-        this.wizardCoolDown = (int) (fm.wizardCoolDown * 60);
+        this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);
         this.wizardCoolDown_counter = 0;
-        this.enemyCoolDown = (int) (fm.enemyCoolDown * 60);
+        this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);
         this.win = false;
+        this.lose = false;
         this.blackholes = fm.getBlackHole();
         for (BlackHole b : this.blackholes) {
             b.setSprite(blackhole);

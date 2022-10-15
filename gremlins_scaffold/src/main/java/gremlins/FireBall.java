@@ -3,9 +3,9 @@ package gremlins;
 import processing.core.PImage;
 
 public class FireBall extends GameObject {
-    public String direction;
-    public Frame fm;
-    public GameObject colliding_wall;
+    private String direction;
+    private Frame fm;
+    private GameObject colliding_wall;
     private boolean destroyed = false;
 
     public FireBall(int x, int y, String d, Frame fm) {

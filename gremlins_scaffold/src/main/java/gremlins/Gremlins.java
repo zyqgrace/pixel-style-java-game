@@ -11,21 +11,21 @@ public class Gremlins extends GameObject {
     private String[] directions = new String[] { "LEFT", "RIGHT", "UP", "DOWN" };
     private Map<String, String> d = new HashMap<>();
     private String direction;
-    public Frame fm;
-    public int cool_down;
-    public int tick;
-    public PImage slime_image;
-    public ArrayList<Slime> slimes;
-    public Random rand;
+    private Frame fm;
+    private int cool_down;
+    private int tick;
+    private PImage slime_image;
+    private ArrayList<Slime> slimes;
+    private Random rand;
 
     public Gremlins(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
+        tick = 0;
         this.fm = fm;
         int ran = (int) (Math.random() * 4);
         this.direction = directions[ran];
-        cool_down = (int) (fm.enemyCoolDown * 60);
-        tick = 0;
-        slimes = new ArrayList<Slime>();
+        cool_down = (int) (fm.getEnemyCoolDown() * 60);
+        this.slimes = new ArrayList<>();
         rand = new Random();
         d.put("LEFT", "RIGHT");
         d.put("RIGHT", "LEFT");
@@ -34,18 +34,22 @@ public class Gremlins extends GameObject {
 
     }
 
+    public ArrayList<Slime> getSlimes() {
+        return slimes;
+    }
+
     public String getDirection() {
         return this.direction;
     }
 
     public void tick() {
         if ((tick) % cool_down == 0) {
-            slimes.add(this.createSlime());
+            getSlimes().add(this.createSlime());
         }
-        for (int i = 0; i < slimes.size(); i++) {
-            slimes.get(i).tick();
-            if (slimes.get(i).getDestroyed()) {
-                slimes.remove(i);
+        for (int i = 0; i < getSlimes().size(); i++) {
+            getSlimes().get(i).tick();
+            if (getSlimes().get(i).getDestroyed()) {
+                getSlimes().remove(i);
             }
         }
         tick++;
@@ -143,6 +147,10 @@ public class Gremlins extends GameObject {
         Slime s = new Slime(this.x, this.y, direction, this.fm);
         s.setSprite(slime_image);
         return s;
+    }
+
+    public void setSlimeImgae(PImage slime) {
+        this.slime_image = slime;
     }
 
 }

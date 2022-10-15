@@ -1,9 +1,8 @@
 package gremlins;
 
 public class Slime extends GameObject {
-    public String direction;
-    public boolean collide;
-    public Frame fm;
+    private String direction;
+    private Frame fm;
     private boolean destroyed;
 
     public Slime(int x, int y, String d, Frame fm) {

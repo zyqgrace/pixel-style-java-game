@@ -3,25 +3,27 @@ package gremlins;
 import java.util.Random;
 
 public class Powerup extends GameObject {
-    public int spawn;
-    public boolean effect_on;
+    private Frame fm;
+    private Random rand;
+    private int spawn;
+    private int tick;
     private int effect_time;
-    public Random rand;
+    private boolean effect_on;
     private boolean visible;
-    public Frame fm;
 
     public Powerup(int x, int y, Frame fm) {
         super(x, y);
         this.fm = fm;
         rand = new Random();
-        int spawn = (rand.nextInt(10 * 60) + 1);
-        this.spawn = spawn;
+        this.spawn = (rand.nextInt(3 * 60) + 8 * 60);
+        this.tick = 0;
         visible = false;
+
     }
 
     public void tick() {
-        spawn++;
-        if (spawn >= 10 * 60) {
+        tick++;
+        if (tick >= spawn) {
             visible = true;
         }
         if (effect_on) {
@@ -47,8 +49,8 @@ public class Powerup extends GameObject {
     public void set_again() {
         effect_on = true;
         effect_time = 0;
-        int spawn = (rand.nextInt(10 * 60) + 1);
-        this.spawn = spawn;
+        tick = 0;
+        this.spawn = (rand.nextInt(3 * 60) + 8 * 60);
         visible = false;
         int newX = (rand.nextInt(34) + 1);
         int newY = (rand.nextInt(29) + 1);
