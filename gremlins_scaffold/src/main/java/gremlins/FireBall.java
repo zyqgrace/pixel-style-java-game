@@ -17,6 +17,14 @@ public class FireBall extends GameObject {
         this.fm = fm;
     }
 
+    public GameObject getColliding_wall() {
+        return colliding_wall;
+    }
+
+    public void setColliding_wall(GameObject colliding_wall) {
+        this.colliding_wall = colliding_wall;
+    }
+
     public void setSprite(PImage sprite) {
         this.sprite = sprite;
     }
@@ -28,8 +36,8 @@ public class FireBall extends GameObject {
     public void tick() {
         if (this.check_collision_wall()) {
             destroyed = true;
-            if (this.colliding_wall.getClass() == BrickWall.class) {
-                ((BrickWall) this.colliding_wall).crushed();
+            if (this.getColliding_wall().getClass() == BrickWall.class) {
+                ((BrickWall) this.getColliding_wall()).crushed();
             }
         } else {
             if (direction == "LEFT") {
@@ -51,25 +59,25 @@ public class FireBall extends GameObject {
         if (direction == "RIGHT") {
             Obj = fm.get(x + 1, y);
             if (Obj != null) {
-                this.colliding_wall = Obj;
+                this.setColliding_wall(Obj);
                 return this.getX() + 20 > Obj.getX();
             }
         } else if (direction == "LEFT") {
             Obj = fm.get(x, y);
             if (Obj != null) {
-                this.colliding_wall = Obj;
+                this.setColliding_wall(Obj);
                 return this.getX() < Obj.getX() + 20;
             }
         } else if (direction == "UP") {
             Obj = fm.get(x, y);
             if (Obj != null) {
-                this.colliding_wall = Obj;
+                this.setColliding_wall(Obj);
                 return this.getY() < Obj.getY() + 20;
             }
         } else if (direction == "DOWN") {
             Obj = fm.get(x, y + 1);
             if (Obj != null) {
-                this.colliding_wall = Obj;
+                this.setColliding_wall(Obj);
                 return this.getY() + 20 > Obj.getY();
             }
         }

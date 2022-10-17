@@ -21,7 +21,7 @@ public class App extends PApplet {
     public String configPath;
     public boolean win;
     public boolean lose;
-    public int lives;
+    private int lives;
     public int wizardCoolDown;
     public int wizardCoolDown_counter;
     public int enemyCoolDown;
@@ -99,7 +99,7 @@ public class App extends PApplet {
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
         // initilize all the objects
-        progress_bar = createShape(RECT, 0, 0, 100, 5);
+        this.progress_bar = createShape(RECT, 0, 0, 100, 5);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
@@ -160,7 +160,7 @@ public class App extends PApplet {
             background(191, 153, 114);
             textSize(40);
             text("YOU WIN!", (float) (WIDTH / 2) - 80, (float) HEIGHT / 2);
-        } else if (lives == 0) {
+        } else if (getLives() == 0) {
             background(224, 24, 24);
             textSize(40);
             lose = true;
@@ -191,7 +191,7 @@ public class App extends PApplet {
             for (Gremlins g : gremlins) {
                 g.tick();
                 if (player.intersection(g)) {
-                    lives--;
+                    this.loseLives();
                     this.setFrame();
                     return;
                 }
@@ -208,7 +208,7 @@ public class App extends PApplet {
                             }
                         }
                         if (player.intersection(temp_s)) {
-                            lives--;
+                            this.loseLives();
                             this.setFrame();
                             return;
                         }
@@ -278,7 +278,7 @@ public class App extends PApplet {
                 this.magic.draw(this);
             }
             text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
-            for (int i = 0; i < lives; i++) {
+            for (int i = 0; i < getLives(); i++) {
                 image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
             }
             text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
@@ -292,13 +292,21 @@ public class App extends PApplet {
                 level = 0;
                 win = true;
                 tick = 0;
-            } else if (lives == 0) {
+            } else if (getLives() == 0) {
                 lose = true;
                 tick = 0;
             } else {
                 this.setFrame();
             }
         }
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void loseLives() {
+        this.lives--;
     }
 
     public void setFrame() {

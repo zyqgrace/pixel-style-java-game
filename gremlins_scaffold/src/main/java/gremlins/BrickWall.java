@@ -37,4 +37,8 @@ public class BrickWall extends GameObject {
         transission = 0;
     }
 
+    public boolean getCrushed() {
+        return this.crush;
+    }
+
 }

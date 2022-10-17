@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="gremlins.ConfLoaderTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-10-15T04:18:00" hostname="gracedeMBP" time="0.278">
+<testsuite name="gremlins.ConfLoaderTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2022-10-17T00:06:11" hostname="gracedeMBP" time="12.805">
   <properties/>
-  <testcase name="testTotalLevel()" classname="gremlins.ConfLoaderTest" time="0.273"/>
-  <testcase name="testMapPosition()" classname="gremlins.ConfLoaderTest" time="0.004"/>
+  <testcase name="testWizardRightLeftDirection()" classname="gremlins.ConfLoaderTest" time="1.073"/>
+  <testcase name="testWizardUpDirection()" classname="gremlins.ConfLoaderTest" time="0.001"/>
+  <testcase name="testTotalLevel()" classname="gremlins.ConfLoaderTest" time="0.002"/>
+  <testcase name="testMapPosition()" classname="gremlins.ConfLoaderTest" time="0.002"/>
+  <testcase name="testFireBallRight()" classname="gremlins.ConfLoaderTest" time="5.112"/>
+  <testcase name="testfireball()" classname="gremlins.ConfLoaderTest" time="0.109"/>
+  <testcase name="testWizardDownDirection()" classname="gremlins.ConfLoaderTest" time="0.002"/>
+  <testcase name="testWinning()" classname="gremlins.ConfLoaderTest" time="0.152"/>
+  <testcase name="testLivesSetUp()" classname="gremlins.ConfLoaderTest" time="1.525"/>
+  <testcase name="testDirectionLeft()" classname="gremlins.ConfLoaderTest" time="1.309"/>
+  <testcase name="testPowerson()" classname="gremlins.ConfLoaderTest" time="1.456"/>
+  <testcase name="testcheckgamestatus()" classname="gremlins.ConfLoaderTest" time="0.002"/>
+  <testcase name="testReborn()" classname="gremlins.ConfLoaderTest" time="0.001"/>
+  <testcase name="testcheckLosetatus()" classname="gremlins.ConfLoaderTest" time="0.732"/>
+  <testcase name="testWallBreak()" classname="gremlins.ConfLoaderTest" time="1.283"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

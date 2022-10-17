@@ -87,34 +87,34 @@ public class Frame {
 <span class="fc" id="L87">    }</span>
 
     public void tick() {
-<span class="nc bnc" id="L90" title="All 2 branches missed.">        for (int i = 0; i &lt; 33; i++) {</span>
-<span class="nc bnc" id="L91" title="All 2 branches missed.">            for (int j = 0; j &lt; 36; j++) {</span>
-<span class="nc" id="L92">                GameObject temp = map[i][j];</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">                if (temp != null) {</span>
-<span class="nc bnc" id="L94" title="All 4 branches missed.">                    if (temp.getClass() == BrickWall.class &amp;&amp; ((BrickWall) temp).getTrans() == 13) {</span>
-<span class="nc" id="L95">                        map[i][j] = null;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        for (int i = 0; i &lt; 33; i++) {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            for (int j = 0; j &lt; 36; j++) {</span>
+<span class="fc" id="L92">                GameObject temp = map[i][j];</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">                if (temp != null) {</span>
+<span class="fc bfc" id="L94" title="All 4 branches covered.">                    if (temp.getClass() == BrickWall.class &amp;&amp; ((BrickWall) temp).getTrans() == 13) {</span>
+<span class="fc" id="L95">                        map[i][j] = null;</span>
                     } else {
-<span class="nc" id="L97">                        temp.tick();</span>
+<span class="fc" id="L97">                        temp.tick();</span>
                     }
                 }
             }
         }
-<span class="nc" id="L102">    }</span>
+<span class="fc" id="L102">    }</span>
 
     public void draw(App a) {
-<span class="nc bnc" id="L105" title="All 2 branches missed.">        for (Gremlins g : this.gremlins) {</span>
-<span class="nc" id="L106">            g.draw(a);</span>
-<span class="nc" id="L107">        }</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        for (int i = 0; i &lt; 33; i++) {</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">            for (int j = 0; j &lt; 36; j++) {</span>
-<span class="nc" id="L110">                GameObject temp = map[i][j];</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">                if (temp == null) {</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (Gremlins g : this.gremlins) {</span>
+<span class="fc" id="L106">            g.draw(a);</span>
+<span class="fc" id="L107">        }</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">        for (int i = 0; i &lt; 33; i++) {</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">            for (int j = 0; j &lt; 36; j++) {</span>
+<span class="fc" id="L110">                GameObject temp = map[i][j];</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                if (temp == null) {</span>
                 } else {
-<span class="nc" id="L113">                    temp.draw(a);</span>
+<span class="fc" id="L113">                    temp.draw(a);</span>
                 }
             }
         }
-<span class="nc" id="L117">    }</span>
+<span class="fc" id="L117">    }</span>
 
     public double getWizardCoolDown() {
 <span class="fc" id="L120">        return wizardCoolDown;</span>

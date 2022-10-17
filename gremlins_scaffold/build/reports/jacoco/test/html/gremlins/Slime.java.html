@@ -6,46 +6,46 @@ public class Slime extends GameObject {
     private boolean destroyed;
 
     public Slime(int x, int y, String d, Frame fm) {
-<span class="nc" id="L9">        super(x, y);</span>
-<span class="nc" id="L10">        this.direction = d;</span>
-<span class="nc" id="L11">        this.fm = fm;</span>
-<span class="nc" id="L12">    }</span>
+<span class="fc" id="L9">        super(x, y);</span>
+<span class="fc" id="L10">        this.direction = d;</span>
+<span class="fc" id="L11">        this.fm = fm;</span>
+<span class="fc" id="L12">    }</span>
 
     public void tick() {
-<span class="nc bnc" id="L15" title="All 2 branches missed.">        if (this.check_collision_wall()) {</span>
-<span class="nc" id="L16">            destroyed = true;</span>
-<span class="nc bnc" id="L17" title="All 2 branches missed.">        } else if (direction == &quot;LEFT&quot;) {</span>
-<span class="nc" id="L18">            this.x -= 4;</span>
-<span class="nc bnc" id="L19" title="All 2 branches missed.">        } else if (direction == &quot;RIGHT&quot;) {</span>
-<span class="nc" id="L20">            this.x += 4;</span>
-<span class="nc bnc" id="L21" title="All 2 branches missed.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="nc" id="L22">            this.y -= 4;</span>
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="nc" id="L24">            this.y += 4;</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">        if (this.check_collision_wall()) {</span>
+<span class="fc" id="L16">            destroyed = true;</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L18">            this.x -= 4;</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        } else if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L20">            this.x += 4;</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L22">            this.y -= 4;</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L24">            this.y += 4;</span>
         }
-<span class="nc" id="L26">    }</span>
+<span class="fc" id="L26">    }</span>
 
     public boolean check_collision_wall() {
-<span class="nc" id="L29">        int x = this.x / 20;</span>
-<span class="nc" id="L30">        int y = this.y / 20;</span>
-<span class="nc" id="L31">        GameObject Obj = fm.get(x, y);</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">        if (direction == &quot;RIGHT&quot;) {</span>
-<span class="nc" id="L33">            Obj = fm.get(x + 1, y);</span>
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        } else if (direction == &quot;LEFT&quot;) {</span>
-<span class="nc" id="L35">            Obj = fm.get(x, y);</span>
-<span class="nc bnc" id="L36" title="All 2 branches missed.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="nc" id="L37">            Obj = fm.get(x, y);</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="nc" id="L39">            Obj = fm.get(x, y + 1);</span>
+<span class="fc" id="L29">        int x = this.x / 20;</span>
+<span class="fc" id="L30">        int y = this.y / 20;</span>
+<span class="fc" id="L31">        GameObject Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L33">            Obj = fm.get(x + 1, y);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L35">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L37">            Obj = fm.get(x, y);</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L39">            Obj = fm.get(x, y + 1);</span>
         }
-<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (Obj == null) {</span>
-<span class="nc" id="L42">            return false;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (Obj == null) {</span>
+<span class="fc" id="L42">            return false;</span>
         }
-<span class="nc" id="L44">        return this.intersection(Obj);</span>
+<span class="fc" id="L44">        return this.intersection(Obj);</span>
     }
 
     public boolean getDestroyed() {
-<span class="nc" id="L48">        return this.destroyed;</span>
+<span class="fc" id="L48">        return this.destroyed;</span>
     }
 
 }

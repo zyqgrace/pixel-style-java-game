@@ -15,15 +15,23 @@ public class Wizard extends GameObject {
         this.speed = 2;
     }
 
+    public boolean isAdjusted() {
+        return adjusted;
+    }
+
+    public void setAdjusted(boolean adjusted) {
+        this.adjusted = adjusted;
+    }
+
     public void tick() {
         int original_x = this.x;
         int original_y = this.y;
         int i = 0;
         while (i < speed) {
             if (released && this.x % 20 == 0 && this.y % 20 == 0) {
-                adjusted = true;
+                setAdjusted(true);
             } else {
-                adjusted = false;
+                setAdjusted(false);
                 if (direction == "LEFT") {
                     this.x = this.x - 1;
                 } else if (direction == "RIGHT") {
@@ -53,7 +61,7 @@ public class Wizard extends GameObject {
     }
 
     public boolean getAdjusted() {
-        return this.adjusted;
+        return this.isAdjusted();
     }
 
     public void powerup() {
@@ -66,6 +74,10 @@ public class Wizard extends GameObject {
 
     public void Released() {
         released = true;
+    }
+
+    public int getSpeed() {
+        return this.speed;
     }
 
     public boolean check_collision_wall() {
