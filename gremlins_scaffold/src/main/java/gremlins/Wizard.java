@@ -76,6 +76,10 @@ public class Wizard extends GameObject {
         released = true;
     }
 
+    public boolean getReleased() {
+        return this.released;
+    }
+
     public int getSpeed() {
         return this.speed;
     }

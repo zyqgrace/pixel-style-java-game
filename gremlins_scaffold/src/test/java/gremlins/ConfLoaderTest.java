@@ -9,6 +9,7 @@ class ConfLoaderTest {
     void testTotalLevel() {
         App a = new App();
         a.setFrame();
+        a.delay(1000);
         assertEquals(2, a.total_level);
     }
 
@@ -17,6 +18,7 @@ class ConfLoaderTest {
         App a = new App();
         a.setFrame();
         Frame fm = a.fm;
+        a.delay(1000);
         assertEquals(StoneWall.class, (fm.get(0, 0).getClass()));
     }
 
@@ -34,6 +36,7 @@ class ConfLoaderTest {
     void testcheckgamestatus() {
         App app = new App();
         app.setFrame();
+        app.delay(1000);
         assertFalse(app.win);
         assertFalse(app.lose);
     }
@@ -44,6 +47,7 @@ class ConfLoaderTest {
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
         app.setup();
+        app.delay(1000);
         app.loseLives();
         app.loseLives();
         app.loseLives();
@@ -54,6 +58,7 @@ class ConfLoaderTest {
     void testWizardUpDirection() {
         App app = new App();
         app.setFrame();
+        app.delay(1000);
         app.keyCode = 38;
         app.player.setAdjusted(true);
         app.keyPressed();
@@ -80,6 +85,7 @@ class ConfLoaderTest {
         App app = new App();
         app.setFrame();
         app.keyCode = 40;
+        app.delay(1000);
         app.player.setAdjusted(true);
         app.keyPressed();
         assertEquals("DOWN", app.player.getDirection());
@@ -91,10 +97,27 @@ class ConfLoaderTest {
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
         app.setup();
+        app.delay(1000);
         app.keyCode = 32;
-        app.player.setAdjusted(true);
         app.keyPressed();
         assertEquals(1, app.fireballs.size());
+    }
+
+    @Test
+    void testfireballHitGremlin() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.keyCode = 32;
+        app.keyPressed();
+        assertEquals(1, app.fireballs.size());
+        FireBall ball = app.fireballs.get(0);
+        ball.setX(app.gremlins.get(0).getX());
+        ball.setY(app.gremlins.get(0).getY());
+        app.draw();
+        assertTrue(ball.getDestroyed());
     }
 
     @Test
@@ -103,6 +126,7 @@ class ConfLoaderTest {
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
         app.setup();
+        app.delay(1000);
         FireBall ball = new FireBall(20, 20, "LEFT", app.fm);
         ball.check_collision_wall();
         ball.setDestroyed();
@@ -110,17 +134,33 @@ class ConfLoaderTest {
     }
 
     @Test
-    void testWinning() {
+    void testWin() {
         App app = new App();
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
         app.setup();
+        app.delay(1000);
         app.level = 1;
         app.player.x = app.exit.getX();
         app.player.y = app.exit.getY();
         app.check_next_level();
         assertTrue(app.win);
+    }
 
+    @Test
+    void testRestart() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.level = 1;
+        app.player.x = app.exit.getX();
+        app.player.y = app.exit.getY();
+        app.check_next_level();
+        app.tick = 61;
+        app.keyPressed();
+        assertEquals(0, app.level);
     }
 
     @Test
@@ -153,21 +193,17 @@ class ConfLoaderTest {
     void testReborn() {
         App app = new App();
         app.setFrame();
+        app.delay(1000);
         Gremlins g = new Gremlins(20, 20, app.fm);
         int x = g.getX();
         int y = g.getY();
         g.reborn(app.player);
-        assertTrue(x != g.getX());
-        assertTrue(y != g.getY());
-        x = g.getX();
-        y = g.getY();
-        g.reborn(app.player);
-        assertTrue(x != g.getX());
-        assertTrue(y != g.getY());
+        assertNotEquals(x, g.getX());
+        assertNotEquals(y, g.getY());
     }
 
     @Test
-    void testPowerson() {
+    void testPower_on() {
         App app = new App();
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
@@ -179,4 +215,54 @@ class ConfLoaderTest {
         assertTrue(app.magic.effectOn());
         assertEquals(4, app.player.getSpeed());
     }
+
+    @Test
+    void testHitGremlins() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.player.x = app.gremlins.get(0).getX();
+        app.player.y = app.gremlins.get(0).getY();
+        app.draw();
+        assertEquals(2, app.getLives());
+        assertEquals(40, app.player.x);
+    }
+
+    @Test
+    void testKeyReleased() {
+        App app = new App();
+        app.setFrame();
+        app.delay(1000);
+        app.keyReleased();
+        assertTrue(app.player.getReleased());
+    }
+
+    @Test
+    void testfireballUp() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        FireBall ball = new FireBall(20, 20, "UP", app.fm);
+        ball.tick();
+        assertEquals(20, ball.getX());
+        assertEquals(16, ball.getY());
+    }
+
+    @Test
+    void testfireballDown() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        FireBall ball = new FireBall(20, 620, "DOWN", app.fm);
+        ball.tick();
+        assertEquals(20, ball.getX());
+        assertEquals(624, ball.getY());
+    }
+
 }

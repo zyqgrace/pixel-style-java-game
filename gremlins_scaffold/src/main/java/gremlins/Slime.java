@@ -48,4 +48,7 @@ public class Slime extends GameObject {
         return this.destroyed;
     }
 
+    public void setDestroyed() {
+        this.destroyed = true;
+    }
 }

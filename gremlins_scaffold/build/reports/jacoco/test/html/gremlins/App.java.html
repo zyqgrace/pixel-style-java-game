@@ -111,8 +111,8 @@ public class App extends PApplet {
      */
     public void keyPressed() {
 <span class="fc" id="L113">        player.Released();</span>
-<span class="pc bpc" id="L114" title="4 of 6 branches missed.">        if ((win || lose) &amp;&amp; tick &gt; 60) {</span>
-<span class="nc" id="L115">            this.setup();</span>
+<span class="pc bpc" id="L114" title="2 of 6 branches missed.">        if ((win || lose) &amp;&amp; tick &gt; 60) {</span>
+<span class="fc" id="L115">            this.setup();</span>
         }
 <span class="fc bfc" id="L117" title="All 2 branches covered.">        if (this.keyCode == 37) {</span>
 <span class="pc bpc" id="L118" title="1 of 2 branches missed.">            if (this.player.getAdjusted()) {</span>
@@ -134,7 +134,7 @@ public class App extends PApplet {
 <span class="fc" id="L134">                player.setSprite(this.wizardDown);</span>
 <span class="fc" id="L135">                player.setDirection(&quot;DOWN&quot;);</span>
             }
-<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        } else if (this.keyCode == 32) {</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        } else if (this.keyCode == 32) {</span>
 <span class="pc bpc" id="L138" title="1 of 2 branches missed.">            if (fire_on == false) {</span>
 <span class="fc" id="L139">                FireBall b = new FireBall(player.getX(), player.getY(), player.getDirection(), this.fm);</span>
 <span class="fc" id="L140">                b.setSprite(fireball);</span>
@@ -148,8 +148,8 @@ public class App extends PApplet {
      * Receive key released signal from the keyboard.
      */
     public void keyReleased() {
-<span class="nc" id="L151">        player.Released();</span>
-<span class="nc" id="L152">    }</span>
+<span class="fc" id="L151">        player.Released();</span>
+<span class="fc" id="L152">    }</span>
 
     /**
      * Draw all elements in the game by current frame.
@@ -160,11 +160,11 @@ public class App extends PApplet {
 <span class="fc" id="L160">            background(191, 153, 114);</span>
 <span class="fc" id="L161">            textSize(40);</span>
 <span class="fc" id="L162">            text(&quot;YOU WIN!&quot;, (float) (WIDTH / 2) - 80, (float) HEIGHT / 2);</span>
-<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        } else if (getLives() == 0) {</span>
-<span class="nc" id="L164">            background(224, 24, 24);</span>
-<span class="nc" id="L165">            textSize(40);</span>
-<span class="nc" id="L166">            lose = true;</span>
-<span class="nc" id="L167">            text(&quot;GAME OVER!&quot;, (float) (WIDTH / 2) - 95, (float) HEIGHT / 2);</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        } else if (getLives() == 0) {</span>
+<span class="fc" id="L164">            background(224, 24, 24);</span>
+<span class="fc" id="L165">            textSize(40);</span>
+<span class="fc" id="L166">            lose = true;</span>
+<span class="fc" id="L167">            text(&quot;GAME OVER!&quot;, (float) (WIDTH / 2) - 95, (float) HEIGHT / 2);</span>
         } else {
 <span class="fc" id="L169">            this.check_next_level();</span>
 <span class="fc" id="L170">            this.fm.tick();</span>
@@ -178,9 +178,9 @@ public class App extends PApplet {
 <span class="fc" id="L178">                    temp_ball.draw(this);</span>
 
 <span class="fc bfc" id="L180" title="All 2 branches covered.">                    for (Gremlins g : gremlins) {</span>
-<span class="pc bpc" id="L181" title="1 of 2 branches missed.">                        if (temp_ball.intersection(g)) {</span>
-<span class="nc" id="L182">                            temp_ball.setDestroyed();</span>
-<span class="nc" id="L183">                            g.reborn(player);</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">                        if (temp_ball.intersection(g)) {</span>
+<span class="fc" id="L182">                            temp_ball.setDestroyed();</span>
+<span class="fc" id="L183">                            g.reborn(player);</span>
                         }
 <span class="fc" id="L185">                    }</span>
 <span class="fc bfc" id="L186" title="All 2 branches covered.">                    if (fireballs.get(i).getDestroyed()) {</span>
@@ -190,19 +190,19 @@ public class App extends PApplet {
             }
 <span class="fc bfc" id="L191" title="All 2 branches covered.">            for (Gremlins g : gremlins) {</span>
 <span class="fc" id="L192">                g.tick();</span>
-<span class="pc bpc" id="L193" title="1 of 2 branches missed.">                if (player.intersection(g)) {</span>
-<span class="nc" id="L194">                    this.loseLives();</span>
-<span class="nc" id="L195">                    this.setFrame();</span>
-<span class="nc" id="L196">                    return;</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">                if (player.intersection(g)) {</span>
+<span class="fc" id="L194">                    this.loseLives();</span>
+<span class="fc" id="L195">                    this.setFrame();</span>
+<span class="fc" id="L196">                    return;</span>
                 }
 <span class="fc bfc" id="L198" title="All 2 branches covered.">                for (int i = 0; i &lt; g.getSlimes().size(); i++) {</span>
 <span class="fc" id="L199">                    Slime temp_s = g.getSlimes().get(i);</span>
 <span class="pc bpc" id="L200" title="1 of 2 branches missed.">                    if (temp_s.getDestroyed()) {</span>
 <span class="nc" id="L201">                        g.getSlimes().remove(i);</span>
                     } else {
-<span class="fc bfc" id="L203" title="All 2 branches covered.">                        for (int j = 0; j &lt; fireballs.size(); j++) {</span>
-<span class="fc" id="L204">                            FireBall temp_bal = fireballs.get(j);</span>
-<span class="pc bpc" id="L205" title="1 of 2 branches missed.">                            if (temp_bal.intersection(temp_s)) {</span>
+<span class="pc bpc" id="L203" title="1 of 2 branches missed.">                        for (int j = 0; j &lt; fireballs.size(); j++) {</span>
+<span class="nc" id="L204">                            FireBall temp_bal = fireballs.get(j);</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">                            if (temp_bal.intersection(temp_s)) {</span>
 <span class="nc" id="L206">                                fireballs.remove(j);</span>
 <span class="nc" id="L207">                                g.getSlimes().remove(i);</span>
                             }

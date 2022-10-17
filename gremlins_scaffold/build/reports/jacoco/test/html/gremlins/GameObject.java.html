@@ -27,29 +27,37 @@ public abstract class GameObject {
 <span class="fc" id="L27">        return this.x;</span>
     }
 
+    public void setX(int x) {
+<span class="fc" id="L31">        this.x = x;</span>
+<span class="fc" id="L32">    }</span>
+
+    public void setY(int y) {
+<span class="fc" id="L35">        this.y = y;</span>
+<span class="fc" id="L36">    }</span>
+
     public int getY() {
-<span class="fc" id="L31">        return this.y;</span>
+<span class="fc" id="L39">        return this.y;</span>
     }
 
     public boolean intersection(GameObject Obj) {
-<span class="fc" id="L35">        int self_x1 = this.x;</span>
-<span class="fc" id="L36">        int self_y1 = this.y;</span>
-<span class="fc" id="L37">        int Obj_x1 = Obj.getX();</span>
-<span class="fc" id="L38">        int Obj_y1 = Obj.getY();</span>
-<span class="fc" id="L39">        int self_x2 = self_x1 + 20;</span>
-<span class="fc" id="L40">        int self_y2 = self_y1 + 20;</span>
-<span class="fc" id="L41">        int Obj_x2 = Obj_x1 + 20;</span>
-<span class="fc" id="L42">        int Obj_y2 = Obj_y1 + 20;</span>
-<span class="fc" id="L43">        int x_L = Math.max(self_x1, Obj_x1);</span>
-<span class="fc" id="L44">        int x_R = Math.min(self_x2, Obj_x2);</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (x_L &lt; x_R) {</span>
-<span class="fc" id="L46">            int y_T = Math.max(self_y1, Obj_y1);</span>
-<span class="fc" id="L47">            int y_B = Math.min(self_y2, Obj_y2);</span>
-<span class="fc bfc" id="L48" title="All 2 branches covered.">            if (y_T &lt; y_B) {</span>
-<span class="fc" id="L49">                return true;</span>
+<span class="fc" id="L43">        int self_x1 = this.x;</span>
+<span class="fc" id="L44">        int self_y1 = this.y;</span>
+<span class="fc" id="L45">        int Obj_x1 = Obj.getX();</span>
+<span class="fc" id="L46">        int Obj_y1 = Obj.getY();</span>
+<span class="fc" id="L47">        int self_x2 = self_x1 + 20;</span>
+<span class="fc" id="L48">        int self_y2 = self_y1 + 20;</span>
+<span class="fc" id="L49">        int Obj_x2 = Obj_x1 + 20;</span>
+<span class="fc" id="L50">        int Obj_y2 = Obj_y1 + 20;</span>
+<span class="fc" id="L51">        int x_L = Math.max(self_x1, Obj_x1);</span>
+<span class="fc" id="L52">        int x_R = Math.min(self_x2, Obj_x2);</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (x_L &lt; x_R) {</span>
+<span class="fc" id="L54">            int y_T = Math.max(self_y1, Obj_y1);</span>
+<span class="fc" id="L55">            int y_B = Math.min(self_y2, Obj_y2);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            if (y_T &lt; y_B) {</span>
+<span class="fc" id="L57">                return true;</span>
             }
         }
-<span class="fc" id="L52">        return false;</span>
+<span class="fc" id="L60">        return false;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

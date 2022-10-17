@@ -42,12 +42,12 @@ public class FireBall extends GameObject {
         } else {
 <span class="fc bfc" id="L43" title="All 2 branches covered.">            if (direction == &quot;LEFT&quot;) {</span>
 <span class="fc" id="L44">                this.x -= 4;</span>
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">            } else if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">            } else if (direction == &quot;RIGHT&quot;) {</span>
 <span class="fc" id="L46">                this.x += 4;</span>
-<span class="nc bnc" id="L47" title="All 2 branches missed.">            } else if (direction == &quot;UP&quot;) {</span>
-<span class="nc" id="L48">                this.y -= 4;</span>
-<span class="nc bnc" id="L49" title="All 2 branches missed.">            } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="nc" id="L50">                this.y += 4;</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L48">                this.y -= 4;</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">            } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L50">                this.y += 4;</span>
             }
         }
 <span class="fc" id="L53">    }</span>
@@ -62,23 +62,23 @@ public class FireBall extends GameObject {
 <span class="fc" id="L62">                this.setColliding_wall(Obj);</span>
 <span class="fc bfc" id="L63" title="All 2 branches covered.">                return this.getX() + 20 &gt; Obj.getX();</span>
             }
-<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
 <span class="fc" id="L66">            Obj = fm.get(x, y);</span>
 <span class="pc bpc" id="L67" title="1 of 2 branches missed.">            if (Obj != null) {</span>
 <span class="nc" id="L68">                this.setColliding_wall(Obj);</span>
 <span class="nc bnc" id="L69" title="All 2 branches missed.">                return this.getX() &lt; Obj.getX() + 20;</span>
             }
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="nc" id="L72">            Obj = fm.get(x, y);</span>
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (Obj != null) {</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L72">            Obj = fm.get(x, y);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">            if (Obj != null) {</span>
 <span class="nc" id="L74">                this.setColliding_wall(Obj);</span>
 <span class="nc bnc" id="L75" title="All 2 branches missed.">                return this.getY() &lt; Obj.getY() + 20;</span>
             }
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="nc" id="L78">            Obj = fm.get(x, y + 1);</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (Obj != null) {</span>
-<span class="nc" id="L80">                this.setColliding_wall(Obj);</span>
-<span class="nc bnc" id="L81" title="All 2 branches missed.">                return this.getY() + 20 &gt; Obj.getY();</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L78">            Obj = fm.get(x, y + 1);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (Obj != null) {</span>
+<span class="fc" id="L80">                this.setColliding_wall(Obj);</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">                return this.getY() + 20 &gt; Obj.getY();</span>
             }
         }
 <span class="fc" id="L84">        return false;</span>
