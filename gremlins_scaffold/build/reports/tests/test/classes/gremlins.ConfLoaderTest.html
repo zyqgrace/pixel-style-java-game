@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">31</div>
+<div class="counter">35</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">1m7.18s</div>
+<div class="counter">1m32.86s</div>
 <p>duration</p>
 </div>
 </td>
@@ -51,7 +51,7 @@
 </td>
 <td>
 <div class="infoBox failures" id="successRate">
-<div class="percent">96%</div>
+<div class="percent">97%</div>
 <p>successful</p>
 </div>
 </td>
@@ -70,14 +70,15 @@
 <div id="tab0" class="tab">
 <h2>Failed tests</h2>
 <div class="test">
-<a name="testFireBallHitDownWall()"></a>
-<h3 class="failures">testFireBallHitDownWall()</h3>
+<a name="testFireBallHitSlime()"></a>
+<h3 class="failures">testFireBallHitSlime()</h3>
 <span class="code">
-<pre>java.lang.NullPointerException
-	at gremlins.Frame.setSprite(Frame.java:85)
-	at gremlins.App.setFrame(App.java:318)
-	at gremlins.App.setup(App.java:106)
-	at gremlins.ConfLoaderTest.testFireBallHitDownWall(ConfLoaderTest.java:358)
+<pre>org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:162)
+	at gremlins.ConfLoaderTest.testFireBallHitSlime(ConfLoaderTest.java:466)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -179,157 +180,177 @@
 </thead>
 <tr>
 <td class="success">GremlinsDirection()</td>
-<td class="success">1.005s</td>
+<td class="success">1.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testCheckGameStatus()</td>
-<td class="success">1.013s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testDrawWin()</td>
-<td class="success">2.701s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testFireBallDown()</td>
-<td class="success">1.668s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="failures">testFireBallHitDownWall()</td>
-<td class="failures">1.256s</td>
-<td class="failures">failed</td>
-</tr>
-<tr>
-<td class="success">testFireBallHitGremlin()</td>
-<td class="success">2.300s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testFireBallHitLeftWall()</td>
-<td class="success">3.095s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testFireBallHitSlime()</td>
-<td class="success">2.355s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testFireBallRight()</td>
-<td class="success">1.608s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testFireBallUp()</td>
-<td class="success">6.393s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testKeyReleased()</td>
-<td class="success">1.002s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testLivesSetUp()</td>
-<td class="success">1.596s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testMapPosition()</td>
-<td class="success">1.002s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testPowerOn()</td>
-<td class="success">3.179s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testReborn()</td>
-<td class="success">4.058s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testRestart()</td>
-<td class="success">1.788s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testSlimeHitWizard()</td>
-<td class="success">2.242s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testTotalLevel()</td>
-<td class="success">1.003s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWallBreak()</td>
-<td class="success">3.766s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWin()</td>
-<td class="success">1.236s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWizardDirectionLeft()</td>
-<td class="success">1.849s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWizardDownDirection()</td>
-<td class="success">1.014s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWizardHitGremlins()</td>
-<td class="success">4.227s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWizardNotAdjustedDirection()</td>
-<td class="success">1.198s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWizardRightDirection()</td>
-<td class="success">1.564s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">testWizardRightLeftDirection()</td>
 <td class="success">1.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
+<td class="success">testDrawWin()</td>
+<td class="success">2.613s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFireBallDirectionLeft()</td>
+<td class="success">1.246s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFireBallDown()</td>
+<td class="success">1.934s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFireBallHitDownWall()</td>
+<td class="success">2.039s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFireBallHitGremlin()</td>
+<td class="success">2.108s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFireBallHitLeftWall()</td>
+<td class="success">16.299s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="failures">testFireBallHitSlime()</td>
+<td class="failures">2.488s</td>
+<td class="failures">failed</td>
+</tr>
+<tr>
+<td class="success">testFireBallRight()</td>
+<td class="success">1.528s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testFireBallUp()</td>
+<td class="success">6.142s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testGamePlayAgain()</td>
+<td class="success">2.645s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testKeyReleased()</td>
+<td class="success">1.017s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testLivesSetUp()</td>
+<td class="success">1.798s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testMapPosition()</td>
+<td class="success">1.007s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testNotFireOn()</td>
+<td class="success">3.456s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testPowerOn()</td>
+<td class="success">3.387s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testReborn()</td>
+<td class="success">8.787s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testRestart()</td>
+<td class="success">2.086s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSlimeHitWizard()</td>
+<td class="success">2.119s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testTotalLevel()</td>
+<td class="success">1.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWallBreak()</td>
+<td class="success">2.165s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWin()</td>
+<td class="success">1.309s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardAdjusted()</td>
+<td class="success">1.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardDownDirection()</td>
+<td class="success">1.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardHitGremlins()</td>
+<td class="success">4.439s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardLeftDirection()</td>
+<td class="success">1.615s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardNotAdjustedDirection()</td>
+<td class="success">1.275s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardRightDirection()</td>
+<td class="success">1.453s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testWizardRightLeftDirection()</td>
+<td class="success">1.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">testWizardUpDirection()</td>
-<td class="success">1.003s</td>
+<td class="success">1.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testcheckLosetatus()</td>
-<td class="success">3.409s</td>
+<td class="success">2.365s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testfireball()</td>
-<td class="success">1.200s</td>
+<td class="success">2.199s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testgetlivesequals0()</td>
-<td class="success">2.745s</td>
+<td class="success">2.902s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">testpassblackHole()</td>
-<td class="success">3.702s</td>
+<td class="success">3.401s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -342,7 +363,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 19/10/2022 9:35:49 PM</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 19/10/2022 10:34:17 PM</p>
 </div>
 </div>
 </body>

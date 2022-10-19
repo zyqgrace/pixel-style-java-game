@@ -38,128 +38,124 @@ public class Gremlins extends GameObject {
 <span class="fc" id="L38">        return slimes;</span>
     }
 
-    public void addSLimes() {
-
-<span class="nc" id="L43">    }</span>
-
     public String getDirection() {
-<span class="fc" id="L46">        return this.direction;</span>
+<span class="fc" id="L42">        return this.direction;</span>
     }
 
     public void tick() {
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        if ((tick) % cool_down == 0) {</span>
-<span class="fc" id="L51">            this.createSlime();</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if ((tick) % cool_down == 0) {</span>
+<span class="fc" id="L47">            this.createSlime();</span>
         }
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        for (int i = 0; i &lt; getSlimes().size(); i++) {</span>
-<span class="fc" id="L54">            getSlimes().get(i).tick();</span>
-<span class="fc bfc" id="L55" title="All 2 branches covered.">            if (getSlimes().get(i).getDestroyed()) {</span>
-<span class="fc" id="L56">                getSlimes().remove(i);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        for (int i = 0; i &lt; getSlimes().size(); i++) {</span>
+<span class="fc" id="L50">            getSlimes().get(i).tick();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if (getSlimes().get(i).getDestroyed()) {</span>
+<span class="fc" id="L52">                getSlimes().remove(i);</span>
             }
         }
-<span class="fc" id="L59">        tick++;</span>
-<span class="fc" id="L60">        int original_x = this.x;</span>
-<span class="fc" id="L61">        int original_y = this.y;</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (direction == &quot;LEFT&quot;) {</span>
-<span class="fc" id="L63">            this.x -= 1;</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        } else if (direction == &quot;RIGHT&quot;) {</span>
-<span class="fc" id="L65">            this.x += 1;</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="fc" id="L67">            this.y -= 1;</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="fc" id="L69">            this.y += 1;</span>
+<span class="fc" id="L55">        tick++;</span>
+<span class="fc" id="L56">        int original_x = this.x;</span>
+<span class="fc" id="L57">        int original_y = this.y;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L59">            this.x -= 1;</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        } else if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L61">            this.x += 1;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L63">            this.y -= 1;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L65">            this.y += 1;</span>
         }
-<span class="fc" id="L71">        boolean collision = this.check_collision_wall();</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (collision) {</span>
-<span class="fc" id="L73">            this.x = original_x;</span>
-<span class="fc" id="L74">            this.y = original_y;</span>
-<span class="fc" id="L75">            this.chooseDirection();</span>
+<span class="fc" id="L67">        boolean collision = this.check_collision_wall();</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (collision) {</span>
+<span class="fc" id="L69">            this.x = original_x;</span>
+<span class="fc" id="L70">            this.y = original_y;</span>
+<span class="fc" id="L71">            this.chooseDirection();</span>
         }
-<span class="fc" id="L77">    }</span>
+<span class="fc" id="L73">    }</span>
 
     public void chooseDirection() {
-<span class="fc" id="L80">        int cur_x = this.x / 20;</span>
-<span class="fc" id="L81">        int cur_y = this.y / 20;</span>
-<span class="fc" id="L82">        ArrayList&lt;String&gt; correct_directions = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L83">        GameObject up = fm.get(cur_x, cur_y - 1);</span>
-<span class="fc" id="L84">        GameObject down = fm.get(cur_x, cur_y + 1);</span>
-<span class="fc" id="L85">        GameObject left = fm.get(cur_x - 1, cur_y);</span>
-<span class="fc" id="L86">        GameObject right = fm.get(cur_x + 1, cur_y);</span>
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (up == null) {</span>
-<span class="fc" id="L88">            correct_directions.add(&quot;UP&quot;);</span>
+<span class="fc" id="L76">        int cur_x = this.x / 20;</span>
+<span class="fc" id="L77">        int cur_y = this.y / 20;</span>
+<span class="fc" id="L78">        ArrayList&lt;String&gt; correct_directions = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L79">        GameObject up = fm.get(cur_x, cur_y - 1);</span>
+<span class="fc" id="L80">        GameObject down = fm.get(cur_x, cur_y + 1);</span>
+<span class="fc" id="L81">        GameObject left = fm.get(cur_x - 1, cur_y);</span>
+<span class="fc" id="L82">        GameObject right = fm.get(cur_x + 1, cur_y);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (up == null) {</span>
+<span class="fc" id="L84">            correct_directions.add(&quot;UP&quot;);</span>
         }
-<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (down == null) {</span>
-<span class="fc" id="L91">            correct_directions.add(&quot;DOWN&quot;);</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (down == null) {</span>
+<span class="fc" id="L87">            correct_directions.add(&quot;DOWN&quot;);</span>
         }
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (left == null) {</span>
-<span class="fc" id="L94">            correct_directions.add(&quot;LEFT&quot;);</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">        if (left == null) {</span>
+<span class="fc" id="L90">            correct_directions.add(&quot;LEFT&quot;);</span>
         }
-<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (right == null) {</span>
-<span class="fc" id="L97">            correct_directions.add(&quot;RIGHT&quot;);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        if (right == null) {</span>
+<span class="fc" id="L93">            correct_directions.add(&quot;RIGHT&quot;);</span>
         }
-<span class="fc" id="L99">        int size = correct_directions.size();</span>
-<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (size == 0) {</span>
-<span class="fc bfc" id="L101" title="All 2 branches covered.">        } else if (size == 1) {</span>
-<span class="fc" id="L102">            this.direction = correct_directions.get(0);</span>
+<span class="fc" id="L95">        int size = correct_directions.size();</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        if (size == 0) {</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        } else if (size == 1) {</span>
+<span class="fc" id="L98">            this.direction = correct_directions.get(0);</span>
         } else {
-<span class="fc" id="L104">            int ran = (int) (Math.random() * size);</span>
-<span class="pc bpc" id="L105" title="1 of 2 branches missed.">            while (correct_directions.get(ran).equals(this.direction)</span>
-<span class="fc bfc" id="L106" title="All 2 branches covered.">                    || correct_directions.get(ran).equals(d.get(direction))) {</span>
-<span class="fc" id="L107">                ran = (int) (Math.random() * size);</span>
+<span class="fc" id="L100">            int ran = (int) (Math.random() * size);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">            while (correct_directions.get(ran).equals(this.direction)</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">                    || correct_directions.get(ran).equals(d.get(direction))) {</span>
+<span class="fc" id="L103">                ran = (int) (Math.random() * size);</span>
             }
-<span class="fc" id="L109">            this.direction = correct_directions.get(ran);</span>
+<span class="fc" id="L105">            this.direction = correct_directions.get(ran);</span>
         }
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L107">    }</span>
 
     public boolean check_collision_wall() {
-<span class="fc" id="L114">        int x = this.x / 20;</span>
-<span class="fc" id="L115">        int y = this.y / 20;</span>
-<span class="fc" id="L116">        GameObject Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
-<span class="fc" id="L118">            Obj = fm.get(x + 1, y);</span>
-<span class="fc bfc" id="L119" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
-<span class="fc" id="L120">            Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L121" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="fc" id="L122">            Obj = fm.get(x, y);</span>
-<span class="pc bpc" id="L123" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="fc" id="L124">            Obj = fm.get(x, y + 1);</span>
+<span class="fc" id="L110">        int x = this.x / 20;</span>
+<span class="fc" id="L111">        int y = this.y / 20;</span>
+<span class="fc" id="L112">        GameObject Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L114">            Obj = fm.get(x + 1, y);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L116">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L118">            Obj = fm.get(x, y);</span>
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L120">            Obj = fm.get(x, y + 1);</span>
         }
-<span class="fc bfc" id="L126" title="All 2 branches covered.">        if (Obj == null) {</span>
-<span class="fc" id="L127">            return false;</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        if (Obj == null) {</span>
+<span class="fc" id="L123">            return false;</span>
         }
-<span class="fc" id="L129">        return this.intersection(Obj);</span>
+<span class="fc" id="L125">        return this.intersection(Obj);</span>
     }
 
     public void reborn(Wizard w) {
         // gremlin reborn in another random location at least 10 tile far
-<span class="fc" id="L134">        int wiz_x = w.getX() / 20;</span>
-<span class="fc" id="L135">        int wiz_y = w.getY() / 20;</span>
-<span class="fc" id="L136">        int newX = 0;</span>
-<span class="fc" id="L137">        int newY = 0;</span>
-<span class="fc" id="L138">        boolean right_position = false;</span>
+<span class="fc" id="L130">        int wiz_x = w.getX() / 20;</span>
+<span class="fc" id="L131">        int wiz_y = w.getY() / 20;</span>
+<span class="fc" id="L132">        int newX = 0;</span>
+<span class="fc" id="L133">        int newY = 0;</span>
+<span class="fc" id="L134">        boolean right_position = false;</span>
         do {
-<span class="fc" id="L140">            newX = (rand.nextInt(34) + 1);</span>
-<span class="fc" id="L141">            newY = (rand.nextInt(29) + 1);</span>
-<span class="pc bpc" id="L142" title="2 of 8 branches missed.">            if (newX &lt;= wiz_x - 10 || newX &gt;= wiz_x + 10 &amp;&amp; newY &lt;= wiz_y - 10 || newY &gt;= wiz_y + 10) {</span>
-<span class="fc" id="L143">                right_position = true;</span>
+<span class="fc" id="L136">            newX = (rand.nextInt(34) + 1);</span>
+<span class="fc" id="L137">            newY = (rand.nextInt(29) + 1);</span>
+<span class="pc bpc" id="L138" title="2 of 8 branches missed.">            if (newX &lt;= wiz_x - 10 || newX &gt;= wiz_x + 10 &amp;&amp; newY &lt;= wiz_y - 10 || newY &gt;= wiz_y + 10) {</span>
+<span class="fc" id="L139">                right_position = true;</span>
             }
-<span class="fc bfc" id="L145" title="All 4 branches covered.">        } while (right_position &amp;&amp; fm.get(newX, newY) == null);</span>
-<span class="fc" id="L146">        this.x = newX * 20;</span>
-<span class="fc" id="L147">        this.y = newY * 20;</span>
-<span class="fc" id="L148">    }</span>
+<span class="fc bfc" id="L141" title="All 4 branches covered.">        } while (right_position &amp;&amp; fm.get(newX, newY) == null);</span>
+<span class="fc" id="L142">        this.x = newX * 20;</span>
+<span class="fc" id="L143">        this.y = newY * 20;</span>
+<span class="fc" id="L144">    }</span>
 
     public void createSlime() {
-<span class="fc" id="L151">        Slime s = new Slime(this.x, this.y, direction, this.fm);</span>
-<span class="fc" id="L152">        s.setSprite(slime_image);</span>
-<span class="fc" id="L153">        slimes.add(s);</span>
-<span class="fc" id="L154">    }</span>
+<span class="fc" id="L147">        Slime s = new Slime(this.x, this.y, direction, this.fm);</span>
+<span class="fc" id="L148">        s.setSprite(slime_image);</span>
+<span class="fc" id="L149">        slimes.add(s);</span>
+<span class="fc" id="L150">    }</span>
 
     public void setSlimeImgae(PImage slime) {
-<span class="fc" id="L157">        this.slime_image = slime;</span>
-<span class="fc" id="L158">    }</span>
+<span class="fc" id="L153">        this.slime_image = slime;</span>
+<span class="fc" id="L154">    }</span>
 
     public void setDirection(String direction) {
-<span class="fc" id="L161">        this.direction = direction;</span>
-<span class="fc" id="L162">    }</span>
+<span class="fc" id="L157">        this.direction = direction;</span>
+<span class="fc" id="L158">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

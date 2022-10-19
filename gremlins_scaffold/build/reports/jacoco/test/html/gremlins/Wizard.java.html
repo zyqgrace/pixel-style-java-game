@@ -32,12 +32,12 @@ public class Wizard extends GameObject {
 <span class="fc" id="L32">                setAdjusted(true);</span>
             } else {
 <span class="fc" id="L34">                setAdjusted(false);</span>
-<span class="pc bpc" id="L35" title="1 of 2 branches missed.">                if (direction == &quot;LEFT&quot;) {</span>
-<span class="nc" id="L36">                    this.x = this.x - 1;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L36">                    this.x = this.x - 1;</span>
 <span class="fc bfc" id="L37" title="All 2 branches covered.">                } else if (direction == &quot;RIGHT&quot;) {</span>
 <span class="fc" id="L38">                    this.x = this.x + 1;</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">                } else if (direction == &quot;UP&quot;) {</span>
-<span class="nc" id="L40">                    this.y = this.y - 1;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">                } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L40">                    this.y = this.y - 1;</span>
 <span class="fc bfc" id="L41" title="All 2 branches covered.">                } else if (direction == &quot;DOWN&quot;) {</span>
 <span class="fc" id="L42">                    this.y = this.y + 1;</span>
                 }
@@ -90,10 +90,10 @@ public class Wizard extends GameObject {
 <span class="fc" id="L90">        GameObject Obj = fm.get(x, y);</span>
 <span class="fc bfc" id="L91" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
 <span class="fc" id="L92">            Obj = fm.get(x + 1, y);</span>
-<span class="pc bpc" id="L93" title="1 of 2 branches missed.">        } else if (direction == &quot;LEFT&quot;) {</span>
-<span class="nc" id="L94">            Obj = fm.get(x, y);</span>
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="nc" id="L96">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L94">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L96">            Obj = fm.get(x, y);</span>
 <span class="fc bfc" id="L97" title="All 2 branches covered.">        } else if (direction == &quot;DOWN&quot;) {</span>
 <span class="fc" id="L98">            Obj = fm.get(x, y + 1);</span>
         }

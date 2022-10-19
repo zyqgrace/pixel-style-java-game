@@ -1,33 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="gremlins.ConfLoaderTest" tests="31" skipped="0" failures="1" errors="0" timestamp="2022-10-19T10:34:41" hostname="gracedeMacBook-Pro.local" time="67.222">
+<testsuite name="gremlins.ConfLoaderTest" tests="35" skipped="0" failures="1" errors="0" timestamp="2022-10-19T11:32:44" hostname="gracedeMacBook-Pro.local" time="92.898">
   <properties/>
-  <testcase name="testWizardNotAdjustedDirection()" classname="gremlins.ConfLoaderTest" time="1.198"/>
-  <testcase name="testFireBallUp()" classname="gremlins.ConfLoaderTest" time="6.393"/>
-  <testcase name="testSlimeHitWizard()" classname="gremlins.ConfLoaderTest" time="2.242"/>
-  <testcase name="testFireBallHitGremlin()" classname="gremlins.ConfLoaderTest" time="2.3"/>
-  <testcase name="testWizardRightLeftDirection()" classname="gremlins.ConfLoaderTest" time="1.007"/>
-  <testcase name="testWizardUpDirection()" classname="gremlins.ConfLoaderTest" time="1.003"/>
-  <testcase name="testTotalLevel()" classname="gremlins.ConfLoaderTest" time="1.003"/>
-  <testcase name="testWin()" classname="gremlins.ConfLoaderTest" time="1.236"/>
-  <testcase name="testPowerOn()" classname="gremlins.ConfLoaderTest" time="3.179"/>
-  <testcase name="testMapPosition()" classname="gremlins.ConfLoaderTest" time="1.002"/>
-  <testcase name="testFireBallHitSlime()" classname="gremlins.ConfLoaderTest" time="2.355"/>
-  <testcase name="testFireBallRight()" classname="gremlins.ConfLoaderTest" time="1.608"/>
-  <testcase name="testfireball()" classname="gremlins.ConfLoaderTest" time="1.2"/>
-  <testcase name="testWizardDirectionLeft()" classname="gremlins.ConfLoaderTest" time="1.849"/>
-  <testcase name="testWizardDownDirection()" classname="gremlins.ConfLoaderTest" time="1.014"/>
-  <testcase name="testWizardRightDirection()" classname="gremlins.ConfLoaderTest" time="1.564"/>
-  <testcase name="testRestart()" classname="gremlins.ConfLoaderTest" time="1.788"/>
-  <testcase name="GremlinsDirection()" classname="gremlins.ConfLoaderTest" time="1.005"/>
-  <testcase name="testFireBallDown()" classname="gremlins.ConfLoaderTest" time="1.668"/>
-  <testcase name="testLivesSetUp()" classname="gremlins.ConfLoaderTest" time="1.596"/>
-  <testcase name="testgetlivesequals0()" classname="gremlins.ConfLoaderTest" time="2.745"/>
-  <testcase name="testFireBallHitDownWall()" classname="gremlins.ConfLoaderTest" time="1.256">
-    <failure message="java.lang.NullPointerException" type="java.lang.NullPointerException">java.lang.NullPointerException
-	at gremlins.Frame.setSprite(Frame.java:85)
-	at gremlins.App.setFrame(App.java:318)
-	at gremlins.App.setup(App.java:106)
-	at gremlins.ConfLoaderTest.testFireBallHitDownWall(ConfLoaderTest.java:358)
+  <testcase name="testWizardNotAdjustedDirection()" classname="gremlins.ConfLoaderTest" time="1.275"/>
+  <testcase name="testFireBallUp()" classname="gremlins.ConfLoaderTest" time="6.142"/>
+  <testcase name="testSlimeHitWizard()" classname="gremlins.ConfLoaderTest" time="2.119"/>
+  <testcase name="testFireBallHitGremlin()" classname="gremlins.ConfLoaderTest" time="2.108"/>
+  <testcase name="testWizardRightLeftDirection()" classname="gremlins.ConfLoaderTest" time="1.009"/>
+  <testcase name="testWizardUpDirection()" classname="gremlins.ConfLoaderTest" time="1.002"/>
+  <testcase name="testTotalLevel()" classname="gremlins.ConfLoaderTest" time="1.005"/>
+  <testcase name="testWin()" classname="gremlins.ConfLoaderTest" time="1.309"/>
+  <testcase name="testFireBallDirectionLeft()" classname="gremlins.ConfLoaderTest" time="1.246"/>
+  <testcase name="testPowerOn()" classname="gremlins.ConfLoaderTest" time="3.387"/>
+  <testcase name="testMapPosition()" classname="gremlins.ConfLoaderTest" time="1.007"/>
+  <testcase name="testFireBallHitSlime()" classname="gremlins.ConfLoaderTest" time="2.488">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:40)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:35)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:162)
+	at gremlins.ConfLoaderTest.testFireBallHitSlime(ConfLoaderTest.java:466)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -115,15 +106,29 @@
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="testDrawWin()" classname="gremlins.ConfLoaderTest" time="2.701"/>
-  <testcase name="testFireBallHitLeftWall()" classname="gremlins.ConfLoaderTest" time="3.095"/>
-  <testcase name="testCheckGameStatus()" classname="gremlins.ConfLoaderTest" time="1.013"/>
-  <testcase name="testReborn()" classname="gremlins.ConfLoaderTest" time="4.058"/>
-  <testcase name="testcheckLosetatus()" classname="gremlins.ConfLoaderTest" time="3.409"/>
-  <testcase name="testKeyReleased()" classname="gremlins.ConfLoaderTest" time="1.002"/>
-  <testcase name="testWizardHitGremlins()" classname="gremlins.ConfLoaderTest" time="4.227"/>
-  <testcase name="testpassblackHole()" classname="gremlins.ConfLoaderTest" time="3.702"/>
-  <testcase name="testWallBreak()" classname="gremlins.ConfLoaderTest" time="3.766"/>
+  <testcase name="testFireBallRight()" classname="gremlins.ConfLoaderTest" time="1.528"/>
+  <testcase name="testfireball()" classname="gremlins.ConfLoaderTest" time="2.199"/>
+  <testcase name="testWizardAdjusted()" classname="gremlins.ConfLoaderTest" time="1.002"/>
+  <testcase name="testWizardLeftDirection()" classname="gremlins.ConfLoaderTest" time="1.615"/>
+  <testcase name="testWizardDownDirection()" classname="gremlins.ConfLoaderTest" time="1.006"/>
+  <testcase name="testGamePlayAgain()" classname="gremlins.ConfLoaderTest" time="2.645"/>
+  <testcase name="testWizardRightDirection()" classname="gremlins.ConfLoaderTest" time="1.453"/>
+  <testcase name="testRestart()" classname="gremlins.ConfLoaderTest" time="2.086"/>
+  <testcase name="GremlinsDirection()" classname="gremlins.ConfLoaderTest" time="1.003"/>
+  <testcase name="testFireBallDown()" classname="gremlins.ConfLoaderTest" time="1.934"/>
+  <testcase name="testLivesSetUp()" classname="gremlins.ConfLoaderTest" time="1.798"/>
+  <testcase name="testgetlivesequals0()" classname="gremlins.ConfLoaderTest" time="2.902"/>
+  <testcase name="testFireBallHitDownWall()" classname="gremlins.ConfLoaderTest" time="2.039"/>
+  <testcase name="testDrawWin()" classname="gremlins.ConfLoaderTest" time="2.613"/>
+  <testcase name="testNotFireOn()" classname="gremlins.ConfLoaderTest" time="3.456"/>
+  <testcase name="testFireBallHitLeftWall()" classname="gremlins.ConfLoaderTest" time="16.299"/>
+  <testcase name="testCheckGameStatus()" classname="gremlins.ConfLoaderTest" time="1.007"/>
+  <testcase name="testReborn()" classname="gremlins.ConfLoaderTest" time="8.787"/>
+  <testcase name="testcheckLosetatus()" classname="gremlins.ConfLoaderTest" time="2.365"/>
+  <testcase name="testKeyReleased()" classname="gremlins.ConfLoaderTest" time="1.017"/>
+  <testcase name="testWizardHitGremlins()" classname="gremlins.ConfLoaderTest" time="4.439"/>
+  <testcase name="testpassblackHole()" classname="gremlins.ConfLoaderTest" time="3.401"/>
+  <testcase name="testWallBreak()" classname="gremlins.ConfLoaderTest" time="2.165"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

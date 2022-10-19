@@ -55,17 +55,6 @@ class ConfLoaderTest {
     }
 
     @Test
-    void testWizardUpDirection() {
-        App app = new App();
-        app.setFrame();
-        app.delay(1000);
-        app.keyCode = 38;
-        app.player.setAdjusted(true);
-        app.keyPressed();
-        assertEquals("UP", app.player.getDirection());
-    }
-
-    @Test
     void testWizardRightLeftDirection() {
         App app = new App();
         app.setFrame();
@@ -89,6 +78,20 @@ class ConfLoaderTest {
         app.player.setAdjusted(true);
         app.keyPressed();
         assertEquals("DOWN", app.player.getDirection());
+        app.player.tick();
+        assertEquals(40, app.player.getX());
+        assertEquals(20, app.player.getY());
+    }
+
+    @Test
+    void testWizardUpDirection() {
+        App app = new App();
+        app.setFrame();
+        app.delay(1000);
+        app.keyCode = 38;
+        app.player.setAdjusted(true);
+        app.keyPressed();
+        assertEquals("UP", app.player.getDirection());
         app.player.tick();
         assertEquals(40, app.player.getX());
         assertEquals(20, app.player.getY());
@@ -154,7 +157,7 @@ class ConfLoaderTest {
     }
 
     @Test
-    void testWizardDirectionLeft() {
+    void testFireBallDirectionLeft() {
         App app = new App();
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
@@ -185,23 +188,24 @@ class ConfLoaderTest {
         app.loop();
         PApplet.runSketch(new String[] { "App" }, app);
         app.setup();
-        app.delay(1500);
+        app.delay(1000);
         Gremlins g = new Gremlins(20, 20, app.fm);
-        int x = g.getX();
-        int y = g.getY();
+        int[] original_dis = new int[] { g.getX(), g.getY() };
         g.reborn(app.player);
-        assertNotEquals(x, g.getX());
-        assertNotEquals(y, g.getY());
-        x = g.getX();
-        y = g.getY();
+        app.delay(1000);
+        int[] new_dis = new int[] { g.getX(), g.getY() };
+        assertNotEquals(original_dis, new_dis);
+        original_dis = new int[] { g.getX(), g.getY() };
         g.reborn(app.player);
-        assertNotEquals(x, g.getX());
-        assertNotEquals(y, g.getY());
-        x = g.getX();
-        y = g.getY();
+        app.delay(1000);
+        new_dis = new int[] { g.getX(), g.getY() };
+        assertNotEquals(original_dis, new_dis);
+        original_dis = new int[] { g.getX(), g.getY() };
         g.reborn(app.player);
-        assertNotEquals(x, g.getX());
-        assertNotEquals(y, g.getY());
+        app.delay(1000);
+        new_dis = new int[] { g.getX(), g.getY() };
+        assertNotEquals(original_dis, new_dis);
+
     }
 
     @Test
@@ -337,6 +341,21 @@ class ConfLoaderTest {
     }
 
     @Test
+    void testGamePlayAgain() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.win = true;
+        app.tick = 61;
+        app.delay(1000);
+        app.keyCode = 32;
+        app.keyPressed();
+        assertEquals(0, app.level);
+    }
+
+    @Test
     void testFireBallHitLeftWall() {
         App app = new App();
         app.loop();
@@ -398,6 +417,23 @@ class ConfLoaderTest {
     }
 
     @Test
+    void testWizardLeftDirection() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.keyCode = 37;
+        app.player.setAdjusted(true);
+        app.keyPressed();
+        assertEquals("LEFT", app.player.getDirection());
+        app.player.tick();
+        assertEquals(38, app.player.getX());
+        assertEquals(20, app.player.getY());
+        assertFalse(app.player.check_collision_wall());
+    }
+
+    @Test
     void testSlimeHitWizard() {
         App app = new App();
         app.loop();
@@ -430,4 +466,27 @@ class ConfLoaderTest {
         assertTrue(s.getDestroyed());
     }
 
+    @Test
+    void testNotFireOn() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.fire_on = true;
+        app.keyCode = 32;
+        app.keyPressed();
+        assertEquals(0, app.fireballs.size());
+    }
+
+    @Test
+    void testWizardAdjusted() {
+        App app = new App();
+        app.setFrame();
+        app.delay(1000);
+        app.player.setAdjusted(true);
+        app.keyReleased();
+        app.player.tick();
+        assertTrue(app.player.isAdjusted());
+    }
 }
