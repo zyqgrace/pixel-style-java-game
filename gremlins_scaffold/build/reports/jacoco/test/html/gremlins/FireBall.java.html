@@ -70,15 +70,15 @@ public class FireBall extends GameObject {
             }
 <span class="fc bfc" id="L71" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
 <span class="fc" id="L72">            Obj = fm.get(x, y);</span>
-<span class="pc bpc" id="L73" title="1 of 2 branches missed.">            if (Obj != null) {</span>
-<span class="nc" id="L74">                this.setColliding_wall(Obj);</span>
-<span class="nc bnc" id="L75" title="All 2 branches missed.">                return this.getY() &lt; Obj.getY() + 20;</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            if (Obj != null) {</span>
+<span class="fc" id="L74">                this.setColliding_wall(Obj);</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">                return this.getY() &lt; Obj.getY() + 20;</span>
             }
 <span class="pc bpc" id="L77" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
 <span class="fc" id="L78">            Obj = fm.get(x, y + 1);</span>
 <span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (Obj != null) {</span>
 <span class="fc" id="L80">                this.setColliding_wall(Obj);</span>
-<span class="fc bfc" id="L81" title="All 2 branches covered.">                return this.getY() + 20 &gt; Obj.getY();</span>
+<span class="pc bpc" id="L81" title="1 of 2 branches missed.">                return this.getY() + 20 &gt; Obj.getY();</span>
             }
         }
 <span class="fc" id="L84">        return false;</span>

@@ -206,10 +206,10 @@ public class App extends PApplet {
 <span class="nc" id="L206">                                g.getSlimes().remove(i);</span>
                             }
                         }
-<span class="fc bfc" id="L209" title="All 2 branches covered.">                        if (player.intersection(temp_s)) {</span>
-<span class="fc" id="L210">                            this.loseLives();</span>
-<span class="fc" id="L211">                            this.setFrame();</span>
-<span class="fc" id="L212">                            return;</span>
+<span class="pc bpc" id="L209" title="1 of 2 branches missed.">                        if (player.intersection(temp_s)) {</span>
+<span class="nc" id="L210">                            this.loseLives();</span>
+<span class="nc" id="L211">                            this.setFrame();</span>
+<span class="nc" id="L212">                            return;</span>
                         }
 <span class="fc" id="L214">                        temp_s.draw(this);</span>
                     }
@@ -227,7 +227,7 @@ public class App extends PApplet {
 <span class="fc" id="L227">                    fire_on = false;</span>
                 }
             }
-<span class="fc bfc" id="L230" title="All 2 branches covered.">            if (this.player.intersection(magic)) {</span>
+<span class="pc bpc" id="L230" title="1 of 4 branches missed.">            if (this.player.intersection(magic) &amp;&amp; magic.getVisible()) {</span>
 <span class="fc" id="L231">                magic.set_again();</span>
             }
 <span class="fc bfc" id="L233" title="All 2 branches covered.">            if (magic.effectOn()) {</span>
@@ -285,59 +285,58 @@ public class App extends PApplet {
 <span class="fc" id="L285">    }</span>
 
     public void check_next_level() {
-<span class="fc" id="L288">        System.out.println(lives);</span>
-<span class="fc bfc" id="L289" title="All 2 branches covered.">        if (player.intersection(this.exit)) {</span>
-<span class="fc" id="L290">            level++;</span>
-<span class="fc bfc" id="L291" title="All 2 branches covered.">            if (level == total_level) {</span>
-<span class="fc" id="L292">                level = 0;</span>
-<span class="fc" id="L293">                win = true;</span>
-<span class="fc" id="L294">                tick = 0;</span>
+<span class="fc bfc" id="L288" title="All 2 branches covered.">        if (player.intersection(this.exit)) {</span>
+<span class="fc" id="L289">            level++;</span>
+<span class="fc bfc" id="L290" title="All 2 branches covered.">            if (level == total_level) {</span>
+<span class="fc" id="L291">                level = 0;</span>
+<span class="fc" id="L292">                win = true;</span>
+<span class="fc" id="L293">                tick = 0;</span>
             } else {
-<span class="fc" id="L296">                this.setFrame();</span>
+<span class="fc" id="L295">                this.setFrame();</span>
             }
-<span class="fc bfc" id="L298" title="All 2 branches covered.">        } else if (lives &lt;= 0) {</span>
-<span class="fc" id="L299">            level = 0;</span>
-<span class="fc" id="L300">            lose = true;</span>
-<span class="fc" id="L301">            tick = 0;</span>
+<span class="fc bfc" id="L297" title="All 2 branches covered.">        } else if (lives &lt;= 0) {</span>
+<span class="fc" id="L298">            level = 0;</span>
+<span class="fc" id="L299">            lose = true;</span>
+<span class="fc" id="L300">            tick = 0;</span>
         }
-<span class="fc" id="L303">    }</span>
+<span class="fc" id="L302">    }</span>
 
     public int getLives() {
-<span class="fc" id="L306">        return lives;</span>
+<span class="fc" id="L305">        return lives;</span>
     }
 
     public void loseLives() {
-<span class="fc" id="L310">        this.lives--;</span>
-<span class="fc" id="L311">    }</span>
+<span class="fc" id="L309">        this.lives--;</span>
+<span class="fc" id="L310">    }</span>
 
     public void setFrame() {
-<span class="fc" id="L314">        JSONObject conf = loadJSONObject(new File(this.configPath));</span>
-<span class="fc" id="L315">        this.total_level = conf.getJSONArray(&quot;levels&quot;).size();</span>
-<span class="fc" id="L316">        JSONObject cur_level = conf.getJSONArray(&quot;levels&quot;).getJSONObject(this.level);</span>
-<span class="fc" id="L317">        this.fm = new Frame(cur_level);</span>
-<span class="fc" id="L318">        this.fm.parseMap();</span>
-<span class="fc" id="L319">        fm.setSprite(this);</span>
-<span class="fc" id="L320">        this.player = fm.getWizard();</span>
-<span class="fc" id="L321">        this.gremlins = fm.getGremlins();</span>
-<span class="fc" id="L322">        this.exit = fm.getDoor();</span>
-<span class="fc" id="L323">        this.magic = (Powerup) fm.getPowerup();</span>
-<span class="fc" id="L324">        fire_on = false;</span>
-<span class="fc" id="L325">        this.transferred = false;</span>
-<span class="fc" id="L326">        fireballs = new ArrayList&lt;FireBall&gt;();</span>
-<span class="fc" id="L327">        slimes = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L328">        this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);</span>
-<span class="fc" id="L329">        this.wizardCoolDown_counter = 0;</span>
-<span class="fc" id="L330">        this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);</span>
-<span class="fc" id="L331">        this.win = false;</span>
-<span class="fc" id="L332">        this.lose = false;</span>
-<span class="fc" id="L333">        this.blackholes = fm.getBlackHole();</span>
-<span class="fc bfc" id="L334" title="All 2 branches covered.">        for (BlackHole b : this.blackholes) {</span>
-<span class="fc" id="L335">            b.setSprite(blackhole);</span>
-<span class="fc" id="L336">        }</span>
-<span class="fc" id="L337">    }</span>
+<span class="fc" id="L313">        JSONObject conf = loadJSONObject(new File(this.configPath));</span>
+<span class="fc" id="L314">        this.total_level = conf.getJSONArray(&quot;levels&quot;).size();</span>
+<span class="fc" id="L315">        JSONObject cur_level = conf.getJSONArray(&quot;levels&quot;).getJSONObject(this.level);</span>
+<span class="fc" id="L316">        this.fm = new Frame(cur_level);</span>
+<span class="fc" id="L317">        this.fm.parseMap();</span>
+<span class="fc" id="L318">        fm.setSprite(this);</span>
+<span class="fc" id="L319">        this.player = fm.getWizard();</span>
+<span class="fc" id="L320">        this.gremlins = fm.getGremlins();</span>
+<span class="fc" id="L321">        this.exit = fm.getDoor();</span>
+<span class="fc" id="L322">        this.magic = (Powerup) fm.getPowerup();</span>
+<span class="fc" id="L323">        fire_on = false;</span>
+<span class="fc" id="L324">        this.transferred = false;</span>
+<span class="fc" id="L325">        fireballs = new ArrayList&lt;FireBall&gt;();</span>
+<span class="fc" id="L326">        slimes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L327">        this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);</span>
+<span class="fc" id="L328">        this.wizardCoolDown_counter = 0;</span>
+<span class="fc" id="L329">        this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);</span>
+<span class="fc" id="L330">        this.win = false;</span>
+<span class="fc" id="L331">        this.lose = false;</span>
+<span class="fc" id="L332">        this.blackholes = fm.getBlackHole();</span>
+<span class="fc bfc" id="L333" title="All 2 branches covered.">        for (BlackHole b : this.blackholes) {</span>
+<span class="fc" id="L334">            b.setSprite(blackhole);</span>
+<span class="fc" id="L335">        }</span>
+<span class="fc" id="L336">    }</span>
 
     public static void main(String[] args) {
-<span class="nc" id="L340">        PApplet.main(&quot;gremlins.App&quot;);</span>
-<span class="nc" id="L341">    }</span>
+<span class="nc" id="L339">        PApplet.main(&quot;gremlins.App&quot;);</span>
+<span class="nc" id="L340">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

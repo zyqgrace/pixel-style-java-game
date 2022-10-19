@@ -44,7 +44,7 @@ public class Gremlins extends GameObject {
 
     public void tick() {
         if ((tick) % cool_down == 0) {
-            getSlimes().add(this.createSlime());
+            this.createSlime();
         }
         for (int i = 0; i < getSlimes().size(); i++) {
             getSlimes().get(i).tick();
@@ -143,10 +143,10 @@ public class Gremlins extends GameObject {
         this.y = newY * 20;
     }
 
-    public Slime createSlime() {
+    public void createSlime() {
         Slime s = new Slime(this.x, this.y, direction, this.fm);
         s.setSprite(slime_image);
-        return s;
+        slimes.add(s);
     }
 
     public void setSlimeImgae(PImage slime) {

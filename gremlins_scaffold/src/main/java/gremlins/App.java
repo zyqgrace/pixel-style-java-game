@@ -227,7 +227,7 @@ public class App extends PApplet {
                     fire_on = false;
                 }
             }
-            if (this.player.intersection(magic)) {
+            if (this.player.intersection(magic) && magic.getVisible()) {
                 magic.set_again();
             }
             if (magic.effectOn()) {
@@ -285,7 +285,6 @@ public class App extends PApplet {
     }
 
     public void check_next_level() {
-        System.out.println(lives);
         if (player.intersection(this.exit)) {
             level++;
             if (level == total_level) {
