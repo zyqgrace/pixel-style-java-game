@@ -89,6 +89,9 @@ class ConfLoaderTest {
         app.player.setAdjusted(true);
         app.keyPressed();
         assertEquals("DOWN", app.player.getDirection());
+        app.player.tick();
+        assertEquals(40, app.player.getX());
+        assertEquals(20, app.player.getY());
     }
 
     @Test
@@ -131,20 +134,6 @@ class ConfLoaderTest {
         ball.check_collision_wall();
         ball.setDestroyed();
         assertEquals(true, ball.getDestroyed());
-    }
-
-    @Test
-    void testWin() {
-        App app = new App();
-        app.loop();
-        PApplet.runSketch(new String[] { "App" }, app);
-        app.setup();
-        app.delay(1000);
-        app.level = 1;
-        app.player.x = app.exit.getX();
-        app.player.y = app.exit.getY();
-        app.check_next_level();
-        assertTrue(app.win);
     }
 
     @Test
@@ -197,6 +186,16 @@ class ConfLoaderTest {
         Gremlins g = new Gremlins(20, 20, app.fm);
         int x = g.getX();
         int y = g.getY();
+        g.reborn(app.player);
+        assertNotEquals(x, g.getX());
+        assertNotEquals(y, g.getY());
+        x = g.getX();
+        y = g.getY();
+        g.reborn(app.player);
+        assertNotEquals(x, g.getX());
+        assertNotEquals(y, g.getY());
+        x = g.getX();
+        y = g.getY();
         g.reborn(app.player);
         assertNotEquals(x, g.getX());
         assertNotEquals(y, g.getY());
@@ -263,6 +262,102 @@ class ConfLoaderTest {
         ball.tick();
         assertEquals(20, ball.getX());
         assertEquals(624, ball.getY());
+    }
+
+    @Test
+    void GremlinsDirection() {
+        App app = new App();
+        app.setFrame();
+        app.delay(1000);
+        Gremlins g = new Gremlins(20, 20, app.fm);
+        g.setDirection("DOWN");
+        assertEquals("DOWN", g.getDirection());
+        g.tick();
+        assertEquals(21, g.getY());
+    }
+
+    @Test
+    void testpassblackHole() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        int x = app.blackholes.get(0).getX();
+        int y = app.blackholes.get(0).getY();
+        app.player.x = x;
+        app.player.y = y;
+        app.delay(1000);
+        assertTrue(app.transferred);
+    }
+
+    @Test
+    void testgetlivesequals0() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.loseLives();
+        app.loseLives();
+        app.loseLives();
+        app.draw();
+        app.check_next_level();
+        assertTrue(app.lose);
+    }
+
+    @Test
+    void testWin() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.level = 1;
+        app.player.x = app.exit.getX();
+        app.player.y = app.exit.getY();
+        app.check_next_level();
+        assertTrue(app.win);
+    }
+
+    @Test
+    void testDrawWin() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        app.win = true;
+        assertTrue(app.win);
+    }
+
+    @Test
+    void testFirBallHitleftWall() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        FireBall ball = new FireBall(20, 20, "LEFT", app.fm);
+        ball.tick();
+        assertEquals(16, ball.getX());
+        assertEquals(20, ball.getY());
+        assertTrue(ball.check_collision_wall());
+
+    }
+
+    @Test
+    void testFirBallHitDownWall() {
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[] { "App" }, app);
+        app.setup();
+        app.delay(1000);
+        FireBall ball = new FireBall(20, 620, "DOWN", app.fm);
+        ball.tick();
+        assertEquals(20, ball.getX());
+        assertEquals(624, ball.getY());
+        assertTrue(ball.check_collision_wall());
+
     }
 
 }

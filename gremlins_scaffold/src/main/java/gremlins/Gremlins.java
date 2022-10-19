@@ -153,4 +153,8 @@ public class Gremlins extends GameObject {
         this.slime_image = slime;
     }
 
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
 }

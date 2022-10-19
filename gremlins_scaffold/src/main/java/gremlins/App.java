@@ -160,13 +160,11 @@ public class App extends PApplet {
             background(191, 153, 114);
             textSize(40);
             text("YOU WIN!", (float) (WIDTH / 2) - 80, (float) HEIGHT / 2);
-        } else if (getLives() == 0) {
+        } else if (lose) {
             background(224, 24, 24);
             textSize(40);
-            lose = true;
             text("GAME OVER!", (float) (WIDTH / 2) - 95, (float) HEIGHT / 2);
         } else {
-            this.check_next_level();
             this.fm.tick();
             this.player.tick();
             this.magic.tick();
@@ -282,22 +280,25 @@ public class App extends PApplet {
                 image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
             }
             text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
+            this.check_next_level();
         }
     }
 
     public void check_next_level() {
+        System.out.println(lives);
         if (player.intersection(this.exit)) {
             level++;
             if (level == total_level) {
                 level = 0;
                 win = true;
                 tick = 0;
-            } else if (getLives() == 0) {
-                lose = true;
-                tick = 0;
             } else {
                 this.setFrame();
             }
+        } else if (lives <= 0) {
+            level = 0;
+            lose = true;
+            tick = 0;
         }
     }
 

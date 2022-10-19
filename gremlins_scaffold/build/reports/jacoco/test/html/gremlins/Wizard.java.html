@@ -38,16 +38,16 @@ public class Wizard extends GameObject {
 <span class="nc" id="L38">                    this.x = this.x + 1;</span>
 <span class="pc bpc" id="L39" title="1 of 2 branches missed.">                } else if (direction == &quot;UP&quot;) {</span>
 <span class="nc" id="L40">                    this.y = this.y - 1;</span>
-<span class="pc bpc" id="L41" title="1 of 2 branches missed.">                } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="nc" id="L42">                    this.y = this.y + 1;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">                } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L42">                    this.y = this.y + 1;</span>
                 }
             }
 <span class="fc" id="L45">            i++;</span>
         }
 <span class="fc" id="L47">        collide_wall = this.check_collision_wall();</span>
-<span class="pc bpc" id="L48" title="1 of 2 branches missed.">        if (collide_wall) {</span>
-<span class="nc" id="L49">            this.x = original_x;</span>
-<span class="nc" id="L50">            this.y = original_y;</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (collide_wall) {</span>
+<span class="fc" id="L49">            this.x = original_x;</span>
+<span class="fc" id="L50">            this.y = original_y;</span>
         }
 <span class="fc" id="L52">    }</span>
 
@@ -94,13 +94,13 @@ public class Wizard extends GameObject {
 <span class="nc" id="L94">            Obj = fm.get(x, y);</span>
 <span class="pc bpc" id="L95" title="1 of 2 branches missed.">        } else if (direction == &quot;UP&quot;) {</span>
 <span class="nc" id="L96">            Obj = fm.get(x, y);</span>
-<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="nc" id="L98">            Obj = fm.get(x, y + 1);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L98">            Obj = fm.get(x, y + 1);</span>
         }
-<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (Obj == null) {</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (Obj == null) {</span>
 <span class="fc" id="L101">            return false;</span>
         }
-<span class="nc" id="L103">        return this.intersection(Obj);</span>
+<span class="fc" id="L103">        return this.intersection(Obj);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
