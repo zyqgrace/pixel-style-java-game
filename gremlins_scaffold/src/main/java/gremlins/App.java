@@ -112,6 +112,7 @@ public class App extends PApplet {
     public void keyPressed() {
         player.Released();
         if ((win || lose) && tick > 60) {
+            this.level = 0;
             this.setup();
         }
         if (this.keyCode == 37) {
@@ -235,7 +236,6 @@ public class App extends PApplet {
                 PShape progress_bar2 = createShape(RECT, 0, 0, (magic.getEffect_time() * 100) / 180, 5);
                 progress_bar2.setFill(0);
                 shape(progress_bar2, 580, 700);
-
                 player.powerup();
             } else {
                 player.setback();

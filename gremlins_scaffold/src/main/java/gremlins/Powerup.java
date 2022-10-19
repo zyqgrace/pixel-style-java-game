@@ -18,7 +18,10 @@ public class Powerup extends GameObject {
         this.spawn = (rand.nextInt(3 * 60) + 8 * 60);
         this.tick = 0;
         visible = false;
+    }
 
+    public void setVisible() {
+        visible = true;
     }
 
     public void tick() {
