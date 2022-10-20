@@ -138,7 +138,7 @@ public class Gremlins extends GameObject {
 <span class="pc bpc" id="L138" title="2 of 8 branches missed.">            if (newX &lt;= wiz_x - 10 || newX &gt;= wiz_x + 10 &amp;&amp; newY &lt;= wiz_y - 10 || newY &gt;= wiz_y + 10) {</span>
 <span class="fc" id="L139">                right_position = true;</span>
             }
-<span class="fc bfc" id="L141" title="All 4 branches covered.">        } while (right_position &amp;&amp; fm.get(newX, newY) == null);</span>
+<span class="pc bpc" id="L141" title="1 of 4 branches missed.">        } while (right_position &amp;&amp; fm.get(newX, newY) == null);</span>
 <span class="fc" id="L142">        this.x = newX * 20;</span>
 <span class="fc" id="L143">        this.y = newY * 20;</span>
 <span class="fc" id="L144">    }</span>
