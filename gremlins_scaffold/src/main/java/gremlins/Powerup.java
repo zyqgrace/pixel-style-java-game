@@ -64,6 +64,7 @@ public class Powerup extends GameObject {
         effectTime = 0;
         tick = 0;
         this.spawn = (rand.nextInt(3 * 60) + 8 * 60);
+        System.out.println(this.spawn);
         visible = false;
         int newX = (rand.nextInt(34) + 1);
         int newY = (rand.nextInt(29) + 1);
