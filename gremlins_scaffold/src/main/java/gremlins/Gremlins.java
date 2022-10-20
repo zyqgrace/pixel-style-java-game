@@ -9,7 +9,10 @@ import processing.core.PImage;
 
 public class Gremlins extends GameObject {
     private String[] directions = new String[] { "LEFT", "RIGHT", "UP", "DOWN" };
-    private Map<String, String> d = new HashMap<>();
+    /**
+     * map to record the inverse direction of each direction
+     */
+    private Map<String, String> inverse_direction = new HashMap<>();
     private String direction;
     private Frame fm;
     private int cool_down;
@@ -27,10 +30,10 @@ public class Gremlins extends GameObject {
         cool_down = (int) (fm.getEnemyCoolDown() * 60);
         this.slimes = new ArrayList<>();
         rand = new Random();
-        d.put("LEFT", "RIGHT");
-        d.put("RIGHT", "LEFT");
-        d.put("UP", "DOWN");
-        d.put("DOWN", "UP");
+        inverse_direction.put("LEFT", "RIGHT");
+        inverse_direction.put("RIGHT", "LEFT");
+        inverse_direction.put("UP", "DOWN");
+        inverse_direction.put("DOWN", "UP");
 
     }
 
@@ -72,6 +75,9 @@ public class Gremlins extends GameObject {
         }
     }
 
+    /**
+     * choose a new direction when the gremlin collide with the wall
+     */
     public void chooseDirection() {
         int cur_x = this.x / 20;
         int cur_y = this.y / 20;
@@ -99,7 +105,7 @@ public class Gremlins extends GameObject {
         } else {
             int ran = (int) (Math.random() * size);
             while (correct_directions.get(ran).equals(this.direction)
-                    || correct_directions.get(ran).equals(d.get(direction))) {
+                    || correct_directions.get(ran).equals(inverse_direction.get(direction))) {
                 ran = (int) (Math.random() * size);
             }
             this.direction = correct_directions.get(ran);
@@ -125,6 +131,12 @@ public class Gremlins extends GameObject {
         return this.intersection(Obj);
     }
 
+    /**
+     * this method is used for relocate the position that is 10 tiles apart from the
+     * wizard after it collide with wizard's fireball
+     * 
+     * @param w - current player
+     */
     public void reborn(Wizard w) {
         // gremlin reborn in another random location at least 10 tile far
         int wiz_x = w.getX() / 20;

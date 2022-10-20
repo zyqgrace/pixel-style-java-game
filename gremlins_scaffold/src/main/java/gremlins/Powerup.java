@@ -5,8 +5,15 @@ import java.util.Random;
 public class Powerup extends GameObject {
     private Frame fm;
     private Random rand;
+    /**
+     * a integer of time that powerup will show up
+     */
     private int spawn;
     private int tick;
+
+    /**
+     * the remaining time of wizard collect the power up.
+     */
     private int effect_time;
     private boolean effect_on;
     private boolean visible;
@@ -49,6 +56,9 @@ public class Powerup extends GameObject {
         return this.effect_time;
     }
 
+    /**
+     * assign a new position for power up after being collected
+     */
     public void set_again() {
         effect_on = true;
         effect_time = 0;

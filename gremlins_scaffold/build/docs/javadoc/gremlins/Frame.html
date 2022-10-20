@@ -126,7 +126,10 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../gremlins/Frame.html#Frame-processing.data.JSONObject-">Frame</a></span>(processing.data.JSONObject&nbsp;level)</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../gremlins/Frame.html#Frame-processing.data.JSONObject-">Frame</a></span>(processing.data.JSONObject&nbsp;level)</code>
+<div class="block">initialize a two dimension array for recording the position of wall,
+ two ArrayList for contains all the gremlins and blackhole</div>
+</td>
 </tr>
 </table>
 </li>
@@ -192,7 +195,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../gremlins/Frame.html#parseMap--">parseMap</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../gremlins/Frame.html#parseMap--">parseMap</a></span>()</code>
+<div class="block">reading each character from text file and store in layout attribute</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -235,6 +240,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Frame</h4>
 <pre>public&nbsp;Frame(processing.data.JSONObject&nbsp;level)</pre>
+<div class="block">initialize a two dimension array for recording the position of wall,
+ two ArrayList for contains all the gremlins and blackhole</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>level</code> - - the current level the player up to</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -252,6 +263,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>parseMap</h4>
 <pre>public&nbsp;void&nbsp;parseMap()</pre>
+<div class="block">reading each character from text file and store in layout attribute</div>
 </li>
 </ul>
 <a name="createObj-char-int-int-">
@@ -263,6 +275,14 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;<a href="../gremlins/GameObject.html" title="class in gremlins">GameObject</a>&nbsp;createObj(char&nbsp;type,
                             int&nbsp;i,
                             int&nbsp;j)</pre>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>type</code> - - the type of GameObject (BrickWall, Gremlins, etc.)</dd>
+<dd><code>i</code> - - the index of row position in layout</dd>
+<dd><code>j</code> - - the index of column position in layout</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>GameObject - the game object that has been create</dd>
+</dl>
 </li>
 </ul>
 <a name="setSprite-gremlins.App-">

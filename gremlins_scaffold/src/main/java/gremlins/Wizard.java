@@ -5,6 +5,9 @@ public class Wizard extends GameObject {
     private boolean collide_wall;
     private String direction;
     private int speed;
+    /**
+     * this boolean value is for check whether wizard is now on the middle of a tile
+     */
     private boolean adjusted = false;
     private Frame fm;
 
@@ -68,6 +71,9 @@ public class Wizard extends GameObject {
         speed = 4;
     }
 
+    /**
+     * set back to the orginal speed after power up time finish
+     */
     public void setback() {
         speed = 2;
     }

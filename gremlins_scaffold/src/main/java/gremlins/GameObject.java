@@ -39,6 +39,10 @@ public abstract class GameObject {
         return this.y;
     }
 
+    /**
+     * @param Obj - A game Object for checking intersection
+     * @return boolean value of whether collide with the Object
+     */
     public boolean intersection(GameObject Obj) {
         int self_x1 = this.x;
         int self_y1 = this.y;

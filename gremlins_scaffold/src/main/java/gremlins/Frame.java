@@ -16,6 +16,12 @@ public class Frame {
     private ArrayList<Gremlins> gremlins;
     private ArrayList<BlackHole> blackholes;
 
+    /**
+     * initialize a two dimension array for recording the position of wall,
+     * two ArrayList for contains all the gremlins and blackhole
+     * 
+     * @param level - the current level the player up to
+     */
     public Frame(JSONObject level) {
         this.level = level;
         this.map = new GameObject[33][36];
@@ -23,6 +29,9 @@ public class Frame {
         this.blackholes = new ArrayList<>();
     }
 
+    /**
+     * reading each character from text file and store in layout attribute
+     */
     public void parseMap() {
         String layout = level.getString("layout");
         this.wizardCoolDown = level.getDouble("wizard_cooldown");
@@ -42,6 +51,12 @@ public class Frame {
         }
     }
 
+    /**
+     * @param type - the type of GameObject (BrickWall, Gremlins, etc.)
+     * @param i    - the index of row position in layout
+     * @param j    - the index of column position in layout
+     * @return GameObject - the game object that has been create
+     */
     public GameObject createObj(char type, int i, int j) {
         GameObject Obj = null;
         if (type == 'X') {

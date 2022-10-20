@@ -4,7 +4,14 @@ import processing.core.PImage;
 
 public class BrickWall extends GameObject {
     private boolean crush = false;
+
+    /**
+     * four PImage for the animation of breaking wall
+     */
     private PImage[] crush_wall;
+    /**
+     * the index of transission status when the brickwall get destroyed
+     */
     private int transission;
 
     public BrickWall(int x_cor, int y_cor) {
@@ -28,6 +35,9 @@ public class BrickWall extends GameObject {
         }
     }
 
+    /**
+     * @return the index of transission in the breaking wall animation
+     */
     public int getTrans() {
         return this.transission;
     }

@@ -17,6 +17,9 @@ public class FireBall extends GameObject {
         this.fm = fm;
     }
 
+    /**
+     * @return the wall that the fireball crashed with
+     */
     public GameObject getColliding_wall() {
         return colliding_wall;
     }
@@ -52,6 +55,9 @@ public class FireBall extends GameObject {
         }
     }
 
+    /**
+     * @return whether the fireball collide with the walls
+     */
     public boolean check_collision_wall() {
         int x = this.x / 20;
         int y = this.y / 20;

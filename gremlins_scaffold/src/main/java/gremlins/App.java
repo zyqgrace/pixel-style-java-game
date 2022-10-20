@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public class App extends PApplet {
 
+    /**
+     * Gremlins App, the main file that generate the game. This public class is
+     * extended from PApplet
+     */
     public static final int WIDTH = 720;
     public static final int HEIGHT = 720;
     public static final int SPRITESIZE = 20;
@@ -23,6 +27,10 @@ public class App extends PApplet {
     public boolean lose;
     private int lives;
     public int wizardCoolDown;
+
+    /**
+     * A counter to count the number of tick after wizard fire on
+     */
     public int wizardCoolDown_counter;
     public int enemyCoolDown;
     public int level = 0;
@@ -46,6 +54,9 @@ public class App extends PApplet {
     public PShape progress_bar;
     public PShape filled_progress_bar;
 
+    /**
+     * the map that remember every position of the wall
+     */
     public Frame fm;
     public Wizard player;
     public Door exit;
@@ -53,24 +64,44 @@ public class App extends PApplet {
     public ArrayList<FireBall> fireballs;
     public ArrayList<Slime> slimes;
     public ArrayList<BlackHole> blackholes;
+
+    /**
+     * boolean value of whether wizard is on fire
+     */
     public boolean fire_on;
+
+    /**
+     * boolean value of whether the wizard is transferred to another blackhole
+     */
     public boolean transferred;
+
+    /**
+     * the index of the blackhole in Arraylist that the wizard come from.
+     */
     public int from = 0;
 
+    /**
+     * This is the constructor method that will assign the configPath to a json file
+     */
     public App() {
         this.configPath = "config.json";
     }
 
-    /**
-     * Initialise the setting of the window size.
+    /*
+     * (non-Javadoc)
+     * This methods will set the size (width and height) for the screen that display
+     * the game.
+     * 
+     * @see processing.core.PApplet#settings()
      */
     public void settings() {
         size(WIDTH, HEIGHT);
     }
 
     /**
-     * Load all resources such as images. Initialise the elements such as the
-     * player, enemies and map elements.
+     * Load all resources such as images that required for the game to run.
+     * Initialise the elements such as the player, enemies and map elements.
+     * parsing the live, cooldownspeed and map from conf.
      */
     public void setup() {
         frameRate(FPS);
@@ -107,7 +138,8 @@ public class App extends PApplet {
     }
 
     /**
-     * Receive key pressed signal from the keyboard.
+     * Receive key pressed signal from the keyboard. This will decide the movement
+     * of the wizard or reset the game.
      */
     public void keyPressed() {
         player.Released();
@@ -152,13 +184,46 @@ public class App extends PApplet {
         player.Released();
     }
 
+    /**
+     * This method will set the map frame for specific level, assign all important
+     * Gameobject to app's constructor.
+     */
+    public void setFrame() {
+        JSONObject conf = loadJSONObject(new File(this.configPath));
+        this.total_level = conf.getJSONArray("levels").size();
+        JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
+        this.fm = new Frame(cur_level);
+        this.fm.parseMap();
+        fm.setSprite(this);
+        this.player = fm.getWizard();
+        this.gremlins = fm.getGremlins();
+        this.exit = fm.getDoor();
+        this.magic = (Powerup) fm.getPowerup();
+        fire_on = false;
+        this.transferred = false;
+        fireballs = new ArrayList<FireBall>();
+        slimes = new ArrayList<>();
+        this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);
+        this.wizardCoolDown_counter = 0;
+        this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);
+        this.win = false;
+        this.lose = false;
+        this.blackholes = fm.getBlackHole();
+        for (BlackHole b : this.blackholes) {
+            b.setSprite(blackhole);
+        }
+    }
+
+    /**
+     * tick method will modifying all the movement of game objects.
+     */
     public void tick() {
         this.fm.tick();
         this.player.tick();
         this.magic.tick();
         this.FireBallsTick();
         this.GremlinsTick();
-        this.FireOnTick();
+        this.ProgressTick();
         this.PowerupTick();
         this.BlackHoleTick();
     }
@@ -194,6 +259,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * This method will check the state of the game, deciding whether the player
+     * win, lose, go to next level or unchanged.
+     */
     public void check_next_level() {
         if (player.intersection(this.exit)) {
             level++;
@@ -211,18 +280,23 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * @return lives of the player remaining
+     */
     public int getLives() {
         return lives;
     }
 
+    /**
+     * This method will deduct 1 live of the player
+     */
     public void loseLives() {
         this.lives--;
     }
 
-    public void fire() {
-
-    }
-
+    /**
+     * This method will modifying the movement of every fireball that released.
+     */
     public void FireBallsTick() {
         if (fireballs != null) {
             for (int i = 0; i < fireballs.size(); i++) {
@@ -243,6 +317,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * This method will modifying all the movement of gremlins and deciding whether
+     * they will release slime.
+     */
     public void GremlinsTick() {
         for (Gremlins g : gremlins) {
             g.tick();
@@ -275,33 +353,11 @@ public class App extends PApplet {
         }
     }
 
-    public void setFrame() {
-        JSONObject conf = loadJSONObject(new File(this.configPath));
-        this.total_level = conf.getJSONArray("levels").size();
-        JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
-        this.fm = new Frame(cur_level);
-        this.fm.parseMap();
-        fm.setSprite(this);
-        this.player = fm.getWizard();
-        this.gremlins = fm.getGremlins();
-        this.exit = fm.getDoor();
-        this.magic = (Powerup) fm.getPowerup();
-        fire_on = false;
-        this.transferred = false;
-        fireballs = new ArrayList<FireBall>();
-        slimes = new ArrayList<>();
-        this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);
-        this.wizardCoolDown_counter = 0;
-        this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);
-        this.win = false;
-        this.lose = false;
-        this.blackholes = fm.getBlackHole();
-        for (BlackHole b : this.blackholes) {
-            b.setSprite(blackhole);
-        }
-    }
-
-    public void FireOnTick() {
+    /**
+     * This method will tick the progress bar that inform player when they are
+     * allowed to fire again.
+     */
+    public void ProgressTick() {
         if (fire_on) {
             this.wizardCoolDown_counter++;
             filled_progress_bar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
@@ -315,6 +371,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * This method will decide whether player have power up and if yes, modifying
+     * the progress_bar for powerup.
+     */
     public void PowerupTick() {
         if (this.player.intersection(magic) && magic.getVisible()) {
             magic.set_again();
@@ -331,6 +391,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * This method decides whether player pass through the blackhole. If yes,
+     * relocating the position of wizard
+     */
     public void BlackHoleTick() {
         boolean pass = false;
         for (int i = 0; i < blackholes.size(); i++) {
