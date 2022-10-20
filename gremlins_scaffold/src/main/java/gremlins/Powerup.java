@@ -14,8 +14,8 @@ public class Powerup extends GameObject {
     /**
      * the remaining time of wizard collect the power up.
      */
-    private int effect_time;
-    private boolean effect_on;
+    private int effectTime;
+    private boolean effectOn;
     private boolean visible;
 
     public Powerup(int x, int y, Frame fm) {
@@ -36,10 +36,10 @@ public class Powerup extends GameObject {
         if (tick >= spawn) {
             visible = true;
         }
-        if (effect_on) {
-            effect_time++;
-            if (effect_time >= 3 * 60) {
-                effect_on = false;
+        if (effectOn) {
+            effectTime++;
+            if (effectTime >= 3 * 60) {
+                effectOn = false;
             }
         }
     }
@@ -49,19 +49,19 @@ public class Powerup extends GameObject {
     }
 
     public boolean effectOn() {
-        return effect_on;
+        return effectOn;
     }
 
-    public int getEffect_time() {
-        return this.effect_time;
+    public int getEffectTime() {
+        return this.effectTime;
     }
 
     /**
      * assign a new position for power up after being collected
      */
     public void set_again() {
-        effect_on = true;
-        effect_time = 0;
+        effectOn = true;
+        effectTime = 0;
         tick = 0;
         this.spawn = (rand.nextInt(3 * 60) + 8 * 60);
         visible = false;

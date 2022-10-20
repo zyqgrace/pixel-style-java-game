@@ -49,10 +49,10 @@ public class App extends PApplet {
     public PImage slime;
     public PImage door;
     public PImage powerup;
-    public PImage[] crush_wall;
+    public PImage[] crushWall;
     public int tick;
-    public PShape progress_bar;
-    public PShape filled_progress_bar;
+    public PShape progressbar;
+    public PShape filledProgressBar;
 
     /**
      * the map that remember every position of the wall
@@ -119,18 +119,18 @@ public class App extends PApplet {
         this.door = loadImage(this.getClass().getResource("door.png").getPath().replace("%20", " "));
         this.powerup = loadImage(this.getClass().getResource("powerup.png").getPath().replace("%20", " "));
         this.blackhole = loadImage(this.getClass().getResource("blackhole.png").getPath().replace("%20", " "));
-        this.crush_wall = new PImage[4];
-        this.crush_wall[0] = loadImage(
+        this.crushWall = new PImage[4];
+        this.crushWall[0] = loadImage(
                 this.getClass().getResource("brickwall_destroyed0.png").getPath().replace("%20", " "));
-        this.crush_wall[1] = loadImage(
+        this.crushWall[1] = loadImage(
                 this.getClass().getResource("brickwall_destroyed1.png").getPath().replace("%20", " "));
-        this.crush_wall[2] = loadImage(
+        this.crushWall[2] = loadImage(
                 this.getClass().getResource("brickwall_destroyed2.png").getPath().replace("%20", " "));
-        this.crush_wall[3] = loadImage(
+        this.crushWall[3] = loadImage(
                 this.getClass().getResource("brickwall_destroyed3.png").getPath().replace("%20", " "));
         textSize(20);
         // initilize all the objects
-        this.progress_bar = createShape(RECT, 0, 0, 100, 5);
+        this.progressbar = createShape(RECT, 0, 0, 100, 5);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
         this.total_level = conf.getJSONArray("levels").size();
@@ -194,15 +194,15 @@ public class App extends PApplet {
         JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
         this.fm = new Frame(cur_level);
         this.fm.parseMap();
-        fm.setSprite(this);
+        this.fm.setSprite(this);
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
         this.magic = (Powerup) fm.getPowerup();
-        fire_on = false;
+        this.fire_on = false;
         this.transferred = false;
-        fireballs = new ArrayList<FireBall>();
-        slimes = new ArrayList<>();
+        this.fireballs = new ArrayList<FireBall>();
+        this.slimes = new ArrayList<>();
         this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);
         this.wizardCoolDown_counter = 0;
         this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);
@@ -360,10 +360,10 @@ public class App extends PApplet {
     public void ProgressTick() {
         if (fire_on) {
             this.wizardCoolDown_counter++;
-            filled_progress_bar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
-            filled_progress_bar.setFill(0);
-            shape(progress_bar, 580, 670);
-            shape(filled_progress_bar, 580, 670);
+            filledProgressBar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
+            filledProgressBar.setFill(0);
+            shape(progressbar, 580, 670);
+            shape(filledProgressBar, 580, 670);
             if (wizardCoolDown_counter >= wizardCoolDown) {
                 wizardCoolDown_counter = 0;
                 fire_on = false;
@@ -381,8 +381,8 @@ public class App extends PApplet {
         }
         if (magic.effectOn()) {
             text("speed up", 480, 710);
-            shape(progress_bar, 580, 700);
-            PShape progress_bar2 = createShape(RECT, 0, 0, (magic.getEffect_time() * 100) / 180, 5);
+            shape(progressbar, 580, 700);
+            PShape progress_bar2 = createShape(RECT, 0, 0, (magic.getEffectTime() * 100) / 180, 5);
             progress_bar2.setFill(0);
             shape(progress_bar2, 580, 700);
             player.powerup();

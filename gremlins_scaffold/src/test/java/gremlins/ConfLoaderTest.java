@@ -135,7 +135,7 @@ class ConfLoaderTest {
         app.setup();
         app.delay(1000);
         FireBall ball = new FireBall(20, 20, "LEFT", app.fm);
-        ball.check_collision_wall();
+        ball.CheckCollisionWall();
         ball.setDestroyed();
         assertEquals(true, ball.getDestroyed());
     }
@@ -258,7 +258,7 @@ class ConfLoaderTest {
         assertEquals(60, ball.getX());
         assertEquals(16, ball.getY());
         app.delay(1000);
-        assertTrue(ball.check_collision_wall());
+        assertTrue(ball.CheckCollisionWall());
     }
 
     @Test
@@ -366,7 +366,7 @@ class ConfLoaderTest {
         ball.tick();
         assertEquals(16, ball.getX());
         assertEquals(20, ball.getY());
-        assertTrue(ball.check_collision_wall());
+        assertTrue(ball.CheckCollisionWall());
     }
 
     @Test
@@ -380,7 +380,7 @@ class ConfLoaderTest {
         ball.tick();
         assertEquals(20, ball.getX());
         assertEquals(624, ball.getY());
-        assertTrue(ball.check_collision_wall());
+        assertTrue(ball.CheckCollisionWall());
     }
 
     @Test
@@ -413,7 +413,7 @@ class ConfLoaderTest {
         app.player.tick();
         assertEquals(42, app.player.getX());
         assertEquals(20, app.player.getY());
-        assertFalse(app.player.check_collision_wall());
+        assertFalse(app.player.checkCollisionWall());
     }
 
     @Test
@@ -430,7 +430,7 @@ class ConfLoaderTest {
         app.player.tick();
         assertEquals(38, app.player.getX());
         assertEquals(20, app.player.getY());
-        assertFalse(app.player.check_collision_wall());
+        assertFalse(app.player.checkCollisionWall());
     }
 
     @Test

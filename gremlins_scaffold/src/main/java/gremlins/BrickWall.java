@@ -8,7 +8,7 @@ public class BrickWall extends GameObject {
     /**
      * four PImage for the animation of breaking wall
      */
-    private PImage[] crush_wall;
+    private PImage[] crushWall;
     /**
      * the index of transission status when the brickwall get destroyed
      */
@@ -19,13 +19,13 @@ public class BrickWall extends GameObject {
     }
 
     public void setDestroyed(PImage[] destroyed_wall) {
-        this.crush_wall = destroyed_wall;
+        this.crushWall = destroyed_wall;
     }
 
     public void tick() {
         if (crush) {
             if (transission % 4 == 0) {
-                this.setSprite(crush_wall[transission / 4]);
+                this.setSprite(crushWall[transission / 4]);
             }
 
             transission++;

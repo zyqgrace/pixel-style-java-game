@@ -2,7 +2,7 @@ package gremlins;
 
 public class Wizard extends GameObject {
     private boolean released = false;
-    private boolean collide_wall;
+    private boolean collideWall;
     private String direction;
     private int speed;
     /**
@@ -47,8 +47,8 @@ public class Wizard extends GameObject {
             }
             i++;
         }
-        collide_wall = this.check_collision_wall();
-        if (collide_wall) {
+        collideWall = this.checkCollisionWall();
+        if (collideWall) {
             this.x = original_x;
             this.y = original_y;
         }
@@ -90,7 +90,7 @@ public class Wizard extends GameObject {
         return this.speed;
     }
 
-    public boolean check_collision_wall() {
+    public boolean checkCollisionWall() {
         int x = this.x / 20;
         int y = this.y / 20;
         GameObject Obj = fm.get(x, y);

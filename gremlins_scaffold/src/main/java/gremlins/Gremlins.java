@@ -67,7 +67,7 @@ public class Gremlins extends GameObject {
         } else if (direction == "DOWN") {
             this.y += 1;
         }
-        boolean collision = this.check_collision_wall();
+        boolean collision = this.checkCollisionWall();
         if (collision) {
             this.x = original_x;
             this.y = original_y;
@@ -112,7 +112,7 @@ public class Gremlins extends GameObject {
         }
     }
 
-    public boolean check_collision_wall() {
+    public boolean checkCollisionWall() {
         int x = this.x / 20;
         int y = this.y / 20;
         GameObject Obj = fm.get(x, y);

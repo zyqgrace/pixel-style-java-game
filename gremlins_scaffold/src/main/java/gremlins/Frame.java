@@ -88,7 +88,7 @@ public class Frame {
                     temp.setSprite(a.stonewall);
                 } else if (temp.getClass() == BrickWall.class) {
                     temp.setSprite(a.brickwall);
-                    ((BrickWall) temp).setDestroyed(a.crush_wall);
+                    ((BrickWall) temp).setDestroyed(a.crushWall);
                 }
             }
         }
