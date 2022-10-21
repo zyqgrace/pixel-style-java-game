@@ -123,11 +123,11 @@ public class Gremlin extends MoveGameObject {
 <span class="pc bpc" id="L123" title="2 of 8 branches missed.">        if (newX &lt;= wiz_x - 10 || newX &gt;= wiz_x + 10 &amp;&amp; newY &lt;= wiz_y - 10 || newY &gt;= wiz_y + 10) {</span>
 <span class="fc" id="L124">            right_position = true;</span>
         }
-<span class="pc bpc" id="L126" title="1 of 4 branches missed.">        while (!right_position &amp;&amp; fm.get(newX, newY) == null) {</span>
-<span class="nc" id="L127">            newX = (rand.nextInt(34) + 1);</span>
-<span class="nc" id="L128">            newY = (rand.nextInt(29) + 1);</span>
-<span class="nc bnc" id="L129" title="All 8 branches missed.">            if (newX &lt;= wiz_x - 10 || newX &gt;= wiz_x + 10 &amp;&amp; newY &lt;= wiz_y - 10 || newY &gt;= wiz_y + 10) {</span>
-<span class="nc" id="L130">                right_position = true;</span>
+<span class="fc bfc" id="L126" title="All 4 branches covered.">        while (!right_position &amp;&amp; fm.get(newX, newY) == null) {</span>
+<span class="fc" id="L127">            newX = (rand.nextInt(34) + 1);</span>
+<span class="fc" id="L128">            newY = (rand.nextInt(29) + 1);</span>
+<span class="pc bpc" id="L129" title="2 of 8 branches missed.">            if (newX &lt;= wiz_x - 10 || newX &gt;= wiz_x + 10 &amp;&amp; newY &lt;= wiz_y - 10 || newY &gt;= wiz_y + 10) {</span>
+<span class="fc" id="L130">                right_position = true;</span>
             }
         }
 <span class="fc" id="L133">        this.x = newX * 20;</span>
