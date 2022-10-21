@@ -1,6 +1,6 @@
 package gremlins;
 
-public class BlackHole extends GameObject {
+public class BlackHole extends StaticGameObject {
     public BlackHole(int x, int y) {
         super(x, y);
     }

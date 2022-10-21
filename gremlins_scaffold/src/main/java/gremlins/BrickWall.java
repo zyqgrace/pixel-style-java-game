@@ -2,7 +2,7 @@ package gremlins;
 
 import processing.core.PImage;
 
-public class BrickWall extends GameObject {
+public class BrickWall extends StaticGameObject {
     private boolean crush = false;
 
     /**

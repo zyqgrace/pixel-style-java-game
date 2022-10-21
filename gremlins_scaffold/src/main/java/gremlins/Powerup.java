@@ -3,7 +3,7 @@ package gremlins;
 
 import java.util.Random;
 
-public class PowerUp extends GameObject {
+public class PowerUp extends StaticGameObject {
     private Frame fm;
     private Random rand;
     /**
@@ -25,12 +25,10 @@ public class PowerUp extends GameObject {
         rand = new Random();
         this.spawn = (rand.nextInt(3 * 60) + 8 * 60);
         this.tick = 0;
+        effectOn = false;
         visible = false;
     }
 
-    /**
-     * set visible variable to true
-     */
     public void setVisible() {
         visible = true;
     }

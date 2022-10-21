@@ -1,19 +1,16 @@
 package gremlins;
 
-public class Wizard extends GameObject {
+public class Wizard extends MoveGameObject {
     private boolean released = false;
     private boolean collideWall;
-    private String direction;
     private int speed;
     /**
      * this boolean value is for check whether wizard is now on the middle of a tile
      */
     private boolean adjusted = false;
-    private Frame fm;
 
     public Wizard(int x, int y, Frame fm) {
-        super(x, y);
-        this.fm = fm;
+        super(x, y, fm);
         this.direction = null;
         this.speed = 2;
     }
@@ -59,10 +56,6 @@ public class Wizard extends GameObject {
         released = false;
     }
 
-    public String getDirection() {
-        return this.direction;
-    }
-
     public boolean getAdjusted() {
         return this.isAdjusted();
     }
@@ -88,24 +81,5 @@ public class Wizard extends GameObject {
 
     public int getSpeed() {
         return this.speed;
-    }
-
-    public boolean checkCollisionWall() {
-        int x = this.x / 20;
-        int y = this.y / 20;
-        GameObject Obj = fm.get(x, y);
-        if (direction == "RIGHT") {
-            Obj = fm.get(x + 1, y);
-        } else if (direction == "LEFT") {
-            Obj = fm.get(x, y);
-        } else if (direction == "UP") {
-            Obj = fm.get(x, y);
-        } else if (direction == "DOWN") {
-            Obj = fm.get(x, y + 1);
-        }
-        if (Obj == null) {
-            return false;
-        }
-        return this.intersection(Obj);
     }
 }

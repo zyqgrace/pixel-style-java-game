@@ -7,14 +7,12 @@ import java.util.Map;
 
 import processing.core.PImage;
 
-public class Gremlin extends GameObject {
+public class Gremlin extends MoveGameObject {
     private String[] directions = new String[] { "LEFT", "RIGHT", "UP", "DOWN" };
     /**
      * map to record the inverse direction of each direction
      */
     private Map<String, String> inverseDirection = new HashMap<>();
-    private String direction;
-    private Frame fm;
     private int coolDown;
     private int tick;
     private PImage slimeImage;
@@ -22,9 +20,8 @@ public class Gremlin extends GameObject {
     private Random rand;
 
     public Gremlin(int x_cor, int y_cor, Frame fm) {
-        super(x_cor, y_cor);
+        super(x_cor, y_cor, fm);
         tick = 0;
-        this.fm = fm;
         int ran = (int) (Math.random() * 4);
         this.direction = directions[ran];
         coolDown = (int) (fm.getEnemyCoolDown() * 60);
@@ -39,10 +36,6 @@ public class Gremlin extends GameObject {
 
     public ArrayList<Slime> getSlimes() {
         return slimes;
-    }
-
-    public String getDirection() {
-        return this.direction;
     }
 
     public void tick() {
@@ -110,25 +103,6 @@ public class Gremlin extends GameObject {
             }
             this.direction = correct_directions.get(ran);
         }
-    }
-
-    public boolean checkCollisionWall() {
-        int x = this.x / 20;
-        int y = this.y / 20;
-        GameObject Obj = fm.get(x, y);
-        if (direction == "RIGHT") {
-            Obj = fm.get(x + 1, y);
-        } else if (direction == "LEFT") {
-            Obj = fm.get(x, y);
-        } else if (direction == "UP") {
-            Obj = fm.get(x, y);
-        } else if (direction == "DOWN") {
-            Obj = fm.get(x, y + 1);
-        }
-        if (Obj == null) {
-            return false;
-        }
-        return this.intersection(Obj);
     }
 
     /**

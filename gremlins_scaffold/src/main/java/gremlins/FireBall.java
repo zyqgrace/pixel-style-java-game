@@ -1,20 +1,15 @@
 package gremlins;
 
-import processing.core.PImage;
-
-public class FireBall extends GameObject {
-    private String direction;
-    private Frame fm;
+public class FireBall extends MoveGameObject {
     private GameObject collideWall;
     private boolean destroyed = false;
 
     public FireBall(int x, int y, String d, Frame fm) {
-        super(x, y);
+        super(x, y, fm);
         this.direction = d;
         if (direction == null) {
             this.direction = "RIGHT";
         }
-        this.fm = fm;
     }
 
     /**
@@ -33,7 +28,7 @@ public class FireBall extends GameObject {
     }
 
     public void tick() {
-        if (this.CheckCollisionWall()) {
+        if (this.checkCollisionWall()) {
             destroyed = true;
             if (this.getCollidingWall().getClass() == BrickWall.class) {
                 ((BrickWall) this.getCollidingWall()).crushed();
@@ -54,7 +49,8 @@ public class FireBall extends GameObject {
     /**
      * @return whether the fireball collide with the walls
      */
-    public boolean CheckCollisionWall() {
+    @Override
+    public boolean checkCollisionWall() {
         int x = this.x / 20;
         int y = this.y / 20;
         GameObject Obj;
