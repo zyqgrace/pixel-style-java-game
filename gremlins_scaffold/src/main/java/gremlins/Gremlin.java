@@ -118,13 +118,18 @@ public class Gremlin extends MoveGameObject {
         int newX = 0;
         int newY = 0;
         boolean right_position = false;
-        do {
+        newX = (rand.nextInt(34) + 1);
+        newY = (rand.nextInt(29) + 1);
+        if (newX <= wiz_x - 10 || newX >= wiz_x + 10 && newY <= wiz_y - 10 || newY >= wiz_y + 10) {
+            right_position = true;
+        }
+        while (!right_position && fm.get(newX, newY) == null) {
             newX = (rand.nextInt(34) + 1);
             newY = (rand.nextInt(29) + 1);
             if (newX <= wiz_x - 10 || newX >= wiz_x + 10 && newY <= wiz_y - 10 || newY >= wiz_y + 10) {
                 right_position = true;
             }
-        } while (right_position && fm.get(newX, newY) == null);
+        }
         this.x = newX * 20;
         this.y = newY * 20;
     }

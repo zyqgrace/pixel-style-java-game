@@ -2,43 +2,53 @@
 
 import processing.core.PImage;
 
-public class BrickWall extends GameObject {
+public class BrickWall extends StaticGameObject {
 <span class="fc" id="L6">    private boolean crush = false;</span>
-    private PImage[] crush_wall;
+
+    /**
+     * four PImage for the animation of breaking wall
+     */
+    private PImage[] crushWall;
+    /**
+     * the index of transission status when the brickwall get destroyed
+     */
     private int transission;
 
     public BrickWall(int x_cor, int y_cor) {
-<span class="fc" id="L11">        super(x_cor, y_cor);</span>
-<span class="fc" id="L12">    }</span>
+<span class="fc" id="L18">        super(x_cor, y_cor);</span>
+<span class="fc" id="L19">    }</span>
 
-    public void setDestroyed(PImage[] destroyed_wall) {
-<span class="fc" id="L15">        this.crush_wall = destroyed_wall;</span>
-<span class="fc" id="L16">    }</span>
+    public void setDestroyed(PImage[] destroyedWall) {
+<span class="fc" id="L22">        this.crushWall = destroyedWall;</span>
+<span class="fc" id="L23">    }</span>
 
     public void tick() {
-<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (crush) {</span>
-<span class="fc bfc" id="L20" title="All 2 branches covered.">            if (transission % 4 == 0) {</span>
-<span class="fc" id="L21">                this.setSprite(crush_wall[transission / 4]);</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (crush) {</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            if (transission % 4 == 0) {</span>
+<span class="fc" id="L28">                this.setSprite(crushWall[transission / 4]);</span>
             }
 
-<span class="fc" id="L24">            transission++;</span>
+<span class="fc" id="L31">            transission++;</span>
         }
-<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (transission == 13) {</span>
-<span class="fc" id="L27">            crush = false;</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (transission == 13) {</span>
+<span class="fc" id="L34">            crush = false;</span>
         }
-<span class="fc" id="L29">    }</span>
+<span class="fc" id="L36">    }</span>
 
+    /**
+     * @return the index of transission in the breaking wall animation
+     */
     public int getTrans() {
-<span class="fc" id="L32">        return this.transission;</span>
+<span class="fc" id="L42">        return this.transission;</span>
     }
 
     public void crushed() {
-<span class="fc" id="L36">        crush = true;</span>
-<span class="fc" id="L37">        transission = 0;</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L46">        crush = true;</span>
+<span class="fc" id="L47">        transission = 0;</span>
+<span class="fc" id="L48">    }</span>
 
     public boolean getCrushed() {
-<span class="nc" id="L41">        return this.crush;</span>
+<span class="nc" id="L51">        return this.crush;</span>
     }
 
 }

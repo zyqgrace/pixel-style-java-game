@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Wizard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gremlins_scaffold</a> &gt; <a href="index.source.html" class="el_package">gremlins</a> &gt; <span class="el_source">Wizard.java</span></div><h1>Wizard.java</h1><pre class="source lang-java linenums">package gremlins;
 
-public class Wizard extends GameObject {
+public class Wizard extends MoveGameObject {
 <span class="fc" id="L4">    private boolean released = false;</span>
-    private boolean collide_wall;
-    private String direction;
+    private boolean collideWall;
     private int speed;
-<span class="fc" id="L8">    private boolean adjusted = false;</span>
-    private Frame fm;
+    /**
+     * this boolean value is for check whether wizard is now on the middle of a tile
+     */
+<span class="fc" id="L10">    private boolean adjusted = false;</span>
 
     public Wizard(int x, int y, Frame fm) {
-<span class="fc" id="L12">        super(x, y);</span>
-<span class="fc" id="L13">        this.fm = fm;</span>
+<span class="fc" id="L13">        super(x, y, fm);</span>
 <span class="fc" id="L14">        this.direction = null;</span>
 <span class="fc" id="L15">        this.speed = 2;</span>
 <span class="fc" id="L16">    }</span>
@@ -44,8 +44,8 @@ public class Wizard extends GameObject {
             }
 <span class="fc" id="L45">            i++;</span>
         }
-<span class="fc" id="L47">        collide_wall = this.check_collision_wall();</span>
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (collide_wall) {</span>
+<span class="fc" id="L47">        collideWall = this.checkCollisionWall();</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (collideWall) {</span>
 <span class="fc" id="L49">            this.x = original_x;</span>
 <span class="fc" id="L50">            this.y = original_y;</span>
         }
@@ -56,51 +56,31 @@ public class Wizard extends GameObject {
 <span class="fc" id="L56">        released = false;</span>
 <span class="fc" id="L57">    }</span>
 
-    public String getDirection() {
-<span class="fc" id="L60">        return this.direction;</span>
-    }
-
     public boolean getAdjusted() {
-<span class="fc" id="L64">        return this.isAdjusted();</span>
+<span class="fc" id="L60">        return this.isAdjusted();</span>
     }
 
     public void powerup() {
-<span class="fc" id="L68">        speed = 4;</span>
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L64">        speed = 4;</span>
+<span class="fc" id="L65">    }</span>
 
-    public void setback() {
-<span class="fc" id="L72">        speed = 2;</span>
-<span class="fc" id="L73">    }</span>
+    /**
+     * set back to the orginal speed after power up time finish
+     */
+    public void setBack() {
+<span class="fc" id="L71">        speed = 2;</span>
+<span class="fc" id="L72">    }</span>
 
     public void Released() {
-<span class="fc" id="L76">        released = true;</span>
-<span class="fc" id="L77">    }</span>
+<span class="fc" id="L75">        released = true;</span>
+<span class="fc" id="L76">    }</span>
 
     public boolean getReleased() {
-<span class="fc" id="L80">        return this.released;</span>
+<span class="fc" id="L79">        return this.released;</span>
     }
 
     public int getSpeed() {
-<span class="fc" id="L84">        return this.speed;</span>
-    }
-
-    public boolean check_collision_wall() {
-<span class="fc" id="L88">        int x = this.x / 20;</span>
-<span class="fc" id="L89">        int y = this.y / 20;</span>
-<span class="fc" id="L90">        GameObject Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
-<span class="fc" id="L92">            Obj = fm.get(x + 1, y);</span>
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
-<span class="fc" id="L94">            Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="fc" id="L96">            Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="fc" id="L98">            Obj = fm.get(x, y + 1);</span>
-        }
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (Obj == null) {</span>
-<span class="fc" id="L101">            return false;</span>
-        }
-<span class="fc" id="L103">        return this.intersection(Obj);</span>
+<span class="fc" id="L83">        return this.speed;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

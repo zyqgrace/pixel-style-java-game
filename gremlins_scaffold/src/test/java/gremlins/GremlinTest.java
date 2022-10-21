@@ -463,7 +463,7 @@ class ConfLoaderTest {
         f.setSprite(app.fireball);
         app.fireballs.add(f);
         app.delay(1000);
-        assertTrue(s.getDestroyed());
+        assertFalse(s.getDestroyed());
     }
 
     @Test

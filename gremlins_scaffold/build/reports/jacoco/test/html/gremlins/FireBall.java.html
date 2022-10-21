@@ -1,91 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FireBall.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gremlins_scaffold</a> &gt; <a href="index.source.html" class="el_package">gremlins</a> &gt; <span class="el_source">FireBall.java</span></div><h1>FireBall.java</h1><pre class="source lang-java linenums">package gremlins;
 
-import processing.core.PImage;
-
-public class FireBall extends GameObject {
-    private String direction;
-    private Frame fm;
-    private GameObject colliding_wall;
-<span class="fc" id="L9">    private boolean destroyed = false;</span>
+public class FireBall extends MoveGameObject {
+    private GameObject collideWall;
+<span class="fc" id="L5">    private boolean destroyed = false;</span>
 
     public FireBall(int x, int y, String d, Frame fm) {
-<span class="fc" id="L12">        super(x, y);</span>
-<span class="fc" id="L13">        this.direction = d;</span>
-<span class="fc bfc" id="L14" title="All 2 branches covered.">        if (direction == null) {</span>
-<span class="fc" id="L15">            this.direction = &quot;RIGHT&quot;;</span>
+<span class="fc" id="L8">        super(x, y, fm);</span>
+<span class="fc" id="L9">        this.direction = d;</span>
+<span class="fc bfc" id="L10" title="All 2 branches covered.">        if (direction == null) {</span>
+<span class="fc" id="L11">            this.direction = &quot;RIGHT&quot;;</span>
         }
-<span class="fc" id="L17">        this.fm = fm;</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L13">    }</span>
 
-    public GameObject getColliding_wall() {
-<span class="fc" id="L21">        return colliding_wall;</span>
+    /**
+     * @return the wall that the fireball crashed with
+     */
+    public GameObject getCollidingWall() {
+<span class="fc" id="L19">        return collideWall;</span>
     }
 
-    public void setColliding_wall(GameObject colliding_wall) {
-<span class="fc" id="L25">        this.colliding_wall = colliding_wall;</span>
-<span class="fc" id="L26">    }</span>
-
-    public void setSprite(PImage sprite) {
-<span class="fc" id="L29">        this.sprite = sprite;</span>
-<span class="fc" id="L30">    }</span>
+    public void setCollidingWall(GameObject collideWall) {
+<span class="fc" id="L23">        this.collideWall = collideWall;</span>
+<span class="fc" id="L24">    }</span>
 
     public void setDestroyed() {
-<span class="fc" id="L33">        this.destroyed = true;</span>
-<span class="fc" id="L34">    }</span>
+<span class="fc" id="L27">        this.destroyed = true;</span>
+<span class="fc" id="L28">    }</span>
 
     public void tick() {
-<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (this.check_collision_wall()) {</span>
-<span class="fc" id="L38">            destroyed = true;</span>
-<span class="pc bpc" id="L39" title="1 of 2 branches missed.">            if (this.getColliding_wall().getClass() == BrickWall.class) {</span>
-<span class="fc" id="L40">                ((BrickWall) this.getColliding_wall()).crushed();</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if (this.checkCollisionWall()) {</span>
+<span class="fc" id="L32">            destroyed = true;</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">            if (this.getCollidingWall().getClass() == BrickWall.class) {</span>
+<span class="fc" id="L34">                ((BrickWall) this.getCollidingWall()).crushed();</span>
             }
         } else {
-<span class="fc bfc" id="L43" title="All 2 branches covered.">            if (direction == &quot;LEFT&quot;) {</span>
-<span class="fc" id="L44">                this.x -= 4;</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">            } else if (direction == &quot;RIGHT&quot;) {</span>
-<span class="fc" id="L46">                this.x += 4;</span>
-<span class="fc bfc" id="L47" title="All 2 branches covered.">            } else if (direction == &quot;UP&quot;) {</span>
-<span class="fc" id="L48">                this.y -= 4;</span>
-<span class="pc bpc" id="L49" title="1 of 2 branches missed.">            } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="fc" id="L50">                this.y += 4;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L38">                this.x -= 4;</span>
+<span class="fc bfc" id="L39" title="All 2 branches covered.">            } else if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L40">                this.x += 4;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L42">                this.y -= 4;</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">            } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L44">                this.y += 4;</span>
             }
         }
-<span class="fc" id="L53">    }</span>
+<span class="fc" id="L47">    }</span>
 
-    public boolean check_collision_wall() {
-<span class="fc" id="L56">        int x = this.x / 20;</span>
-<span class="fc" id="L57">        int y = this.y / 20;</span>
+    /**
+     * @return whether the fireball collide with the walls
+     */
+    @Override
+    public boolean checkCollisionWall() {
+<span class="fc" id="L54">        int x = this.x / 20;</span>
+<span class="fc" id="L55">        int y = this.y / 20;</span>
         GameObject Obj;
-<span class="fc bfc" id="L59" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
-<span class="fc" id="L60">            Obj = fm.get(x + 1, y);</span>
-<span class="fc bfc" id="L61" title="All 2 branches covered.">            if (Obj != null) {</span>
-<span class="fc" id="L62">                this.setColliding_wall(Obj);</span>
-<span class="fc bfc" id="L63" title="All 2 branches covered.">                return this.getX() + 20 &gt; Obj.getX();</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L58">            Obj = fm.get(x + 1, y);</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">            if (Obj != null) {</span>
+<span class="fc" id="L60">                this.setCollidingWall(Obj);</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">                return this.getX() + 20 &gt; Obj.getX();</span>
             }
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
-<span class="fc" id="L66">            Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">            if (Obj != null) {</span>
-<span class="fc" id="L68">                this.setColliding_wall(Obj);</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">                return this.getX() &lt; Obj.getX() + 20;</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L64">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">            if (Obj != null) {</span>
+<span class="fc" id="L66">                this.setCollidingWall(Obj);</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                return this.getX() &lt; Obj.getX() + 20;</span>
             }
-<span class="fc bfc" id="L71" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
-<span class="fc" id="L72">            Obj = fm.get(x, y);</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">            if (Obj != null) {</span>
-<span class="fc" id="L74">                this.setColliding_wall(Obj);</span>
-<span class="pc bpc" id="L75" title="1 of 2 branches missed.">                return this.getY() &lt; Obj.getY() + 20;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L70">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            if (Obj != null) {</span>
+<span class="fc" id="L72">                this.setCollidingWall(Obj);</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">                return this.getY() &lt; Obj.getY() + 20;</span>
             }
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
-<span class="fc" id="L78">            Obj = fm.get(x, y + 1);</span>
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">            if (Obj != null) {</span>
-<span class="fc" id="L80">                this.setColliding_wall(Obj);</span>
-<span class="fc bfc" id="L81" title="All 2 branches covered.">                return this.getY() + 20 &gt; Obj.getY();</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L76">            Obj = fm.get(x, y + 1);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">            if (Obj != null) {</span>
+<span class="fc" id="L78">                this.setCollidingWall(Obj);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">                return this.getY() + 20 &gt; Obj.getY();</span>
             }
         }
-<span class="fc" id="L84">        return false;</span>
+<span class="fc" id="L82">        return false;</span>
     }
 
     public boolean getDestroyed() {
-<span class="fc" id="L88">        return this.destroyed;</span>
+<span class="fc" id="L86">        return this.destroyed;</span>
     }
 
 }

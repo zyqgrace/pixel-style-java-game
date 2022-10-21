@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MoveGameObject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gremlins_scaffold</a> &gt; <a href="index.source.html" class="el_package">gremlins</a> &gt; <span class="el_source">MoveGameObject.java</span></div><h1>MoveGameObject.java</h1><pre class="source lang-java linenums">package gremlins;
+
+public abstract class MoveGameObject extends GameObject {
+    protected String direction;
+    protected Frame fm;
+
+    public MoveGameObject(int x, int y, Frame fm) {
+<span class="fc" id="L8">        super(x, y);</span>
+<span class="fc" id="L9">        this.fm = fm;</span>
+<span class="fc" id="L10">    }</span>
+
+    public boolean checkCollisionWall() {
+<span class="fc" id="L13">        int x = this.x / 20;</span>
+<span class="fc" id="L14">        int y = this.y / 20;</span>
+<span class="fc" id="L15">        GameObject Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">        if (direction == &quot;RIGHT&quot;) {</span>
+<span class="fc" id="L17">            Obj = fm.get(x + 1, y);</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        } else if (direction == &quot;LEFT&quot;) {</span>
+<span class="fc" id="L19">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">        } else if (direction == &quot;UP&quot;) {</span>
+<span class="fc" id="L21">            Obj = fm.get(x, y);</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        } else if (direction == &quot;DOWN&quot;) {</span>
+<span class="fc" id="L23">            Obj = fm.get(x, y + 1);</span>
+        }
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (Obj == null) {</span>
+<span class="fc" id="L26">            return false;</span>
+        }
+<span class="fc" id="L28">        return this.intersection(Obj);</span>
+    }
+
+    public String getDirection() {
+<span class="fc" id="L32">        return this.direction;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
