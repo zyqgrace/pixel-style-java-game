@@ -13,7 +13,7 @@ public class Frame {
     private Wizard wizard;
     private Door door;
     private GameObject powerup;
-    private ArrayList<Gremlins> gremlins;
+    private ArrayList<Gremlin> gremlins;
     private ArrayList<BlackHole> blackholes;
 
     /**
@@ -66,11 +66,11 @@ public class Frame {
         } else if (type == 'W') {
             this.wizard = new Wizard(j * 20, i * 20, this);
         } else if (type == 'G') {
-            this.gremlins.add(new Gremlins(j * 20, i * 20, this));
+            this.gremlins.add(new Gremlin(j * 20, i * 20, this));
         } else if (type == 'E') {
             this.door = new Door(j * 20, i * 20);
         } else if (type == 'M') {
-            this.setPowerup(new Powerup(j * 20, i * 20, this));
+            this.setPowerup(new PowerUp(j * 20, i * 20, this));
         } else if (type == 'H') {
             BlackHole b = new BlackHole(j * 20, i * 20);
             this.blackholes.add(b);
@@ -92,7 +92,7 @@ public class Frame {
                 }
             }
         }
-        for (Gremlins g : this.gremlins) {
+        for (Gremlin g : this.gremlins) {
             g.setSprite(a.gremlin);
             g.setSlimeImgae(a.slime);
         }
@@ -117,7 +117,7 @@ public class Frame {
     }
 
     public void draw(App a) {
-        for (Gremlins g : this.gremlins) {
+        for (Gremlin g : this.gremlins) {
             g.draw(a);
         }
         for (int i = 0; i < 33; i++) {
@@ -167,7 +167,7 @@ public class Frame {
         return this.blackholes;
     }
 
-    public ArrayList<Gremlins> getGremlins() {
+    public ArrayList<Gremlin> getGremlins() {
         return this.gremlins;
     }
 }

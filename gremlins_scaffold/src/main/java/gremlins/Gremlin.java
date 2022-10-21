@@ -7,33 +7,33 @@ import java.util.Map;
 
 import processing.core.PImage;
 
-public class Gremlins extends GameObject {
+public class Gremlin extends GameObject {
     private String[] directions = new String[] { "LEFT", "RIGHT", "UP", "DOWN" };
     /**
      * map to record the inverse direction of each direction
      */
-    private Map<String, String> inverse_direction = new HashMap<>();
+    private Map<String, String> inverseDirection = new HashMap<>();
     private String direction;
     private Frame fm;
-    private int cool_down;
+    private int coolDown;
     private int tick;
-    private PImage slime_image;
+    private PImage slimeImage;
     private ArrayList<Slime> slimes;
     private Random rand;
 
-    public Gremlins(int x_cor, int y_cor, Frame fm) {
+    public Gremlin(int x_cor, int y_cor, Frame fm) {
         super(x_cor, y_cor);
         tick = 0;
         this.fm = fm;
         int ran = (int) (Math.random() * 4);
         this.direction = directions[ran];
-        cool_down = (int) (fm.getEnemyCoolDown() * 60);
+        coolDown = (int) (fm.getEnemyCoolDown() * 60);
         this.slimes = new ArrayList<>();
         rand = new Random();
-        inverse_direction.put("LEFT", "RIGHT");
-        inverse_direction.put("RIGHT", "LEFT");
-        inverse_direction.put("UP", "DOWN");
-        inverse_direction.put("DOWN", "UP");
+        inverseDirection.put("LEFT", "RIGHT");
+        inverseDirection.put("RIGHT", "LEFT");
+        inverseDirection.put("UP", "DOWN");
+        inverseDirection.put("DOWN", "UP");
 
     }
 
@@ -46,7 +46,7 @@ public class Gremlins extends GameObject {
     }
 
     public void tick() {
-        if ((tick) % cool_down == 0) {
+        if ((tick) % coolDown == 0) {
             this.createSlime();
         }
         for (int i = 0; i < getSlimes().size(); i++) {
@@ -105,7 +105,7 @@ public class Gremlins extends GameObject {
         } else {
             int ran = (int) (Math.random() * size);
             while (correct_directions.get(ran).equals(this.direction)
-                    || correct_directions.get(ran).equals(inverse_direction.get(direction))) {
+                    || correct_directions.get(ran).equals(inverseDirection.get(direction))) {
                 ran = (int) (Math.random() * size);
             }
             this.direction = correct_directions.get(ran);
@@ -157,12 +157,12 @@ public class Gremlins extends GameObject {
 
     public void createSlime() {
         Slime s = new Slime(this.x, this.y, direction, this.fm);
-        s.setSprite(slime_image);
+        s.setSprite(slimeImage);
         slimes.add(s);
     }
 
     public void setSlimeImgae(PImage slime) {
-        this.slime_image = slime;
+        this.slimeImage = slime;
     }
 
     public void setDirection(String direction) {

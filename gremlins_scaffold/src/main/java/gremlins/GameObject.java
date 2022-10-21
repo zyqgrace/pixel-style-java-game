@@ -23,10 +23,6 @@ public abstract class GameObject {
         app.image(this.sprite, this.x, this.y);
     }
 
-    public int getX() {
-        return this.x;
-    }
-
     public void setX(int x) {
         this.x = x;
     }
@@ -37,6 +33,10 @@ public abstract class GameObject {
 
     public int getY() {
         return this.y;
+    }
+
+    public int getX() {
+        return this.x;
     }
 
     /**

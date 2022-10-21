@@ -24,12 +24,8 @@ public class FireBall extends GameObject {
         return collideWall;
     }
 
-    public void setCollidingWall(GameObject colliding_wall) {
-        this.collideWall = colliding_wall;
-    }
-
-    public void setSprite(PImage sprite) {
-        this.sprite = sprite;
+    public void setCollidingWall(GameObject collideWall) {
+        this.collideWall = collideWall;
     }
 
     public void setDestroyed() {

@@ -18,8 +18,8 @@ public class BrickWall extends GameObject {
         super(x_cor, y_cor);
     }
 
-    public void setDestroyed(PImage[] destroyed_wall) {
-        this.crushWall = destroyed_wall;
+    public void setDestroyed(PImage[] destroyedWall) {
+        this.crushWall = destroyedWall;
     }
 
     public void tick() {

@@ -74,7 +74,7 @@ public class Wizard extends GameObject {
     /**
      * set back to the orginal speed after power up time finish
      */
-    public void setback() {
+    public void setBack() {
         speed = 2;
     }
 

@@ -12,7 +12,7 @@ public class Slime extends GameObject {
     }
 
     public void tick() {
-        if (this.check_collision_wall()) {
+        if (this.checkCollisionWall()) {
             destroyed = true;
         } else if (direction == "LEFT") {
             this.x -= 4;
@@ -25,7 +25,7 @@ public class Slime extends GameObject {
         }
     }
 
-    public boolean check_collision_wall() {
+    public boolean checkCollisionWall() {
         int x = this.x / 20;
         int y = this.y / 20;
         GameObject Obj = fm.get(x, y);

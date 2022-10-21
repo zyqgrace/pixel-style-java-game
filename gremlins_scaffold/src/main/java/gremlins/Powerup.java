@@ -1,8 +1,9 @@
+
 package gremlins;
 
 import java.util.Random;
 
-public class Powerup extends GameObject {
+public class PowerUp extends GameObject {
     private Frame fm;
     private Random rand;
     /**
@@ -18,7 +19,7 @@ public class Powerup extends GameObject {
     private boolean effectOn;
     private boolean visible;
 
-    public Powerup(int x, int y, Frame fm) {
+    public PowerUp(int x, int y, Frame fm) {
         super(x, y);
         this.fm = fm;
         rand = new Random();
@@ -27,6 +28,9 @@ public class Powerup extends GameObject {
         visible = false;
     }
 
+    /**
+     * set visible variable to true
+     */
     public void setVisible() {
         visible = true;
     }
@@ -59,7 +63,7 @@ public class Powerup extends GameObject {
     /**
      * assign a new position for power up after being collected
      */
-    public void set_again() {
+    public void setAgain() {
         effectOn = true;
         effectTime = 0;
         tick = 0;

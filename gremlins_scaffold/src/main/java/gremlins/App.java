@@ -25,17 +25,17 @@ public class App extends PApplet {
     public String configPath;
     public boolean win;
     public boolean lose;
-    private int lives;
+    public int lives;
     public int wizardCoolDown;
 
     /**
      * A counter to count the number of tick after wizard fire on
      */
-    public int wizardCoolDown_counter;
+    public int wizardCoolDownCounter;
     public int enemyCoolDown;
     public int level = 0;
-    public int total_level;
-    public Powerup magic;
+    public int totalLevel;
+    public PowerUp magic;
 
     public PImage brickwall;
     public PImage stonewall;
@@ -49,6 +49,10 @@ public class App extends PApplet {
     public PImage slime;
     public PImage door;
     public PImage powerup;
+    /**
+     * This PImage list contains four image to show the animation when wall
+     * crushing.
+     */
     public PImage[] crushWall;
     public int tick;
     public PShape progressbar;
@@ -60,7 +64,7 @@ public class App extends PApplet {
     public Frame fm;
     public Wizard player;
     public Door exit;
-    public ArrayList<Gremlins> gremlins;
+    public ArrayList<Gremlin> gremlins;
     public ArrayList<FireBall> fireballs;
     public ArrayList<Slime> slimes;
     public ArrayList<BlackHole> blackholes;
@@ -68,7 +72,7 @@ public class App extends PApplet {
     /**
      * boolean value of whether wizard is on fire
      */
-    public boolean fire_on;
+    public boolean fireOn;
 
     /**
      * boolean value of whether the wizard is transferred to another blackhole
@@ -78,7 +82,7 @@ public class App extends PApplet {
     /**
      * the index of the blackhole in Arraylist that the wizard come from.
      */
-    public int from = 0;
+    public int originalBlackHole = 0;
 
     /**
      * This is the constructor method that will assign the configPath to a json file
@@ -133,7 +137,7 @@ public class App extends PApplet {
         this.progressbar = createShape(RECT, 0, 0, 100, 5);
         JSONObject conf = loadJSONObject(new File(this.configPath));
         this.lives = Integer.parseInt(conf.get("lives").toString());
-        this.total_level = conf.getJSONArray("levels").size();
+        this.totalLevel = conf.getJSONArray("levels").size();
         this.setFrame();
     }
 
@@ -168,11 +172,11 @@ public class App extends PApplet {
                 player.setDirection("DOWN");
             }
         } else if (this.keyCode == 32) {
-            if (fire_on == false) {
+            if (fireOn == false) {
                 FireBall b = new FireBall(player.getX(), player.getY(), player.getDirection(), this.fm);
                 b.setSprite(fireball);
                 fireballs.add(b);
-                fire_on = true;
+                fireOn = true;
             }
         }
     }
@@ -190,7 +194,7 @@ public class App extends PApplet {
      */
     public void setFrame() {
         JSONObject conf = loadJSONObject(new File(this.configPath));
-        this.total_level = conf.getJSONArray("levels").size();
+        this.totalLevel = conf.getJSONArray("levels").size();
         JSONObject cur_level = conf.getJSONArray("levels").getJSONObject(this.level);
         this.fm = new Frame(cur_level);
         this.fm.parseMap();
@@ -198,13 +202,13 @@ public class App extends PApplet {
         this.player = fm.getWizard();
         this.gremlins = fm.getGremlins();
         this.exit = fm.getDoor();
-        this.magic = (Powerup) fm.getPowerup();
-        this.fire_on = false;
+        this.magic = (PowerUp) fm.getPowerup();
+        this.fireOn = false;
         this.transferred = false;
         this.fireballs = new ArrayList<FireBall>();
         this.slimes = new ArrayList<>();
         this.wizardCoolDown = (int) (fm.getWizardCoolDown() * 60);
-        this.wizardCoolDown_counter = 0;
+        this.wizardCoolDownCounter = 0;
         this.enemyCoolDown = (int) (fm.getEnemyCoolDown() * 60);
         this.win = false;
         this.lose = false;
@@ -251,11 +255,11 @@ public class App extends PApplet {
                 this.magic.draw(this);
             }
             text("Lives: ", 10, HEIGHT - BOTTOMBAR + 40);
-            for (int i = 0; i < getLives(); i++) {
+            for (int i = 0; i < this.lives; i++) {
                 image(this.wizardRight, 70 + i * 20, HEIGHT - BOTTOMBAR + 22);
             }
-            text("Level: " + (level + 1) + "/" + total_level, 200, HEIGHT - BOTTOMBAR + 40);
-            this.check_next_level();
+            text("Level: " + (level + 1) + "/" + totalLevel, 200, HEIGHT - BOTTOMBAR + 40);
+            this.checkNextLevel();
         }
     }
 
@@ -263,10 +267,10 @@ public class App extends PApplet {
      * This method will check the state of the game, deciding whether the player
      * win, lose, go to next level or unchanged.
      */
-    public void check_next_level() {
+    public void checkNextLevel() {
         if (player.intersection(this.exit)) {
             level++;
-            if (level == total_level) {
+            if (level == totalLevel) {
                 level = 0;
                 win = true;
                 tick = 0;
@@ -278,13 +282,6 @@ public class App extends PApplet {
             lose = true;
             tick = 0;
         }
-    }
-
-    /**
-     * @return lives of the player remaining
-     */
-    public int getLives() {
-        return lives;
     }
 
     /**
@@ -304,7 +301,7 @@ public class App extends PApplet {
                 temp_ball.tick();
                 temp_ball.draw(this);
 
-                for (Gremlins g : gremlins) {
+                for (Gremlin g : gremlins) {
                     if (temp_ball.intersection(g)) {
                         temp_ball.setDestroyed();
                         g.reborn(player);
@@ -322,7 +319,7 @@ public class App extends PApplet {
      * they will release slime.
      */
     public void GremlinsTick() {
-        for (Gremlins g : gremlins) {
+        for (Gremlin g : gremlins) {
             g.tick();
             if (player.intersection(g)) {
                 this.loseLives();
@@ -358,15 +355,15 @@ public class App extends PApplet {
      * allowed to fire again.
      */
     public void ProgressTick() {
-        if (fire_on) {
-            this.wizardCoolDown_counter++;
-            filledProgressBar = createShape(RECT, 0, 0, (wizardCoolDown_counter * 100) / wizardCoolDown, 5);
+        if (fireOn) {
+            this.wizardCoolDownCounter++;
+            filledProgressBar = createShape(RECT, 0, 0, (wizardCoolDownCounter * 100) / wizardCoolDown, 5);
             filledProgressBar.setFill(0);
             shape(progressbar, 580, 670);
             shape(filledProgressBar, 580, 670);
-            if (wizardCoolDown_counter >= wizardCoolDown) {
-                wizardCoolDown_counter = 0;
-                fire_on = false;
+            if (wizardCoolDownCounter >= wizardCoolDown) {
+                wizardCoolDownCounter = 0;
+                fireOn = false;
             }
         }
     }
@@ -377,7 +374,7 @@ public class App extends PApplet {
      */
     public void PowerupTick() {
         if (this.player.intersection(magic) && magic.getVisible()) {
-            magic.set_again();
+            magic.setAgain();
         }
         if (magic.effectOn()) {
             text("speed up", 480, 710);
@@ -387,7 +384,7 @@ public class App extends PApplet {
             shape(progress_bar2, 580, 700);
             player.powerup();
         } else {
-            player.setback();
+            player.setBack();
         }
     }
 
@@ -402,7 +399,7 @@ public class App extends PApplet {
             if (player.intersection(blackholes.get(i))) {
                 if (!transferred) {
                     pass = true;
-                    from = i;
+                    originalBlackHole = i;
                     transferred = true;
                 }
 
@@ -410,7 +407,7 @@ public class App extends PApplet {
         }
         if (pass) {
             for (int i = 0; i < blackholes.size(); i++) {
-                if (i != from) {
+                if (i != originalBlackHole) {
                     player.x = blackholes.get(i).getX();
                     player.y = blackholes.get(i).getY();
                     pass = false;
@@ -418,7 +415,7 @@ public class App extends PApplet {
             }
         }
         for (int i = 0; i < blackholes.size(); i++) {
-            if (i != from) {
+            if (i != originalBlackHole) {
                 if (!player.intersection(blackholes.get(i))) {
                     transferred = false;
                 }
